@@ -1,0 +1,45 @@
+---
+title: "LDSC setup"
+author: "kevinlkx"
+date: "2020-05-24"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Installation
+Please see the detail instructions: 
+LD Score Regression (LDSC)
+https://github.com/bulik/ldsc
+
+### Download `ldsc` software
+```{bash, eval=FALSE}
+git clone https://github.com/bulik/ldsc.git
+cd ldsc
+```
+
+### Create a conda environment with LDSC's dependencies
+You might need to update numpy (and other packages) to a newer version
+```{bash, eval=FALSE}
+conda env create --file environment.yml
+```
+
+### Activate the conda environment with LDSC's dependencies
+```{bash, eval=FALSE}
+conda activate ldsc
+```
+
+## Test `ldsc` installation
+If these commands fail with an error, then something as gone wrong during the installation process.
+```{bash, eval=FALSE}
+cd ldsc
+
+python ./ldsc.py -h
+python ./munge_sumstats.py -h
+```
+
+## `ldsc` Wiki
+The [wiki](https://github.com/bulik/ldsc/wiki) has tutorials on estimating LD Score, heritability, genetic correlation and the LD Score regression intercept and partitioned heritability.
+
+## `ldsc` FAQ
+Common issues are described in the [FAQ](https://github.com/bulik/ldsc/wiki/FAQ)
