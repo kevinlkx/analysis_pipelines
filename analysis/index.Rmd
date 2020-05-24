@@ -8,8 +8,6 @@ editor_options:
   chunk_output_type: console
 ---
 
-Analysis pipelines
-
 ## GWAS summary statistics
 * [GWAS summary statistics on RCC](GWAS_sumstats.html)
 
