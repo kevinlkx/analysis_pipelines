@@ -223,7 +223,7 @@ done
 * Convert GWAS summary stats to the LDSC `.sumstats` format using `munge_sumstats.py`
 * `ldsc` wiki ["Summary-Statistics-File-Format"](https://github.com/bulik/ldsc/wiki/Partitioned-Heritability)
 
-* Some of the processed GWAS summary stats can be found on RCC: 
+* Some of the processed GWAS summary stats (`.sumstats` format) can be found on RCC: 
 `/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_collection/ldsc_format/`
 
 ### Run ldsc on your GWAS summary statistics using baseline-LD model annotations and your new annotation
