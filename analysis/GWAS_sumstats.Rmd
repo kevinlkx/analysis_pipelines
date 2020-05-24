@@ -1,5 +1,5 @@
 ---
-title: "GWAS summary statistics"
+title: "GWAS summary statistics on RCC(midway)"
 author: "Kaixuan Luo"
 date: "2020-05-24"
 output: workflowr::wflow_html
