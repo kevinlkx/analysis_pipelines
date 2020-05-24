@@ -13,7 +13,7 @@
 
 <meta name="date" content="2020-05-24" />
 
-<title>S-LSDC pipeline</title>
+<title>S-LSDC pipeline to estimate partitioned heritability and enrichment by functional annotations</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -377,7 +377,7 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">S-LSDC pipeline</h1>
+<h1 class="title toc-ignore">S-LSDC pipeline to estimate partitioned heritability and enrichment by functional annotations</h1>
 <h4 class="author">Kaixuan Luo</h4>
 <h4 class="date">2020-05-24</h4>
 
@@ -495,10 +495,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongd07ad1d"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> d07ad1d </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong1f7cb93"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> 1f7cb93 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongd07ad1d" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrong1f7cb93" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -507,7 +507,6 @@ Great! You are using Git for version control. Tracking code development and conn
 Untracked files:
     Untracked:  analysis/GWAS_sumstats.Rmd
     Untracked:  analysis/TWAS.Rmd
-    Untracked:  analysis/ldsc_setup.Rmd
     Untracked:  code/make_ldsc_binary_annot.R
     Untracked:  code/make_ldsc_continuous_annot.R
 
@@ -557,6 +556,40 @@ Message
 Rmd
 </td>
 <td>
+1f7cb93
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-05-24
+</td>
+<td>
+wflow_publish(“analysis/sldsc_pipeline.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+76a500e
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-05-24
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 d07ad1d
 </td>
 <td>
@@ -576,23 +609,56 @@ wflow_publish(“analysis/sldsc_pipeline.Rmd”)
 </div>
 </div>
 </div>
-<div id="setup" class="section level2">
-<h2>Setup</h2>
+<div id="install-ld-score-regression-ldsc-software" class="section level2">
+<h2>Install LD Score Regression (LDSC) software</h2>
 <p>Please see the detail instructions: LD Score Regression (LDSC) <a href="https://github.com/bulik/ldsc" class="uri">https://github.com/bulik/ldsc</a></p>
+<div id="download-ldsc-software" class="section level3">
+<h3>Download <code>ldsc</code> software</h3>
+<pre class="bash"><code>git clone https://github.com/bulik/ldsc.git
+cd ldsc</code></pre>
+</div>
+<div id="create-a-conda-environment-with-ldscs-dependencies" class="section level3">
+<h3>Create a conda environment with LDSC’s dependencies</h3>
+<p>You might need to update numpy (and other packages) to a newer version</p>
+<pre class="bash"><code>conda env create --file environment.yml</code></pre>
+</div>
 <div id="activate-the-conda-environment-with-ldscs-dependencies" class="section level3">
 <h3>Activate the conda environment with LDSC’s dependencies</h3>
 <pre class="bash"><code>conda activate ldsc</code></pre>
 </div>
+<div id="test-installation" class="section level3">
+<h3>Test installation</h3>
+<p>If these commands fail with an error, then something as gone wrong during the installation process.</p>
+<pre class="bash"><code>cd ldsc
+
+python ./ldsc.py -h
+python ./munge_sumstats.py -h</code></pre>
 </div>
-<div id="tutorials" class="section level2">
-<h2>Tutorials</h2>
+</div>
+<div id="ldsc-wiki" class="section level2">
+<h2><code>ldsc</code> Wiki</h2>
+<p>The <a href="https://github.com/bulik/ldsc/wiki">wiki</a> has tutorials on estimating LD Score, heritability, genetic correlation and the LD Score regression intercept and partitioned heritability.</p>
+</div>
+<div id="tutorials-for-partitioning-heritability-using-s-ldsc-stratified-ld-score-regression" class="section level2">
+<h2>Tutorials for partitioning heritability using S-LDSC (stratified LD score regression)</h2>
 <ul>
 <li><p><a href="https://github.com/bulik/ldsc/wiki/Partitioned-Heritability">Partitioned Heritability</a></p></li>
 <li><p><a href="https://github.com/bulik/ldsc/wiki/Partitioned-Heritability-from-Continuous-Annotations">Partitioned Heritability from Continuous Annotations</a></p></li>
 </ul>
 </div>
-<div id="download-data" class="section level2">
-<h2>Download data</h2>
+<div id="ldsc-faq" class="section level2">
+<h2><code>ldsc</code> FAQ</h2>
+<p>Common issues are described in the <a href="https://github.com/bulik/ldsc/wiki/FAQ">FAQ</a></p>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<ul>
+<li><p>Partitioned heritability: Finucane, HK, et al. Partitioning heritability by functional annotation using genome-wide association summary statistics. Nature Genetics, 2015.</p></li>
+<li><p>Stratified heritability using continuous annotation: Gazal, S, et al. Linkage disequilibrium–dependent architecture of human complex traits shows action of negative selection. Nature Genetics, 2017.</p></li>
+</ul>
+</div>
+<div id="download-ldsc-reference-data" class="section level2">
+<h2>Download LDSC reference data</h2>
 <p>You may need to download some of the following datasets:</p>
 <p>Most of the data can be downloaded from the Price lab <a href="https://data.broadinstitute.org/alkesgroup/LDSCORE/">LDSCORE</a> website</p>
 <div id="download-the-baseline-model-ld-scores" class="section level4">
@@ -652,8 +718,8 @@ awk &#39;{if ($1!=&quot;SNP&quot;) {print $1} }&#39; w_hm3.snplist &gt; listHM3.
 </code></pre>
 </div>
 </div>
-<div id="compute-ld-score-from-annotation-files" class="section level2">
-<h2>Compute LD score from annotation files</h2>
+<div id="compute-ld-score-from-functional-annotations" class="section level2">
+<h2>Compute LD score from functional annotations</h2>
 <ul>
 <li><code>ldsc</code> wiki <a href="https://github.com/bulik/ldsc/wiki/LD-Score-Estimation-Tutorial">“LD-Score-Estimation-Tutorial”</a></li>
 </ul>
