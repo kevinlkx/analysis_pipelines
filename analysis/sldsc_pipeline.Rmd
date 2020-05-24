@@ -1,5 +1,5 @@
 ---
-title: "S-LSDC pipeline"
+title: "S-LSDC pipeline to estimate partitioned heritability and enrichment by functional annotations"
 author: "Kaixuan Luo"
 date: "2020-05-24"
 output: workflowr::wflow_html
@@ -7,22 +7,56 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Setup
+## Install LD Score Regression (LDSC) software
 Please see the detail instructions: 
 LD Score Regression (LDSC)
 https://github.com/bulik/ldsc
+
+### Download `ldsc` software
+```{bash, eval=FALSE}
+git clone https://github.com/bulik/ldsc.git
+cd ldsc
+```
+
+### Create a conda environment with LDSC's dependencies
+You might need to update numpy (and other packages) to a newer version
+```{bash, eval=FALSE}
+conda env create --file environment.yml
+```
 
 ### Activate the conda environment with LDSC's dependencies
 ```{bash, eval=FALSE}
 conda activate ldsc
 ```
 
-## Tutorials
+### Test installation
+If these commands fail with an error, then something as gone wrong during the installation process.
+```{bash, eval=FALSE}
+cd ldsc
+
+python ./ldsc.py -h
+python ./munge_sumstats.py -h
+```
+
+## `ldsc` Wiki
+The [wiki](https://github.com/bulik/ldsc/wiki) has tutorials on estimating LD Score, heritability, genetic correlation and the LD Score regression intercept and partitioned heritability.
+
+## Tutorials for partitioning heritability using S-LDSC (stratified LD score regression)
 * [Partitioned Heritability](https://github.com/bulik/ldsc/wiki/Partitioned-Heritability)
 
 * [Partitioned Heritability from Continuous Annotations](https://github.com/bulik/ldsc/wiki/Partitioned-Heritability-from-Continuous-Annotations)
 
-## Download data
+## `ldsc` FAQ
+Common issues are described in the [FAQ](https://github.com/bulik/ldsc/wiki/FAQ)
+
+## References
+* Partitioned heritability: 
+Finucane, HK, et al. Partitioning heritability by functional annotation using genome-wide association summary statistics. Nature Genetics, 2015. 
+
+* Stratified heritability using continuous annotation:
+Gazal, S, et al. Linkage disequilibrium–dependent architecture of human complex traits shows action of negative selection. Nature Genetics, 2017.
+
+## Download LDSC reference data
 You may need to download some of the following datasets:
 
 Most of the data can be downloaded from the Price lab [LDSCORE](https://data.broadinstitute.org/alkesgroup/LDSCORE/) website
@@ -91,7 +125,7 @@ awk '{if ($1!="SNP") {print $1} }' w_hm3.snplist > listHM3.txt
 
 ```
 
-## Compute LD score from annotation files
+## Compute LD score from functional annotations
 * `ldsc` wiki ["LD-Score-Estimation-Tutorial"](https://github.com/bulik/ldsc/wiki/LD-Score-Estimation-Tutorial)
 
 ### Compute LD scores for binary annotations
@@ -219,3 +253,4 @@ python ldsc.py \
 * `ldsc` allows taking continuous annotations as inputs for both --l2 and --h2 options. The pipeline is similar to that using binary annotation. However, some result outputs of --h2 option are not meaningful anymore. Computing the proportion of heritability explained by each quantile of a continuous annotation provides a more intuitive interpretation of the magnitude of a continuous annotation effects. You can use their R script `quantile_h2g.r` and follow their wiki tutorial to compute the proportion of heritability explained by each quintile.
 
 * Please follow the `ldsc` wiki ["Partitioned Heritability from Continuous Annotations"](https://github.com/bulik/ldsc/wiki/Partitioned-Heritability-from-Continuous-Annotations)
+
