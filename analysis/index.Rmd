@@ -10,10 +10,15 @@ editor_options:
 
 Analysis pipelines
 
+## GWAS summary statistics
+* [GWAS summary statistics on RCC](GWAS_sumstats.html)
+
 ## LDSC
-* []()
+* [LDSC installation](ldsc_install.html)
+* [S-LDSC pipeline](sldsc_pipeline.html)
 
 ## TWAS
+* [TWAS FUSION pipeline](TWAS.html)
 
 
 
