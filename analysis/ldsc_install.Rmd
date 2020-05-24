@@ -1,6 +1,6 @@
 ---
 title: "LDSC setup"
-author: "kevinlkx"
+author: "Kaixuan Luo"
 date: "2020-05-24"
 output: workflowr::wflow_html
 editor_options:
@@ -29,7 +29,7 @@ conda env create --file environment.yml
 conda activate ldsc
 ```
 
-## Test `ldsc` installation
+## Test installation
 If these commands fail with an error, then something as gone wrong during the installation process.
 ```{bash, eval=FALSE}
 cd ldsc
