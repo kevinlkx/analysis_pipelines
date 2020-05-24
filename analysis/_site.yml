@@ -1,7 +1,7 @@
 name: "analysis_pipelines"
 output_dir: ../docs
 navbar:
-  title: "analysis_pipelines"
+  title: "Analysis pipelines"
   left:
   - text: Home
     href: index.html
