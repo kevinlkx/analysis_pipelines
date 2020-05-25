@@ -503,10 +503,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree94a32c02cee1b2ed21ff32e2be71bb25e0c7cd2atargetblank94a32c0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/94a32c02cee1b2ed21ff32e2be71bb25e0c7cd2a" target="_blank">94a32c0</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree3405a02208efae147f8b15507ff3cfd62fc8002atargetblank3405a02a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/3405a02208efae147f8b15507ff3cfd62fc8002a" target="_blank">3405a02</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree94a32c02cee1b2ed21ff32e2be71bb25e0c7cd2atargetblank94a32c0a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree3405a02208efae147f8b15507ff3cfd62fc8002atargetblank3405a02a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -518,9 +518,6 @@ Ignored files:
 Untracked files:
     Untracked:  analysis/make_ldsc_binary_annot.R
     Untracked:  analysis/make_ldsc_continuous_annot.R
-
-Unstaged changes:
-    Modified:   analysis/index.Rmd
 
 </code></pre>
 <p>
@@ -564,6 +561,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/3405a02208efae147f8b15507ff3cfd62fc8002a/analysis/twas_fusion_pipeline.Rmd" target="_blank">3405a02</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-05-25
+</td>
+<td>
+wflow_publish(“analysis/twas_fusion_pipeline.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/81ec4c3ff605ed99009c1f111b9f069532e301c9/docs/twas_fusion_pipeline.html" target="_blank">81ec4c3</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-05-25
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/kevinlkx/analysis_pipelines/blob/94a32c02cee1b2ed21ff32e2be71bb25e0c7cd2a/analysis/twas_fusion_pipeline.Rmd" target="_blank">94a32c0</a>
 </td>
 <td>
@@ -589,15 +620,32 @@ wflow_publish(“analysis/twas_fusion_pipeline.Rmd”)
 <pre class="bash"><code>wget https://github.com/gusevlab/fusion_twas/archive/master.zip
 unzip master.zip
 cd fusion_twas-master</code></pre>
-<p>Then, install required libraries.</p>
+<p>Then, install required R libraries.</p>
 <pre class="bash"><code>install.packages(c(&#39;optparse&#39;,&#39;RColorBrewer&#39;))
 install.packages(&#39;plink2R-master/plink2R/&#39;,repos=NULL)
 install.packages(c(&#39;glmnet&#39;,&#39;methods&#39;))</code></pre>
+<p>You might need to install other libraries or packages to compute your own weights.</p>
 <p>Please see the detail instructions: <a href="http://gusevlab.org/projects/fusion/" class="uri">http://gusevlab.org/projects/fusion/</a></p>
 </div>
 <div id="run-twas-analysis" class="section level2">
 <h2>Run TWAS analysis</h2>
-<p><code>FUSION</code> website (<a href="http://gusevlab.org/projects/fusion/" class="uri">http://gusevlab.org/projects/fusion/</a>) provides very detailed instructions and examples to run TWAS analysis, compute your own weights, and conditional analysis, etc.</p>
+<p><code>FUSION</code> website (<a href="http://gusevlab.org/projects/fusion/" class="uri">http://gusevlab.org/projects/fusion/</a>) provides detail instructions and examples to run TWAS analysis, compute your own weights, and joint/conditional analysis, etc.</p>
+<p>The website includes pretrained weights for RNA-seq data from GTEx and TCGA. It is easy to run TWAS using their pretrained weights.</p>
+</div>
+<div id="compute-your-own-weights" class="section level2">
+<h2>Compute your own weights</h2>
+<p>If you want to compute your own weights, please follow their instructions in the section “Computing your own functional weights”. You will need to compute weights one gene at a time.</p>
+<ol style="list-style-type: decimal">
+<li>Prepare the input genotype and expression (or other molecular trait) data for each gene</li>
+<li>Run <code>FUSION.compute_weights.R</code> function for each gene, one gene at a time</li>
+<li>After all genes have been evaluated, make a <code>WGTLIST</code> file which lists paths to each of the <code>*.RDat</code> files that were generated and call <code>Rscript utils/FUSION.profile_wgt.R &lt;WGTLIST&gt;</code> to output a per-gene profile as well as an overall summary of the data and model performance.</li>
+</ol>
+</div>
+<div id="reference" class="section level2">
+<h2>Reference</h2>
+<ul>
+<li>Gusev et al. “Integrative approaches for large-scale transcriptome-wide association studies” 2016 Nature Genetics</li>
+</ul>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
