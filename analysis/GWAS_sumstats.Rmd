@@ -18,8 +18,6 @@ editor_options:
 `/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_collection/ldsc_format/`
 
 * Some of the processed GWAS summary stats from the Price lab have been downloaded to RCC: 
-
-  + Data from https://data.broadinstitute.org/alkesgroup/LDSCORE/independent_sumstats/ can be found on RCC: `/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_summary_alkesgroup/independent_sumstats/`
-
-  + Data from https://data.broadinstitute.org/alkesgroup/sumstats_formatted/ can be found on RCC:
+    - Data from https://data.broadinstitute.org/alkesgroup/LDSCORE/independent_sumstats/ can be found on RCC: `/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_summary_alkesgroup/independent_sumstats/`
+    - Data from https://data.broadinstitute.org/alkesgroup/sumstats_formatted/ can be found on RCC:
 `/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_summary_alkesgroup/sumstats_formatted/`
