@@ -1,0 +1,36 @@
+---
+title: "TWAS pipeline"
+author: "Kaixuan Luo"
+date: "2020-05-24"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Install the `FUSION` software
+`FUSION` software is implemented in R. Installation is easy: simply download and unpack the FUSION software package from github:
+https://github.com/gusevlab/fusion_twas
+```{bash, eval=FALSE}
+wget https://github.com/gusevlab/fusion_twas/archive/master.zip
+unzip master.zip
+cd fusion_twas-master
+```
+
+Then, install required libraries. 
+```{bash, eval=FALSE}
+install.packages(c('optparse','RColorBrewer'))
+install.packages('plink2R-master/plink2R/',repos=NULL)
+install.packages(c('glmnet','methods'))
+```
+
+Please see the detail instructions: 
+http://gusevlab.org/projects/fusion/
+
+## Run TWAS analysis
+
+`FUSION` website (http://gusevlab.org/projects/fusion/) provides very detailed instructions and examples to run TWAS analysis, compute your own weights, and conditional analysis, etc.
+
+
+
+
+
