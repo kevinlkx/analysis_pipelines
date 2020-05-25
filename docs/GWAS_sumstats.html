@@ -412,7 +412,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-05-24
+<strong>Last updated:</strong> 2020-05-25
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -443,10 +443,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreec368362cbbc2c94be09710dca237a928548ae3d6targetblankc368362a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/c368362cbbc2c94be09710dca237a928548ae3d6" target="_blank">c368362</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree4be4f67e9351d6d72b8032fc95cdfdf9f2aa40b4targetblank4be4f67a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/4be4f67e9351d6d72b8032fc95cdfdf9f2aa40b4" target="_blank">4be4f67</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreec368362cbbc2c94be09710dca237a928548ae3d6targetblankc368362a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree4be4f67e9351d6d72b8032fc95cdfdf9f2aa40b4targetblank4be4f67a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -454,6 +454,8 @@ Great! You are using Git for version control. Tracking code development and conn
 <pre><code>
 Untracked files:
     Untracked:  analysis/TWAS.Rmd
+    Untracked:  analysis/make_ldsc_binary_annot.R
+    Untracked:  analysis/make_ldsc_continuous_annot.R
 
 </code></pre>
 <p>
@@ -492,6 +494,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/4be4f67e9351d6d72b8032fc95cdfdf9f2aa40b4/analysis/GWAS_sumstats.Rmd" target="_blank">4be4f67</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-05-25
+</td>
+<td>
+wflow_publish(“analysis/GWAS_sumstats.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/d5cee1fd15f2b1ebf3d65469e02391ea07768fcb/docs/GWAS_sumstats.html" target="_blank">d5cee1f</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-05-24
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -663,9 +699,11 @@ wflow_publish(“analysis/GWAS_sumstats.Rmd”)
 <h4>GWAS summary statistics in <code>.sumstats</code> format on RCC</h4>
 <ul>
 <li><p>Some of the processed GWAS summary stats (mostly from Jean’s GWAS collection) can be found on RCC: <code>/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_collection/ldsc_format/</code></p></li>
-<li><p>Some of the processed GWAS summary stats from the Price lab have been downloaded to RCC:</p></li>
-<li><p>Data from <a href="https://data.broadinstitute.org/alkesgroup/LDSCORE/independent_sumstats/" class="uri">https://data.broadinstitute.org/alkesgroup/LDSCORE/independent_sumstats/</a> can be found on RCC: <code>/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_summary_alkesgroup/independent_sumstats/</code></p></li>
-<li><p>Data from <a href="https://data.broadinstitute.org/alkesgroup/sumstats_formatted/" class="uri">https://data.broadinstitute.org/alkesgroup/sumstats_formatted/</a> can be found on RCC: <code>/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_summary_alkesgroup/sumstats_formatted/</code></p></li>
+<li>Some of the processed GWAS summary stats from the Price lab have been downloaded to RCC:
+<ul>
+<li>Data from <a href="https://data.broadinstitute.org/alkesgroup/LDSCORE/independent_sumstats/" class="uri">https://data.broadinstitute.org/alkesgroup/LDSCORE/independent_sumstats/</a> can be found on RCC: <code>/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_summary_alkesgroup/independent_sumstats/</code></li>
+<li>Data from <a href="https://data.broadinstitute.org/alkesgroup/sumstats_formatted/" class="uri">https://data.broadinstitute.org/alkesgroup/sumstats_formatted/</a> can be found on RCC: <code>/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_summary_alkesgroup/sumstats_formatted/</code></li>
+</ul></li>
 </ul>
 </div>
 </div>
