@@ -503,10 +503,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreec368362cbbc2c94be09710dca237a928548ae3d6targetblankc368362a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/c368362cbbc2c94be09710dca237a928548ae3d6" target="_blank">c368362</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree1e524bf608bbc9abbdad415c298eb5bac8db1136targetblank1e524bfa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/1e524bf608bbc9abbdad415c298eb5bac8db1136" target="_blank">1e524bf</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreec368362cbbc2c94be09710dca237a928548ae3d6targetblankc368362a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree1e524bf608bbc9abbdad415c298eb5bac8db1136targetblank1e524bfa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -514,6 +514,8 @@ Great! You are using Git for version control. Tracking code development and conn
 <pre><code>
 Untracked files:
     Untracked:  analysis/TWAS.Rmd
+    Untracked:  analysis/make_ldsc_binary_annot.R
+    Untracked:  analysis/make_ldsc_continuous_annot.R
 
 </code></pre>
 <p>
@@ -552,6 +554,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/1e524bf608bbc9abbdad415c298eb5bac8db1136/analysis/sldsc_pipeline.Rmd" target="_blank">1e524bf</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-05-24
+</td>
+<td>
+wflow_publish(“analysis/sldsc_pipeline.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/d5cee1fd15f2b1ebf3d65469e02391ea07768fcb/docs/sldsc_pipeline.html" target="_blank">d5cee1f</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-05-24
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -821,7 +857,7 @@ do
   --thin-annot \
   --out ${ANNOT}.${chrom}
 done</code></pre>
-<p>full annotation or <code>thin-annot</code> format using my own <a href="../code/make_ldsc_binary_annot.R">code</a></p>
+<p>full annotation or <code>thin-annot</code> format using this <a href="https://github.com/kevinlkx/analysis_pipelines/tree/master/code/make_ldsc_binary_annot.R">R script</a></p>
 <pre class="bash"><code>for chrom in {1..22}
 do
   echo ${chrom}
@@ -849,7 +885,7 @@ done</code></pre>
 <ul>
 <li>Step 1: prepare annotation in UCSC <a href="https://genome.ucsc.edu/FAQ/FAQformat.html#format1">BED</a> format</li>
 <li><p>Step 2: compute LD scores using annotation BED files</p></li>
-<li><p>Example script (full annotation format using my own <a href="../code/make_ldsc_continuous_annot.R">code</a> )</p></li>
+<li><p>Example script (full annotation format using this <a href="https://github.com/kevinlkx/analysis_pipelines/tree/master/code/make_ldsc_continuous_annot.R">R script</a> )</p></li>
 </ul>
 <pre class="bash"><code>
 for chrom in {1..22}
