@@ -16,7 +16,7 @@ editor_options:
 * [S-LDSC pipeline](sldsc_pipeline.html)
 
 ## TWAS
-* [TWAS FUSION pipeline](TWAS.html)
+* [TWAS FUSION pipeline](twas_fusion_pipeline.html)
 
 
 
