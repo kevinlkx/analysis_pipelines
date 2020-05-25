@@ -159,7 +159,7 @@ do
 done
 ```
 
-full annotation or `thin-annot` format using my own [code](../code/make_ldsc_binary_annot.R)
+full annotation or `thin-annot` format using this [R script](https://github.com/kevinlkx/analysis_pipelines/tree/master/code/make_ldsc_binary_annot.R)
 ```{bash, eval=FALSE}
 for chrom in {1..22}
 do
@@ -188,7 +188,7 @@ done
 * Step 1: prepare annotation in UCSC [BED](https://genome.ucsc.edu/FAQ/FAQformat.html#format1) format
 * Step 2: compute LD scores using annotation BED files
 
-* Example script (full annotation format using my own [code](../code/make_ldsc_continuous_annot.R) )
+* Example script (full annotation format using this [R script](https://github.com/kevinlkx/analysis_pipelines/tree/master/code/make_ldsc_continuous_annot.R) )
 ```{bash, eval=FALSE}
 
 for chrom in {1..22}
