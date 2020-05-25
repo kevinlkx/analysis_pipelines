@@ -435,10 +435,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongb612a54"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> b612a54 </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreec4cd35c60c487fc8e59f66012e89c86c493d4441targetblankc4cd35ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/c4cd35c60c487fc8e59f66012e89c86c493d4441" target="_blank">c4cd35c</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongb612a54" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreec4cd35c60c487fc8e59f66012e89c86c493d4441targetblankc4cd35ca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -486,27 +486,10 @@ Message
 <tbody>
 <tr>
 <td>
-html
-</td>
-<td>
-5641158
-</td>
-<td>
-kevinlkx
-</td>
-<td>
-2020-05-24
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
 Rmd
 </td>
 <td>
-c9c19d4
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/c4cd35c60c487fc8e59f66012e89c86c493d4441/analysis/GWAS_sumstats.Rmd" target="_blank">c4cd35c</a>
 </td>
 <td>
 kevinlkx
@@ -523,7 +506,24 @@ wflow_publish(“analysis/GWAS_sumstats.Rmd”)
 html
 </td>
 <td>
-777c38c
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/83ec76491eb5b5432734d9b7162a5eda1924ee5b/docs/GWAS_sumstats.html" target="_blank">83ec764</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-05-24
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/56411589a7e92d10025fff8f6c66ee2448f6e95b/docs/GWAS_sumstats.html" target="_blank">5641158</a>
 </td>
 <td>
 kevinlkx
@@ -540,7 +540,7 @@ Build site.
 Rmd
 </td>
 <td>
-c721074
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/c9c19d4542cf3c825d37a58a4ba55b72ba0a444d/analysis/GWAS_sumstats.Rmd" target="_blank">c9c19d4</a>
 </td>
 <td>
 kevinlkx
@@ -557,7 +557,7 @@ wflow_publish(“analysis/GWAS_sumstats.Rmd”)
 html
 </td>
 <td>
-8f14331
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/777c38c098bbf3b456cbec51bd30c738bb7631b8/docs/GWAS_sumstats.html" target="_blank">777c38c</a>
 </td>
 <td>
 kevinlkx
@@ -574,7 +574,41 @@ Build site.
 Rmd
 </td>
 <td>
-d861aa6
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/c7210742147aa027c434a79ec9d63cf8ee1a75f4/analysis/GWAS_sumstats.Rmd" target="_blank">c721074</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-05-24
+</td>
+<td>
+wflow_publish(“analysis/GWAS_sumstats.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/8f14331302e8510160978d043e3206fc612ae0b4/docs/GWAS_sumstats.html" target="_blank">8f14331</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-05-24
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/d861aa68548890de0ca3676a43cfada2a67d40ee/analysis/GWAS_sumstats.Rmd" target="_blank">d861aa6</a>
 </td>
 <td>
 kevinlkx
@@ -598,16 +632,17 @@ wflow_publish(“analysis/GWAS_sumstats.Rmd”)
 <div id="ldsc-format" class="section level3">
 <h3>LDSC format</h3>
 <ul>
-<li>Convert GWAS summary stats to the <code>.sumstats</code> format using <code>munge_sumstats.py</code></li>
-<li><p><code>ldsc</code> wiki <a href="https://github.com/bulik/ldsc/wiki/Partitioned-Heritability">“Summary-Statistics-File-Format”</a></p></li>
-<li><p>Some of the processed GWAS summary stats (<code>.sumstats</code> format) can be found on RCC: <code>/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_collection/ldsc_format/</code></p></li>
+<li>Convert GWAS summary statistics to the <code>.sumstats</code> format using <code>munge_sumstats.py</code>, see <code>ldsc</code> wiki <a href="https://github.com/bulik/ldsc/wiki/Partitioned-Heritability">“Summary-Statistics-File-Format”</a></li>
+</ul>
+<div id="gwas-summary-statistics-in-.sumstats-format-on-rcc" class="section level4">
+<h4>GWAS summary statistics in <code>.sumstats</code> format on RCC</h4>
+<ul>
+<li><p>Some of the processed GWAS summary stats (mostly from Jean’s GWAS collection) can be found on RCC: <code>/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_collection/ldsc_format/</code></p></li>
+<li><p>Some of the processed GWAS summary stats from the Price lab have been downloaded to RCC:</p></li>
+<li><p>Data from <a href="https://data.broadinstitute.org/alkesgroup/LDSCORE/independent_sumstats/" class="uri">https://data.broadinstitute.org/alkesgroup/LDSCORE/independent_sumstats/</a> can be found on RCC: <code>/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_summary_alkesgroup/independent_sumstats/</code></p></li>
+<li><p>Data from <a href="https://data.broadinstitute.org/alkesgroup/sumstats_formatted/" class="uri">https://data.broadinstitute.org/alkesgroup/sumstats_formatted/</a> can be found on RCC: <code>/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_summary_alkesgroup/sumstats_formatted/</code></p></li>
 </ul>
 </div>
-<div id="torus-format" class="section level3">
-<h3>torus format</h3>
-<ul>
-<li>Some of the processed GWAS summary stats (<code>torus</code> format) can be found on RCC: <code>/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_collection/torus_format/</code></li>
-</ul>
 </div>
 </div>
 
