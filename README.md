@@ -1,5 +1,3 @@
-# analysis_pipelines
+# Analysis pipelines for genetic/genomic analysis
 
-A [workflowr][] project.
-
-[workflowr]: https://github.com/jdblischak/workflowr
+https://kevinlkx.github.io/analysis_pipelines/
