@@ -16,20 +16,34 @@ unzip master.zip
 cd fusion_twas-master
 ```
 
-Then, install required libraries. 
+Then, install required R libraries. 
 ```{bash, eval=FALSE}
 install.packages(c('optparse','RColorBrewer'))
 install.packages('plink2R-master/plink2R/',repos=NULL)
 install.packages(c('glmnet','methods'))
 ```
 
+You might need to install other libraries or packages to compute your own weights.
+
 Please see the detail instructions: 
 http://gusevlab.org/projects/fusion/
 
 ## Run TWAS analysis
 
-`FUSION` website (http://gusevlab.org/projects/fusion/) provides very detailed instructions and examples to run TWAS analysis, compute your own weights, and conditional analysis, etc.
+`FUSION` website (http://gusevlab.org/projects/fusion/) provides detail instructions and examples to run TWAS analysis, compute your own weights, and joint/conditional analysis, etc. 
 
+The website includes pretrained weights for RNA-seq data from GTEx and TCGA. It is easy to run TWAS using their pretrained weights. 
+
+## Compute your own weights
+
+If you want to compute your own weights, please follow their instructions in the section "Computing your own functional weights". You will need to compute weights one gene at a time.
+
+1. Prepare the input genotype and expression (or other molecular trait) data for each gene
+2. Run `FUSION.compute_weights.R` function for each gene, one gene at a time
+3. After all genes have been evaluated, make a `WGTLIST` file which lists paths to each of the `*.RDat` files that were generated and call `Rscript utils/FUSION.profile_wgt.R <WGTLIST>` to output a per-gene profile as well as an overall summary of the data and model performance.
+
+## Reference
+* Gusev et al. “Integrative approaches for large-scale transcriptome-wide association studies” 2016 Nature Genetics
 
 
 
