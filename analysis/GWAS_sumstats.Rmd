@@ -10,7 +10,7 @@ editor_options:
 ## GWAS summary stats
 
 ### LDSC `.sumstats` format
-Convert GWAS summary statistics to the `.sumstats` format using `munge_sumstats.py`,  see `ldsc` wiki ["Summary-Statistics-File-Format"](https://github.com/bulik/ldsc/wiki/Partitioned-Heritability)
+Convert GWAS summary statistics to the LD-score format summary statistics (`.sumstats`) format using `munge_sumstats.py`,  see `ldsc` wiki ["Summary-Statistics-File-Format"](https://github.com/bulik/ldsc/wiki/Summary-Statistics-File-Format)
 
 #### GWAS summary statistics in `.sumstats` format on RCC
 
