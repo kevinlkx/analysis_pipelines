@@ -32,7 +32,7 @@ http://gusevlab.org/projects/fusion/
 
 `FUSION` website (http://gusevlab.org/projects/fusion/) provides detail instructions and examples to run TWAS analysis, compute your own weights, and joint/conditional analysis, etc. 
 
-The website includes pretrained weights for RNA-seq data from GTEx and TCGA. It is easy to run TWAS using their pretrained weights. 
+The website includes pretrained weights for RNA-seq data from GTEx and TCGA. It is straightforward to run TWAS using their pretrained weights. 
 
 ## Compute your own weights
 
