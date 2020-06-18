@@ -1,13 +1,13 @@
 ---
-title: "test S-LSDC pipeline using example data"
+title: "Test S-LSDC pipeline using example data"
 author: "Kaixuan Luo"
-date: "2020-05-24"
+date: "2020-06-17"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
 ---
 
-## Try running the example written in `ldsc` wiki for ["Partitioned-Heritability"](https://github.com/bulik/ldsc/wiki/Partitioned-Heritability)
+Test the example written in `ldsc` wiki for ["Partitioned-Heritability"](https://github.com/bulik/ldsc/wiki/Partitioned-Heritability)
 
 ## Install LD Score Regression (LDSC) software
 Please see the detail instructions: 
@@ -26,7 +26,7 @@ You might need to update numpy (and other packages) to a newer version (e.g. set
 conda env create --file environment.yml
 ```
 
-### Activate the conda environment with LDSC's dependencies
+## Activate the conda environment with LDSC's dependencies
 ```{bash, eval=FALSE}
 conda activate ldsc
 ```
@@ -40,6 +40,7 @@ python ./ldsc.py -h
 python ./munge_sumstats.py -h
 ```
 
+## Download example data
 
 #### Download the baseline model LD scores
 ```{bash, eval=FALSE}
