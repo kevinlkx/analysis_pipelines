@@ -504,16 +504,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreeb1239f44016a2cfb72cd5282fe0b7234a64dbca8targetblankb1239f4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/b1239f44016a2cfb72cd5282fe0b7234a64dbca8" target="_blank">b1239f4</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreefe7a9a73dee0ddc91a72ba3bca7465f20742dcf4targetblankfe7a9a7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/fe7a9a73dee0ddc91a72ba3bca7465f20742dcf4" target="_blank">fe7a9a7</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreeb1239f44016a2cfb72cd5282fe0b7234a64dbca8targetblankb1239f4a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreefe7a9a73dee0ddc91a72ba3bca7465f20742dcf4targetblankfe7a9a7a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/b1239f44016a2cfb72cd5282fe0b7234a64dbca8" target="_blank">b1239f4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/fe7a9a73dee0ddc91a72ba3bca7465f20742dcf4" target="_blank">fe7a9a7</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -522,6 +522,9 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+
+Unstaged changes:
+    Modified:   analysis/sldsc_pipeline.Rmd
 
 </code></pre>
 <p>
@@ -560,6 +563,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/fe7a9a73dee0ddc91a72ba3bca7465f20742dcf4/analysis/test_sldsc_example.Rmd" target="_blank">fe7a9a7</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-06-17
+</td>
+<td>
+wflow_publish(“analysis/test_sldsc_example.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/23551eeb2baefd6db564b3c20e32ac32af109c73/docs/test_sldsc_example.html" target="_blank">23551ee</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-06-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -629,7 +666,7 @@ cd ldsc</code></pre>
 </div>
 <div id="create-a-conda-environment-with-ldscs-dependencies" class="section level3">
 <h3>Create a conda environment with LDSC’s dependencies</h3>
-<p>You might need to update numpy (and other packages) to a newer version (e.g. set numpy==1.16)</p>
+<p>You might need to update numpy (and other packages) to a newer version (e.g. set <code>numpy==1.16</code> or newer version)</p>
 <pre class="bash"><code>conda env create --file environment.yml</code></pre>
 </div>
 </div>
