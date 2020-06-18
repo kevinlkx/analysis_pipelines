@@ -1,0 +1,100 @@
+---
+title: "test S-LSDC pipeline using example data"
+author: "Kaixuan Luo"
+date: "2020-05-24"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Try running the example written in `ldsc` wiki for ["Partitioned-Heritability"](https://github.com/bulik/ldsc/wiki/Partitioned-Heritability)
+
+## Install LD Score Regression (LDSC) software
+Please see the detail instructions: 
+LD Score Regression (LDSC)
+https://github.com/bulik/ldsc
+
+### Download `ldsc` software
+```{bash, eval=FALSE}
+git clone https://github.com/bulik/ldsc.git
+cd ldsc
+```
+
+### Create a conda environment with LDSC's dependencies
+You might need to update numpy (and other packages) to a newer version (e.g. set numpy==1.16)
+```{bash, eval=FALSE}
+conda env create --file environment.yml
+```
+
+### Activate the conda environment with LDSC's dependencies
+```{bash, eval=FALSE}
+conda activate ldsc
+```
+
+### Test installation
+If these commands fail with an error, then something as gone wrong during the installation process.
+```{bash, eval=FALSE}
+cd ldsc
+
+python ./ldsc.py -h
+python ./munge_sumstats.py -h
+```
+
+
+#### Download the baseline model LD scores
+```{bash, eval=FALSE}
+wget https://data.broadinstitute.org/alkesgroup/LDSCORE/1000G_Phase1_baseline_ldscores.tgz
+tar -xvzf 1000G_Phase1_baseline_ldscores.tgz
+```
+
+#### Download regression weights
+```{bash, eval=FALSE}
+wget https://data.broadinstitute.org/alkesgroup/LDSCORE/weights_hm3_no_hla.tgz
+tar -xvzf weights_hm3_no_hla.tgz
+```
+
+#### Download allele frequencies (European of Phase 3 of 1000 Genomes)
+```{bash, eval=FALSE}
+wget https://data.broadinstitute.org/alkesgroup/LDSCORE/1000G_Phase1_frq.tgz
+tar -xvzf 1000G_Phase1_frq.tgz
+```
+
+#### Download a list of HapMap3 SNPs
+```{bash, eval=FALSE}
+wget https://data.broadinstitute.org/alkesgroup/LDSCORE/w_hm3.snplist.bz2
+bzip2 -d w_hm3.snplist.bz2
+```
+
+#### Download GIANT BMI GWAS summary statistics
+```{bash, eval=FALSE}
+wget http://portals.broadinstitute.org/collaboration/giant/images/b/b7/GIANT_BMI_Speliotes2010_publicrelease_HapMapCeuFreq.txt.gz
+gunzip GIANT_BMI_Speliotes2010_publicrelease_HapMapCeuFreq.txt.gz
+```
+
+## Partition heritability
+
+### Prepare GWAS summary stats in LDSC `.sumstats` format
+* Convert GWAS summary stats to the LDSC `.sumstats` format using `munge_sumstats.py`
+* `ldsc` wiki ["Summary-Statistics-File-Format"](https://github.com/bulik/ldsc/wiki/Partitioned-Heritability)
+* Note: you may need to add an option `--chunksize 500000` to munge_sumstats.py command
+```{bash, eval=FALSE}
+python munge_sumstats.py \
+--sumstats GIANT_BMI_Speliotes2010_publicrelease_HapMapCeuFreq.txt \
+--merge-alleles w_hm3.snplist \
+--out BMI \
+--a1-inc \
+--chunksize 500000
+```
+
+### Run S-LDSC on BMI GWAS summary statistics using baseline annotations
+
+* Joint model: you could include multiple annotations file prefixes to run multiple annotations jointly 
+```{bash, eval=FALSE}
+python ldsc.py \
+--h2 BMI.sumstats.gz \
+--ref-ld-chr baseline/baseline. \
+--w-ld-chr weights_hm3_no_hla/weights. \
+--overlap-annot \
+--frqfile-chr 1000G_frq/1000G.mac5eur. \
+--out BMI_baseline
+```
