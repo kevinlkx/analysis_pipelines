@@ -19,7 +19,7 @@ cd ldsc
 ```
 
 ### Create a conda environment with LDSC's dependencies
-You might need to update numpy (and other packages) to a newer version
+You might need to update numpy (and other packages) to a newer version (e.g. set `numpy==1.16` or newer version)
 ```{bash, eval=FALSE}
 conda env create --file environment.yml
 ```
@@ -55,6 +55,9 @@ Finucane, HK, et al. Partitioning heritability by functional annotation using ge
 
 * Stratified heritability using continuous annotation:
 Gazal, S, et al. Linkage disequilibrium–dependent architecture of human complex traits shows action of negative selection. Nature Genetics, 2017.
+
+## Example
+You may try this [example](test_sldsc_example.html) to run S-LDSC on example data provided by the authors
 
 ## Download LDSC reference data
 You may need to download some of the following datasets:
@@ -222,6 +225,7 @@ done
 ### Prepare GWAS summary stats in LDSC `.sumstats` format
 * Convert GWAS summary stats to the LDSC `.sumstats` format using `munge_sumstats.py`
 * `ldsc` wiki ["Summary-Statistics-File-Format"](https://github.com/bulik/ldsc/wiki/Partitioned-Heritability)
+* Note: you may need to add an option `--chunksize 500000` to munge_sumstats.py command
 
 * Some of the processed GWAS summary stats (`.sumstats` format) can be found on RCC: 
 `/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_collection/ldsc_format/`
