@@ -21,7 +21,7 @@ cd ldsc
 ```
 
 ### Create a conda environment with LDSC's dependencies
-You might need to update numpy (and other packages) to a newer version (e.g. set numpy==1.16)
+You might need to update numpy (and other packages) to a newer version (e.g. set `numpy==1.16` or newer version)
 ```{bash, eval=FALSE}
 conda env create --file environment.yml
 ```
