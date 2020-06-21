@@ -12,12 +12,17 @@ editor_options:
 ### LDSC `.sumstats` format
 Convert GWAS summary statistics to the LD-score format summary statistics (`.sumstats`) format using `munge_sumstats.py`,  see `ldsc` wiki ["Summary-Statistics-File-Format"](https://github.com/bulik/ldsc/wiki/Summary-Statistics-File-Format)
 
-#### GWAS summary statistics in `.sumstats` format on RCC
+### GWAS summary statistics in `.sumstats` format on RCC
 
-* Processed GWAS summary stats used in m6A-QTL paper (mostly from Jean's GWAS collection) can be found on RCC: 
+* Processed GWAS summary stats used in m6A-QTL paper (mostly from Jean's GWAS collection, listed below) can be found on RCC: 
 `/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_collection/ldsc_format/`
 
 * Processed GWAS summary stats from the Price lab have been downloaded to RCC: 
     - Data from https://data.broadinstitute.org/alkesgroup/LDSCORE/independent_sumstats/ can be found on RCC: `/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_summary_alkesgroup/independent_sumstats/`
     - Data from https://data.broadinstitute.org/alkesgroup/sumstats_formatted/ can be found on RCC:
 `/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_summary_alkesgroup/sumstats_formatted/`
+
+### Large collection of GWAS summary statistics from Jean
+Jean Morrison made a large collection of GWAS summary statistics from different sources and the data are shared in RCC `/project2/compbio/gwas_summary_statistics/` directory. You can find more details in the README file in that directory, also in Xin He lab [wiki](https://xinhe-lab.github.io/lab-wiki/shared_computing/data/summary_statistics). You can convert those data to LDSC `.sumstats` format using `munge_sumstats.py`.
+
+
