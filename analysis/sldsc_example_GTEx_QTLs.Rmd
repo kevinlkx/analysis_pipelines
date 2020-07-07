@@ -1,5 +1,5 @@
 ---
-title: "S-LDSC example analysis"
+title: "S-LDSC example analysis on GTEx eQTLs from Hormozdiari, F. et al. Nature Genetics 2018 paper"
 author: "Kaixuan Luo"
 date: "2020-07-07"
 output: workflowr::wflow_html
