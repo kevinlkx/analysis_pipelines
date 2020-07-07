@@ -64,6 +64,7 @@ done
 ```
 
 ## Extract S-LDSC enrichment for the `GTEx_FE_META_TISSUE_GE_MaxCPP` annotation
+* Note: the enrichment values of those traits should match those in the supplementary table 10 of Hormozdiari, F. et al. Nature Genetics 2018 paper.
 ```{r}
 library(foreach)
 library(doParallel)
