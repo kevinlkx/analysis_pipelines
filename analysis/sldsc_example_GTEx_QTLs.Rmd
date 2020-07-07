@@ -54,7 +54,6 @@ change_trait_names <- function(trait_namelist){
 * Conditional on baselineLD v1.1
 
 ```{bash, eval=FALSE}
-cd /project2/xinhe/kevinluo/ldsc/results/sLDSC_Hormozdiari_NG2018/LDSC_QTL/logs/
 
 TRAITS=("PASS_BMI1" "PASS_Rheumatoid_Arthritis" "PASS_Schizophrenia" "UKB_460K.blood_WHITE_COUNT" "UKB_460K.blood_PLATELET_COUNT")
 
