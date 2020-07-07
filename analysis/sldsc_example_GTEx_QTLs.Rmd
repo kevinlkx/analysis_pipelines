@@ -19,7 +19,7 @@ barplot_enrichment <- function(result_sLDSC, ylim = NULL, title = "", horizontal
   result_sLDSC$Enrichment_H <- result_sLDSC$Enrichment + 1.96*result_sLDSC$Enrichment_std_error
   
   p <- ggplot(result_sLDSC, aes(x = Category, y = Enrichment))+
-    geom_bar(position=position_dodge(), stat="identity") +
+    geom_bar(position=position_dodge(), stat="identity", width = 0.5) +
     geom_errorbar(aes(ymin=Enrichment_L,
                       ymax=Enrichment_H),
                   width=.1,                    # Width of the error bars
@@ -56,7 +56,7 @@ change_trait_names <- function(trait_namelist){
 ```{bash, eval=FALSE}
 cd /project2/xinhe/kevinluo/ldsc/results/sLDSC_Hormozdiari_NG2018/LDSC_QTL/logs/
 
-TRAITS=("PASS_Autism" "PASS_BMI1" "PASS_Rheumatoid_Arthritis" "PASS_Schizophrenia" "UKB_460K.blood_WHITE_COUNT" "UKB_460K.blood_PLATELET_COUNT")
+TRAITS=("PASS_BMI1" "PASS_Rheumatoid_Arthritis" "PASS_Schizophrenia" "UKB_460K.blood_WHITE_COUNT" "UKB_460K.blood_PLATELET_COUNT")
 
 for trait in "${TRAITS[@]}"
 do
@@ -73,7 +73,7 @@ registerDoParallel(cores = 6)
 
 dir_results <- paste0("/project2/xinhe/kevinluo/ldsc/results/sLDSC_Hormozdiari_NG2018/LDSC_QTL/results/")
 
-trait_name_list <- c("PASS_Autism", "PASS_BMI1", "PASS_Rheumatoid_Arthritis", "PASS_Schizophrenia", "UKB_460K.blood_WHITE_COUNT", "UKB_460K.blood_PLATELET_COUNT")
+trait_name_list <- c("PASS_BMI1", "PASS_Rheumatoid_Arthritis", "PASS_Schizophrenia", "UKB_460K.blood_WHITE_COUNT", "UKB_460K.blood_PLATELET_COUNT")
 
 prefix_annot <- "GTEx_FE_META_TISSUE_GE_MaxCPP"
 
@@ -90,8 +90,8 @@ DT::datatable(format(result_sLDSC, digits = 3), options = list(scrollX = TRUE, k
 ```
 
 ### Plot S-LDSC enrichment for the `GTEx_FE_META_TISSUE_GE_MaxCPP` annotation
-
-```{r, fig.height=10, fig.width=8}
+* Error bars represent 95% CI
+```{r, fig.height=4, fig.width=4}
 library(ggplot2)
 
 barplot_enrichment(result_sLDSC)
