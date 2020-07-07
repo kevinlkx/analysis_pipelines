@@ -512,16 +512,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreef65f2f934e22e5972719a4514c863f5ee0fc652etargetblankf65f2f9a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/f65f2f934e22e5972719a4514c863f5ee0fc652e" target="_blank">f65f2f9</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreecbf162f9a174cc174be39b17585d6e2e392e09ebtargetblankcbf162fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/cbf162f9a174cc174be39b17585d6e2e392e09eb" target="_blank">cbf162f</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreef65f2f934e22e5972719a4514c863f5ee0fc652etargetblankf65f2f9a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreecbf162f9a174cc174be39b17585d6e2e392e09ebtargetblankcbf162fa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/f65f2f934e22e5972719a4514c863f5ee0fc652e" target="_blank">f65f2f9</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/cbf162f9a174cc174be39b17585d6e2e392e09eb" target="_blank">cbf162f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -530,9 +530,6 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-
-Untracked files:
-    Untracked:  code/sldsc_annot_GTEx_QTL_separate_example.sbatch
 
 </code></pre>
 <p>
@@ -571,6 +568,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/cbf162f9a174cc174be39b17585d6e2e392e09eb/analysis/sldsc_example_GTEx_QTLs.Rmd" target="_blank">cbf162f</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-07-07
+</td>
+<td>
+wflow_publish(“analysis/sldsc_example_GTEx_QTLs.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/79339c33c0d1db54819695d49d2475f69740c45a/docs/sldsc_example_GTEx_QTLs.html" target="_blank">79339c3</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-07-07
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -816,6 +847,9 @@ done
 </div>
 <div id="extract-s-ldsc-enrichment-for-the-gtex_fe_meta_tissue_ge_maxcpp-annotation" class="section level2">
 <h2>Extract S-LDSC enrichment for the <code>GTEx_FE_META_TISSUE_GE_MaxCPP</code> annotation</h2>
+<ul>
+<li>Note: the enrichment values of those traits should match those in the supplementary table 10 of Hormozdiari, F. et al. Nature Genetics 2018 paper.</li>
+</ul>
 <pre class="r"><code>library(foreach)
 library(doParallel)</code></pre>
 <pre><code>Loading required package: iterators</code></pre>
