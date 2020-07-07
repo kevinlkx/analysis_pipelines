@@ -512,16 +512,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreedfa71eb3c715cd6e97d47ed9478667c0602a108btargetblankdfa71eba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/dfa71eb3c715cd6e97d47ed9478667c0602a108b" target="_blank">dfa71eb</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree3499b1ed1c8e6a7e12f0e3d8d0b62a675c157cc7targetblank3499b1ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/3499b1ed1c8e6a7e12f0e3d8d0b62a675c157cc7" target="_blank">3499b1e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreedfa71eb3c715cd6e97d47ed9478667c0602a108btargetblankdfa71eba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree3499b1ed1c8e6a7e12f0e3d8d0b62a675c157cc7targetblank3499b1ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/dfa71eb3c715cd6e97d47ed9478667c0602a108b" target="_blank">dfa71eb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/3499b1ed1c8e6a7e12f0e3d8d0b62a675c157cc7" target="_blank">3499b1e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -533,6 +533,9 @@ Ignored files:
 
 Untracked files:
     Untracked:  code/sldsc_annot_GTEx_QTL_separate_example.sbatch
+
+Unstaged changes:
+    Modified:   analysis/index.Rmd
 
 </code></pre>
 <p>
@@ -571,6 +574,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/3499b1ed1c8e6a7e12f0e3d8d0b62a675c157cc7/analysis/sldsc_example_GTEx_QTLs.Rmd" target="_blank">3499b1e</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-07-07
+</td>
+<td>
+wflow_publish(“analysis/sldsc_example_GTEx_QTLs.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/c623ef52b5f99cb5e003839fda5cd15b7dcf3817/docs/sldsc_example_GTEx_QTLs.html" target="_blank">c623ef5</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-07-07
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -734,8 +771,8 @@ change_trait_names &lt;- function(trait_namelist){
 <div id="run-s-ldsc-on-data-from-hormozdiari-f.-et-al.-nature-genetics-2018-paper" class="section level2">
 <h2>Run S-LDSC on data from Hormozdiari, F. et al. Nature Genetics 2018 paper</h2>
 <ul>
-<li>Use the <code>GTEx_FE_META_TISSUE_GE_MaxCPP</code> annotation</li>
-<li>Conditional on baselineLD v1.1</li>
+<li>Use the <code>GTEx_FE_META_TISSUE_GE_MaxCPP</code> annotation (MaxCPP annotation computed from fixed-effect meta-analysis of eQTLs from 44 GTEx tissues)</li>
+<li>Compute the <code>GTEx_FE_META_TISSUE_GE_MaxCPP</code> annotation conditional on <code>baselineLD_v1.1</code></li>
 </ul>
 <pre class="bash"><code>
 TRAITS=(&quot;PASS_BMI1&quot; &quot;PASS_Rheumatoid_Arthritis&quot; &quot;PASS_Schizophrenia&quot; &quot;UKB_460K.blood_WHITE_COUNT&quot; &quot;UKB_460K.blood_PLATELET_COUNT&quot;)
