@@ -512,16 +512,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree648285af48bb63fe7a009a8563fadc8495da8427targetblank648285aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/648285af48bb63fe7a009a8563fadc8495da8427" target="_blank">648285a</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree378c6087506991c55564a93e29e9ccaab892bb0ftargetblank378c608a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/378c6087506991c55564a93e29e9ccaab892bb0f" target="_blank">378c608</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree648285af48bb63fe7a009a8563fadc8495da8427targetblank648285aa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree378c6087506991c55564a93e29e9ccaab892bb0ftargetblank378c608a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/648285af48bb63fe7a009a8563fadc8495da8427" target="_blank">648285a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/378c6087506991c55564a93e29e9ccaab892bb0f" target="_blank">378c608</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -571,6 +571,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/378c6087506991c55564a93e29e9ccaab892bb0f/analysis/sldsc_example_GTEx_QTLs.Rmd" target="_blank">378c608</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-07-07
+</td>
+<td>
+wflow_publish(“analysis/sldsc_example_GTEx_QTLs.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/ccff01a3e18359414aa9ca61dd756e1f20da747d/docs/sldsc_example_GTEx_QTLs.html" target="_blank">ccff01a</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-07-07
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -636,7 +670,7 @@ barplot_enrichment &lt;- function(result_sLDSC, ylim = NULL, title = &quot;&quot
   result_sLDSC$Enrichment_H &lt;- result_sLDSC$Enrichment + 1.96*result_sLDSC$Enrichment_std_error
   
   p &lt;- ggplot(result_sLDSC, aes(x = Category, y = Enrichment))+
-    geom_bar(position=position_dodge(), stat=&quot;identity&quot;) +
+    geom_bar(position=position_dodge(), stat=&quot;identity&quot;, width = 0.5) +
     geom_errorbar(aes(ymin=Enrichment_L,
                       ymax=Enrichment_H),
                   width=.1,                    # Width of the error bars
@@ -671,7 +705,7 @@ change_trait_names &lt;- function(trait_namelist){
 </ul>
 <pre class="bash"><code>cd /project2/xinhe/kevinluo/ldsc/results/sLDSC_Hormozdiari_NG2018/LDSC_QTL/logs/
 
-TRAITS=(&quot;PASS_Autism&quot; &quot;PASS_BMI1&quot; &quot;PASS_Rheumatoid_Arthritis&quot; &quot;PASS_Schizophrenia&quot; &quot;UKB_460K.blood_WHITE_COUNT&quot; &quot;UKB_460K.blood_PLATELET_COUNT&quot;)
+TRAITS=(&quot;PASS_BMI1&quot; &quot;PASS_Rheumatoid_Arthritis&quot; &quot;PASS_Schizophrenia&quot; &quot;UKB_460K.blood_WHITE_COUNT&quot; &quot;UKB_460K.blood_PLATELET_COUNT&quot;)
 
 for trait in &quot;${TRAITS[@]}&quot;
 do
@@ -689,7 +723,7 @@ library(doParallel)</code></pre>
 
 dir_results &lt;- paste0(&quot;/project2/xinhe/kevinluo/ldsc/results/sLDSC_Hormozdiari_NG2018/LDSC_QTL/results/&quot;)
 
-trait_name_list &lt;- c(&quot;PASS_Autism&quot;, &quot;PASS_BMI1&quot;, &quot;PASS_Rheumatoid_Arthritis&quot;, &quot;PASS_Schizophrenia&quot;, &quot;UKB_460K.blood_WHITE_COUNT&quot;, &quot;UKB_460K.blood_PLATELET_COUNT&quot;)
+trait_name_list &lt;- c(&quot;PASS_BMI1&quot;, &quot;PASS_Rheumatoid_Arthritis&quot;, &quot;PASS_Schizophrenia&quot;, &quot;UKB_460K.blood_WHITE_COUNT&quot;, &quot;UKB_460K.blood_PLATELET_COUNT&quot;)
 
 prefix_annot &lt;- &quot;GTEx_FE_META_TISSUE_GE_MaxCPP&quot;
 
@@ -703,13 +737,16 @@ result_sLDSC &lt;- foreach(trait = trait_name_list, .combine = rbind)%dopar%{
 result_sLDSC$Category &lt;- change_trait_names(result_sLDSC$Category)
 DT::datatable(format(result_sLDSC, digits = 3), options = list(scrollX = TRUE, keys = TRUE, pageLength = 20),rownames = F)</code></pre>
 <div id="htmlwidget-8316daeedf19885da48f" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8316daeedf19885da48f">{"x":{"filter":"none","data":[["Autism","BMI","Rheumatoid Arthritis","Schizophrenia","White Blood Cell Count","Platelet Count"],["0.0103","0.0103","0.0103","0.0103","0.0103","0.0103"],["0.00812","0.05329","0.06689","0.06883","0.10264","0.09295"],["0.0258","0.0170","0.0372","0.0123","0.0145","0.0158"],["0.785","5.154","6.468","6.657","9.926","8.989"],["2.50","1.64","3.60","1.19","1.40","1.53"],["9.30e-01","1.48e-02","1.14e-01","2.58e-06","1.17e-09","1.53e-06"],["-9.53e-08"," 1.60e-07"," 2.17e-07"," 7.18e-07"," 4.87e-07"," 6.33e-07"],["4.42e-07","7.22e-08","1.84e-07","1.60e-07","8.91e-08","1.60e-07"],["-0.215"," 2.221"," 1.180"," 4.492"," 5.462"," 3.956"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Category<\/th>\n      <th>Prop._SNPs<\/th>\n      <th>Prop._h2<\/th>\n      <th>Prop._h2_std_error<\/th>\n      <th>Enrichment<\/th>\n      <th>Enrichment_std_error<\/th>\n      <th>Enrichment_p<\/th>\n      <th>Coefficient<\/th>\n      <th>Coefficient_std_error<\/th>\n      <th>Coefficient_z.score<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"keys":true,"pageLength":20,"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-8316daeedf19885da48f">{"x":{"filter":"none","data":[["BMI","Rheumatoid Arthritis","Schizophrenia","White Blood Cell Count","Platelet Count"],["0.0103","0.0103","0.0103","0.0103","0.0103"],["0.0533","0.0669","0.0688","0.1026","0.0930"],["0.0170","0.0372","0.0123","0.0145","0.0158"],["5.15","6.47","6.66","9.93","8.99"],["1.64","3.60","1.19","1.40","1.53"],["1.48e-02","1.14e-01","2.58e-06","1.17e-09","1.53e-06"],["1.60e-07","2.17e-07","7.18e-07","4.87e-07","6.33e-07"],["7.22e-08","1.84e-07","1.60e-07","8.91e-08","1.60e-07"],["2.22","1.18","4.49","5.46","3.96"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Category<\/th>\n      <th>Prop._SNPs<\/th>\n      <th>Prop._h2<\/th>\n      <th>Prop._h2_std_error<\/th>\n      <th>Enrichment<\/th>\n      <th>Enrichment_std_error<\/th>\n      <th>Enrichment_p<\/th>\n      <th>Coefficient<\/th>\n      <th>Coefficient_std_error<\/th>\n      <th>Coefficient_z.score<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"keys":true,"pageLength":20,"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 <div id="plot-s-ldsc-enrichment-for-the-gtex_fe_meta_tissue_ge_maxcpp-annotation" class="section level3">
 <h3>Plot S-LDSC enrichment for the <code>GTEx_FE_META_TISSUE_GE_MaxCPP</code> annotation</h3>
+<ul>
+<li>Error bars represent 95% CI</li>
+</ul>
 <pre class="r"><code>library(ggplot2)
 
 barplot_enrichment(result_sLDSC)</code></pre>
-<p><img src="figure/sldsc_example_GTEx_QTLs.Rmd/unnamed-chunk-4-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/sldsc_example_GTEx_QTLs.Rmd/unnamed-chunk-4-1.png" width="384" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
 Past versions of unnamed-chunk-4-1.png
