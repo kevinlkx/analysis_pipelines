@@ -1,10 +1,10 @@
 ---
 title: "S-LDSC example analysis"
 author: "Kaixuan Luo"
-date: "`r Sys.Date()`"
-output:
-  workflowr::wflow_html:
-    code_folding: hide
+date: "2020-07-07"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
