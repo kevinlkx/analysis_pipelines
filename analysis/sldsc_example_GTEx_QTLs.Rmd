@@ -1,0 +1,99 @@
+---
+title: "S-LDSC example analysis"
+author: "Kaixuan Luo"
+date: "`r Sys.Date()`"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+## barplot for S-LDSC enrichment 
+barplot_enrichment <- function(result_sLDSC, ylim = NULL, title = "", horizontal = FALSE){
+  
+  result_sLDSC$Enrichment_L <- result_sLDSC$Enrichment - 1.96*result_sLDSC$Enrichment_std_error
+  result_sLDSC$Enrichment_H <- result_sLDSC$Enrichment + 1.96*result_sLDSC$Enrichment_std_error
+  
+  p <- ggplot(result_sLDSC, aes(x = Category, y = Enrichment))+
+    geom_bar(position=position_dodge(), stat="identity") +
+    geom_errorbar(aes(ymin=Enrichment_L,
+                      ymax=Enrichment_H),
+                  width=.1,                    # Width of the error bars
+                  position=position_dodge(.9)) + 
+    ylab("Enrichment")+ xlab("") +
+    ggtitle(title) +
+    geom_hline(yintercept = 1,linetype="dotted", colour = "red")+
+    theme_classic() +
+    theme(axis.text.x = element_text(angle=30, hjust=1, size = 14))
+  if(!is.null(ylim)){
+    p <- p + coord_cartesian(ylim = ylim)
+  }
+  
+  if(horizontal){
+    p <- p + coord_flip()
+  }
+  print(p)
+}
+
+change_trait_names <- function(trait_namelist){
+  trait_namelist <- gsub("PASS_","", trait_namelist)
+  trait_namelist <- gsub("BMI1","BMI", trait_namelist)
+  trait_namelist <- gsub("Rheumatoid_Arthritis","Rheumatoid Arthritis", trait_namelist)
+  trait_namelist <- gsub("UKB_460K.blood_WHITE_COUNT","White Blood Cell Count", trait_namelist)
+  trait_namelist <- gsub("UKB_460K.blood_PLATELET_COUNT","Platelet Count", trait_namelist)
+}
+
+```
+
+## Run S-LDSC on data from Hormozdiari, F. et al. Nature Genetics 2018 paper
+* Use the `GTEx_FE_META_TISSUE_GE_MaxCPP` annotation
+* Conditional on baselineLD v1.1
+
+```{bash, eval=FALSE}
+cd /project2/xinhe/kevinluo/ldsc/results/sLDSC_Hormozdiari_NG2018/LDSC_QTL/logs/
+
+TRAITS=("PASS_Autism" "PASS_BMI1" "PASS_Rheumatoid_Arthritis" "PASS_Schizophrenia" "UKB_460K.blood_WHITE_COUNT" "UKB_460K.blood_PLATELET_COUNT")
+
+for trait in "${TRAITS[@]}"
+do
+  sbatch ~/projects/analysis_pipelines/code/sldsc_annot_GTEx_QTL_separate_example.sbatch ${trait} GTEx_FE_META_TISSUE_GE_MaxCPP
+done
+
+```
+
+## Extract S-LDSC enrichment for the `GTEx_FE_META_TISSUE_GE_MaxCPP` annotation
+```{r}
+library(foreach)
+library(doParallel)
+registerDoParallel(cores = 6)
+
+dir_results <- paste0("/project2/xinhe/kevinluo/ldsc/results/sLDSC_Hormozdiari_NG2018/LDSC_QTL/results/")
+
+trait_name_list <- c("PASS_Autism", "PASS_BMI1", "PASS_Rheumatoid_Arthritis", "PASS_Schizophrenia", "UKB_460K.blood_WHITE_COUNT", "UKB_460K.blood_PLATELET_COUNT")
+
+prefix_annot <- "GTEx_FE_META_TISSUE_GE_MaxCPP"
+
+result_sLDSC <- foreach(trait = trait_name_list, .combine = rbind)%dopar%{
+  sldsc_results <- read.table(paste0(dir_results,"/", trait, "/baselineLDv1.1/", trait, "_", prefix_annot, "_baselineLDv1.1.results"), header = T, stringsAsFactors = F)
+  est <- sldsc_results[sldsc_results$Category == "L2_1",]
+  est$Category <- trait
+  est
+}
+
+result_sLDSC$Category <- change_trait_names(result_sLDSC$Category)
+DT::datatable(format(result_sLDSC, digits = 3), options = list(scrollX = TRUE, keys = TRUE, pageLength = 20),rownames = F)
+
+```
+
+### Plot S-LDSC enrichment for the `GTEx_FE_META_TISSUE_GE_MaxCPP` annotation
+
+```{r, fig.height=10, fig.width=8}
+library(ggplot2)
+
+barplot_enrichment(result_sLDSC)
+
+```
