@@ -50,9 +50,8 @@ change_trait_names <- function(trait_namelist){
 ```
 
 ## Run S-LDSC on data from Hormozdiari, F. et al. Nature Genetics 2018 paper
-* Use the `GTEx_FE_META_TISSUE_GE_MaxCPP` annotation
-* Conditional on baselineLD v1.1
-
+* Use the `GTEx_FE_META_TISSUE_GE_MaxCPP` annotation (MaxCPP annotation computed from fixed-effect meta-analysis of eQTLs from 44 GTEx tissues)
+* Compute the `GTEx_FE_META_TISSUE_GE_MaxCPP` annotation conditional on `baselineLD_v1.1`
 ```{bash, eval=FALSE}
 
 TRAITS=("PASS_BMI1" "PASS_Rheumatoid_Arthritis" "PASS_Schizophrenia" "UKB_460K.blood_WHITE_COUNT" "UKB_460K.blood_PLATELET_COUNT")
