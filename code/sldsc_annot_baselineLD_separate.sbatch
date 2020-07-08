@@ -15,7 +15,7 @@ dir_LDSC=/project2/xinhe/kevinluo/ldsc
 dir_ldsc_annot=/project2/xinhe/kevinluo/ldsc/annot/ldscores
 dir_baselineLD=/project2/xinhe/kevinluo/ldsc/LDSCORE/1000G_Phase3_baselineLD_v1.1_ldscores
 
-conda activate ldsc
+source activate ldsc
 
 echo "GWAS trait: ${trait}"
 

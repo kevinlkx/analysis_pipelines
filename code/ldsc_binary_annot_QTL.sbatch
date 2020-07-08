@@ -16,7 +16,7 @@ dir_LDSC=/project2/xinhe/kevinluo/ldsc/
 
 mkdir -p ${dir_LDSC}/annot/ldscores/${prefix_annot}
 
-conda activate ldsc
+source activate ldsc
 
 module load R/3.5.1
 

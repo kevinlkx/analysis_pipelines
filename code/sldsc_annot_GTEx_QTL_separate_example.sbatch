@@ -11,7 +11,7 @@ prefix_annot=$2
 
 dir_GWAS=/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_summary_alkesgroup/independent_sumstats/
 
-conda activate ldsc
+source activate ldsc
 
 dir_annot=/project2/xinhe/kevinluo/ldsc/results/sLDSC_Hormozdiari_NG2018/LDSC_QTL/Annot/
 
