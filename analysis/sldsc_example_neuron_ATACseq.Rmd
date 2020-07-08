@@ -124,9 +124,10 @@ python $HOME/softwares/ldsc/ldsc.py \
 
 ```
 
-Run S-LDSC across a number of GWAS traits over the ATAC-seq peaks and ASoC annotations:
+Run S-LDSC across a number of GWAS traits over the ATAC-seq peaks and ASoC annotations.
+
+Results are saved in `/project2/xinhe/kevinluo/ldsc/results/sLDSC_neuron_ATACseq_examples/`
 ```{bash, eval=FALSE}
-cd /scratch/midway2/kaixuan/logs/sLDSC_neuron_ATACseq/examples/
 
 TRAITS=("ADHD" "IBD" "BMI" "height" "SCZ" "BIP" "MDD" "iPSYCH_ASD" "Intelligence" "Education" "Neuroticism" "Alzheimer" "Parkinson")
 dir_GWAS=/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/ldsc_format/
