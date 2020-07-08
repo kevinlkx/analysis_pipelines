@@ -512,16 +512,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree05e34957b6e0a699cd1e986fb974b88758378cectargetblank05e3495a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/05e34957b6e0a699cd1e986fb974b88758378cec" target="_blank">05e3495</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree518b647f90e304b6e1131a5cbf7857b848852972targetblank518b647a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/518b647f90e304b6e1131a5cbf7857b848852972" target="_blank">518b647</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree05e34957b6e0a699cd1e986fb974b88758378cectargetblank05e3495a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree518b647f90e304b6e1131a5cbf7857b848852972targetblank518b647a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/05e34957b6e0a699cd1e986fb974b88758378cec" target="_blank">05e3495</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/518b647f90e304b6e1131a5cbf7857b848852972" target="_blank">518b647</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -568,6 +568,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/518b647f90e304b6e1131a5cbf7857b848852972/analysis/sldsc_example_GTEx_QTLs.Rmd" target="_blank">518b647</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-07-08
+</td>
+<td>
+wflow_publish(“analysis/sldsc_example_GTEx_QTLs.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/6e6d41a97b7856b2b9321d2ef5d980a7d7b6737e/docs/sldsc_example_GTEx_QTLs.html" target="_blank">6e6d41a</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-07-08
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -830,6 +864,26 @@ wflow_publish(“analysis/sldsc_example_GTEx_QTLs.Rmd”)
 </div>
 </div>
 </div>
+<div id="run-s-ldsc-on-data-from-hormozdiari-f.-et-al.-nature-genetics-2018-paper" class="section level2">
+<h2>Run S-LDSC on data from Hormozdiari, F. et al. Nature Genetics 2018 paper</h2>
+<ul>
+<li>Use the <code>GTEx_FE_META_TISSUE_GE_MaxCPP</code> annotation (MaxCPP annotation computed from fixed-effect meta-analysis of eQTLs from 44 GTEx tissues)</li>
+<li>Compute the <code>GTEx_FE_META_TISSUE_GE_MaxCPP</code> annotation conditional on <code>baselineLD_v1.1</code></li>
+</ul>
+<pre class="bash"><code>
+TRAITS=(&quot;PASS_BMI1&quot; &quot;PASS_Rheumatoid_Arthritis&quot; &quot;PASS_Schizophrenia&quot; &quot;UKB_460K.blood_WHITE_COUNT&quot; &quot;UKB_460K.blood_PLATELET_COUNT&quot;)
+
+for trait in &quot;${TRAITS[@]}&quot;
+do
+  sbatch ~/projects/analysis_pipelines/code/sldsc_annot_GTEx_QTL_separate_example.sbatch ${trait} GTEx_FE_META_TISSUE_GE_MaxCPP
+done
+</code></pre>
+</div>
+<div id="extract-s-ldsc-enrichment-for-the-gtex_fe_meta_tissue_ge_maxcpp-annotation" class="section level2">
+<h2>Extract S-LDSC enrichment for the <code>GTEx_FE_META_TISSUE_GE_MaxCPP</code> annotation</h2>
+<ul>
+<li>Note: the enrichment values of those traits should match those in the supplementary table 10 of Hormozdiari, F. et al. Nature Genetics 2018 paper.</li>
+</ul>
 <pre class="r"><code>## barplot for S-LDSC enrichment 
 barplot_enrichment &lt;- function(result_sLDSC, ylim = NULL, title = &quot;&quot;, horizontal = FALSE){
   
@@ -864,26 +918,6 @@ change_trait_names &lt;- function(trait_namelist){
   trait_namelist &lt;- gsub(&quot;UKB_460K.blood_WHITE_COUNT&quot;,&quot;White Blood Cell Count&quot;, trait_namelist)
   trait_namelist &lt;- gsub(&quot;UKB_460K.blood_PLATELET_COUNT&quot;,&quot;Platelet Count&quot;, trait_namelist)
 }</code></pre>
-<div id="run-s-ldsc-on-data-from-hormozdiari-f.-et-al.-nature-genetics-2018-paper" class="section level2">
-<h2>Run S-LDSC on data from Hormozdiari, F. et al. Nature Genetics 2018 paper</h2>
-<ul>
-<li>Use the <code>GTEx_FE_META_TISSUE_GE_MaxCPP</code> annotation (MaxCPP annotation computed from fixed-effect meta-analysis of eQTLs from 44 GTEx tissues)</li>
-<li>Compute the <code>GTEx_FE_META_TISSUE_GE_MaxCPP</code> annotation conditional on <code>baselineLD_v1.1</code></li>
-</ul>
-<pre class="bash"><code>
-TRAITS=(&quot;PASS_BMI1&quot; &quot;PASS_Rheumatoid_Arthritis&quot; &quot;PASS_Schizophrenia&quot; &quot;UKB_460K.blood_WHITE_COUNT&quot; &quot;UKB_460K.blood_PLATELET_COUNT&quot;)
-
-for trait in &quot;${TRAITS[@]}&quot;
-do
-  sbatch ~/projects/analysis_pipelines/code/sldsc_annot_GTEx_QTL_separate_example.sbatch ${trait} GTEx_FE_META_TISSUE_GE_MaxCPP
-done
-</code></pre>
-</div>
-<div id="extract-s-ldsc-enrichment-for-the-gtex_fe_meta_tissue_ge_maxcpp-annotation" class="section level2">
-<h2>Extract S-LDSC enrichment for the <code>GTEx_FE_META_TISSUE_GE_MaxCPP</code> annotation</h2>
-<ul>
-<li>Note: the enrichment values of those traits should match those in the supplementary table 10 of Hormozdiari, F. et al. Nature Genetics 2018 paper.</li>
-</ul>
 <pre class="r"><code>library(foreach)
 library(doParallel)</code></pre>
 <pre><code>Loading required package: iterators</code></pre>
