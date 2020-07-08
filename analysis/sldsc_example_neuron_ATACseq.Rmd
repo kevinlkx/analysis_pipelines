@@ -52,7 +52,7 @@ write.table(ASoC_sig.bed, paste0(dir_annot_bed, "/", annot_name, ".bed"), sep = 
 
 ### Compute LD scores for ATAC-seq peaks and ASoC annotations
 
-The following [code](https://github.com/kevinlkx/analysis_pipelines/tree/master/code/ldsc_binary_annot_QTL.sbatch) generates ldsc-friendly annotation files (annot.gz) from the annotation BED files, then computes LD scores with the annot file (annot.gz).
+The following [code](https://github.com/kevinlkx/analysis_pipelines/tree/master/code/ldsc_binary_annot_QTL.sbatch) generates ldsc-friendly annotation files (annot.gz) from the annotation BED files using this [R script](https://github.com/kevinlkx/analysis_pipelines/tree/master/code/make_ldsc_binary_annot.R), then computes LD scores with the annot file (annot.gz).
 ```{bash, eval=FALSE}
 ## Compute LD scores for ATAC-seq peak annotations
 dir_code=~/projects/analysis_pipelines/code/
