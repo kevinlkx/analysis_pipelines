@@ -15,6 +15,7 @@ editor_options:
 * [LDSC installation](ldsc_install.html)
 * [S-LDSC pipeline](sldsc_pipeline.html)
 * [an example running S-LDSC on GTEx eQTLs from Hormozdiari, F. et al. Nature Genetics 2018 paper](sldsc_example_GTEx_QTLs.html)
+* [an example running S-LDSC on neuron ATAC-seq annotations](sldsc_example_neuron_ATACseq.html)
 
 ## TWAS
 * [TWAS FUSION pipeline](twas_fusion_pipeline.html)
