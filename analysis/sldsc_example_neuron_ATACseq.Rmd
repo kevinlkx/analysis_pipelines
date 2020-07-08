@@ -1,0 +1,153 @@
+---
+title: "s-LDSC example analysis using neuron ATAC-seq data"
+author: "Kaixuan Luo"
+date: "07/08/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Prepare annotation files and compute LD scores for annotations
+
+### Prepare annotations in BED format for ASoC binary annotations
+* Convert ASoC binary annotations to BED format. The annotations can be found in `/project2/xinhe/kevinluo/ldsc/annot/annot_bed/`
+* Annotations for ATAC-seq peaks in BED format can also be found in `/project2/xinhe/kevinluo/ldsc/annot/annot_bed/`.
+```{r, eval=FALSE}
+## Prepare ASoC binary annotations in BED format for LDSC analysis
+dir_annot_bed <- "/project2/xinhe/kevinluo/ldsc/annot/annot_bed/"
+
+### ASoC_glut_anno_hg19
+annot_name <- "ASoC_glut_anno_hg19"
+annot_filename <- "ASoC_glut_anno_hg19.txt"
+ASoC_annot <- read.table(paste0(dir_annot_bed, "/", annot_filename), header = F, stringsAsFactors = F)
+colnames(ASoC_annot) <- c("chr", "SNP_POS", "annot")
+
+ASoC_sig <- ASoC_annot[ASoC_annot$annot == 1, ]
+ASoC_sig.bed <- data.frame(chr = ASoC_sig$chr, start = ASoC_sig$SNP_POS - 1, end = ASoC_sig$SNP_POS)
+ASoC_sig.bed$chr <- factor(ASoC_sig.bed$chr, levels = paste0("chr", 1:22))
+ASoC_sig.bed <- ASoC_sig.bed[order(ASoC_sig.bed$chr, ASoC_sig.bed$start), ]
+ASoC_sig.bed <- unique(ASoC_sig.bed)
+cat(nrow(ASoC_sig.bed), "SNPs with annotation:", annot_name, "\n")
+write.table(ASoC_sig.bed, paste0(dir_annot_bed, "/", annot_name, ".bed"), sep = "\t", col.names = F, row.names = F, quote = F)
+
+### ASoC_npc_anno_hg19
+annot_name <- "ASoC_npc_anno_hg19"
+annot_filename <- "ASoC_npc_anno_hg19.txt"
+ASoC_annot <- read.table(paste0(dir_annot_bed, "/", annot_filename), header = F, stringsAsFactors = F)
+colnames(ASoC_annot) <- c("chr", "SNP_POS", "annot")
+
+ASoC_sig <- ASoC_annot[ASoC_annot$annot == 1, ]
+ASoC_sig.bed <- data.frame(chr = ASoC_sig$chr, start = ASoC_sig$SNP_POS - 1, end = ASoC_sig$SNP_POS)
+ASoC_sig.bed$chr <- factor(ASoC_sig.bed$chr, levels = paste0("chr", 1:22))
+ASoC_sig.bed <- ASoC_sig.bed[order(ASoC_sig.bed$chr, ASoC_sig.bed$start), ]
+ASoC_sig.bed <- unique(ASoC_sig.bed)
+cat(nrow(ASoC_sig.bed), "SNPs with annotation:", annot_name, "\n")
+write.table(ASoC_sig.bed, paste0(dir_annot_bed, "/", annot_name, ".bed"), sep = "\t", col.names = F, row.names = F, quote = F)
+
+```
+
+### Compute LD scores for ATAC-seq peaks and ASoC annotations
+
+The following [code](https://github.com/kevinlkx/analysis_pipelines/code/ldsc_binary_annot_QTL.sbatch) generates ldsc-friendly annotation files (annot.gz) from the annotation BED files, then computes LD scores with the annot file (annot.gz).
+```{bash, eval=FALSE}
+## Compute LD scores for ATAC-seq peak annotations
+dir_code=~/projects/analysis_pipelines/code/
+
+sbatch ${dir_code}/ldsc_binary_annot_QTL.sbatch CN_all_peaks.narrowPeak.cleaned.hg19.merged
+
+sbatch ${dir_code}/ldsc_binary_annot_QTL.sbatch DN_all_peaks.narrowPeak.cleaned.hg19.merged
+
+sbatch ${dir_code}/ldsc_binary_annot_QTL.sbatch GA_all_peaks.narrowPeak.cleaned.hg19.merged
+
+sbatch ${dir_code}/ldsc_binary_annot_QTL.sbatch ips_all_peaks.narrowPeak.cleaned.hg19.merged
+
+sbatch ${dir_code}/ldsc_binary_annot_QTL.sbatch NSC_all_peaks.narrowPeak.cleaned.hg19.merged
+
+sbatch ${dir_code}/ldsc_binary_annot_QTL.sbatch NSC_all_peaks.narrowPeak.cleaned.hg19.merged
+
+## Compute LD scores for ASoC annotations
+sbatch ${dir_code}/ldsc_binary_annot_QTL.sbatch ASoC_glut_anno_hg19
+
+sbatch ${dir_code}/ldsc_binary_annot_QTL.sbatch ASoC_npc_anno_hg19
+
+```
+
+Computed LD scores for ATAC-seq peaks and ASoC annotations can be found in `/project2/xinhe/kevinluo/ldsc/annot/ldscores/`.
+
+## Partition heritability using S-LDSC
+https://github.com/bulik/ldsc/wiki/Partitioned-Heritability
+
+### Prepare GWAS summary stats in LDSC format
+Convert GWAS summary stats to the .sumstats format using `munge_sumstats.py`
+
+See this page for [details](process_GWAS_sumstats_neuro_traits.html)
+
+### Partition heritability
+
+The following [code](https://github.com/kevinlkx/analysis_pipelines/code/sldsc_annot_baselineLD_separate.sbatch) estimates the partitioned heritability and enrichment for annotations
+
+* https://github.com/kevinlkx/analysis_pipelines/code/sldsc_annot_baselineLD_separate.sbatch
+```{bash, eval=FALSE}
+#!/bin/bash
+
+#SBATCH --job-name=sldsc
+#SBATCH --output=sldsc_%J.out
+#SBATCH --error=sldsc_%J.err
+#SBATCH --partition=broadwl
+#SBATCH --mem=10G
+
+dir_GWAS=$1
+trait=$2
+prefix_annot=$3
+dir_sLDSC_output=$4
+
+dir_LDSC=/project2/xinhe/kevinluo/ldsc
+dir_ldsc_annot=/project2/xinhe/kevinluo/ldsc/annot/ldscores
+dir_baselineLD=/project2/xinhe/kevinluo/ldsc/LDSCORE/1000G_Phase3_baselineLD_v1.1_ldscores
+
+conda activate ldsc
+
+echo "GWAS trait: ${trait}"
+
+dir_out=${dir_sLDSC_output}/${trait}/baselineLDv1.1
+mkdir -p ${dir_out}
+
+python $HOME/softwares/ldsc/ldsc.py \
+--h2 ${dir_GWAS}/${trait}.sumstats.gz \
+--ref-ld-chr ${dir_baselineLD}/baselineLD.,${dir_ldsc_annot}/${prefix_annot}/${prefix_annot}. \
+--frqfile-chr ${dir_LDSC}/LDSCORE/1000G_Phase3_frq/1000G.EUR.QC. \
+--w-ld-chr ${dir_LDSC}/LDSCORE/1000G_Phase3_weights_hm3_no_MHC/weights.hm3_noMHC. \
+--overlap-annot --print-cov --print-coefficients --print-delete-vals \
+--out ${dir_out}/${trait}_${prefix_annot}_baselineLDv1.1
+
+```
+
+Run S-LDSC across a number of GWAS traits over the ATAC-seq peaks and ASoC annotations:
+```{bash, eval=FALSE}
+cd /scratch/midway2/kaixuan/logs/sLDSC_neuron_ATACseq/examples/
+
+TRAITS=("ADHD" "IBD" "BMI" "height" "SCZ" "BIP" "MDD" "iPSYCH_ASD" "Intelligence" "Education" "Neuroticism" "Alzheimer" "Parkinson")
+dir_GWAS=/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/ldsc_format/
+dir_sLDSC_output=/project2/xinhe/kevinluo/ldsc/results/sLDSC_neuron_ATACseq_examples/
+dir_code=~/projects/analysis_pipelines/code/
+
+for trait in "${TRAITS[@]}"
+do
+  sbatch ${dir_code}/sldsc_annot_baselineLD_separate.sbatch ${dir_GWAS} ${trait} CN_all_peaks.narrowPeak.cleaned.hg19.merged ${dir_sLDSC_output}
+
+  sbatch ${dir_code}/sldsc_annot_baselineLD_separate.sbatch ${dir_GWAS} ${trait} DN_all_peaks.narrowPeak.cleaned.hg19.merged ${dir_sLDSC_output}
+
+  sbatch ${dir_code}/sldsc_annot_baselineLD_separate.sbatch ${dir_GWAS} ${trait} GA_all_peaks.narrowPeak.cleaned.hg19.merged ${dir_sLDSC_output}
+
+  sbatch ${dir_code}/sldsc_annot_baselineLD_separate.sbatch ${dir_GWAS} ${trait} ips_all_peaks.narrowPeak.cleaned.hg19.merged ${dir_sLDSC_output}
+
+  sbatch ${dir_code}/sldsc_annot_baselineLD_separate.sbatch ${dir_GWAS} ${trait} NSC_all_peaks.narrowPeak.cleaned.hg19.merged ${dir_sLDSC_output}
+
+  sbatch ${dir_code}/sldsc_annot_baselineLD_separate.sbatch ${dir_GWAS} ${trait} ASoC_glut_anno_hg19 ${dir_sLDSC_output}
+
+  sbatch ${dir_code}/sldsc_annot_baselineLD_separate.sbatch ${dir_GWAS} ${trait} ASoC_npc_anno_hg19 ${dir_sLDSC_output}
+done
+
+```
