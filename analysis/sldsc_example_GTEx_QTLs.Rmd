@@ -11,6 +11,24 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Run S-LDSC on data from Hormozdiari, F. et al. Nature Genetics 2018 paper
+* Use the `GTEx_FE_META_TISSUE_GE_MaxCPP` annotation (MaxCPP annotation computed from fixed-effect meta-analysis of eQTLs from 44 GTEx tissues)
+* Compute the `GTEx_FE_META_TISSUE_GE_MaxCPP` annotation conditional on `baselineLD_v1.1`
+```{bash, eval=FALSE}
+
+TRAITS=("PASS_BMI1" "PASS_Rheumatoid_Arthritis" "PASS_Schizophrenia" "UKB_460K.blood_WHITE_COUNT" "UKB_460K.blood_PLATELET_COUNT")
+
+for trait in "${TRAITS[@]}"
+do
+  sbatch ~/projects/analysis_pipelines/code/sldsc_annot_GTEx_QTL_separate_example.sbatch ${trait} GTEx_FE_META_TISSUE_GE_MaxCPP
+done
+
+```
+
+## Extract S-LDSC enrichment for the `GTEx_FE_META_TISSUE_GE_MaxCPP` annotation
+* Note: the enrichment values of those traits should match those in the supplementary table 10 of Hormozdiari, F. et al. Nature Genetics 2018 paper.
+
+
 ```{r}
 ## barplot for S-LDSC enrichment 
 barplot_enrichment <- function(result_sLDSC, ylim = NULL, title = "", horizontal = FALSE){
@@ -49,22 +67,6 @@ change_trait_names <- function(trait_namelist){
 
 ```
 
-## Run S-LDSC on data from Hormozdiari, F. et al. Nature Genetics 2018 paper
-* Use the `GTEx_FE_META_TISSUE_GE_MaxCPP` annotation (MaxCPP annotation computed from fixed-effect meta-analysis of eQTLs from 44 GTEx tissues)
-* Compute the `GTEx_FE_META_TISSUE_GE_MaxCPP` annotation conditional on `baselineLD_v1.1`
-```{bash, eval=FALSE}
-
-TRAITS=("PASS_BMI1" "PASS_Rheumatoid_Arthritis" "PASS_Schizophrenia" "UKB_460K.blood_WHITE_COUNT" "UKB_460K.blood_PLATELET_COUNT")
-
-for trait in "${TRAITS[@]}"
-do
-  sbatch ~/projects/analysis_pipelines/code/sldsc_annot_GTEx_QTL_separate_example.sbatch ${trait} GTEx_FE_META_TISSUE_GE_MaxCPP
-done
-
-```
-
-## Extract S-LDSC enrichment for the `GTEx_FE_META_TISSUE_GE_MaxCPP` annotation
-* Note: the enrichment values of those traits should match those in the supplementary table 10 of Hormozdiari, F. et al. Nature Genetics 2018 paper.
 ```{r}
 library(foreach)
 library(doParallel)
@@ -90,6 +92,7 @@ DT::datatable(format(result_sLDSC, digits = 3), options = list(scrollX = TRUE, k
 
 ### Plot S-LDSC enrichment for the `GTEx_FE_META_TISSUE_GE_MaxCPP` annotation
 * Error bars represent 95% CI
+
 ```{r, fig.height=4, fig.width=4}
 library(ggplot2)
 
