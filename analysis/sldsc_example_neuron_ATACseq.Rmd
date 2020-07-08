@@ -152,3 +152,11 @@ do
 done
 
 ```
+
+```{bash, eval=FALSE, include=FALSE}
+for trait in "${TRAITS[@]}"
+do
+  sbatch ${dir_code}/run_sldsc_annots_neuron_ATACseq.sbatch ${dir_GWAS} ${trait} ${dir_sLDSC_output}
+done
+```
+
