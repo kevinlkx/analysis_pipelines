@@ -15,7 +15,7 @@
 
 <title>s-LDSC example analysis using neuron ATAC-seq data</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -27,6 +27,14 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.13/datatables.js"></script>
+<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -504,16 +512,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree54180eeb81250bd77554f568baa1fd8f676f3c5atargetblank54180eea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/54180eeb81250bd77554f568baa1fd8f676f3c5a" target="_blank">54180ee</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreee2d790426655bd655623b2ae253f98cfcab816c0targetblanke2d7904a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/e2d790426655bd655623b2ae253f98cfcab816c0" target="_blank">e2d7904</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree54180eeb81250bd77554f568baa1fd8f676f3c5atargetblank54180eea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreee2d790426655bd655623b2ae253f98cfcab816c0targetblanke2d7904a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/54180eeb81250bd77554f568baa1fd8f676f3c5a" target="_blank">54180ee</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/e2d790426655bd655623b2ae253f98cfcab816c0" target="_blank">e2d7904</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -560,6 +568,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/e2d790426655bd655623b2ae253f98cfcab816c0/analysis/sldsc_example_neuron_ATACseq.Rmd" target="_blank">e2d7904</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-07-08
+</td>
+<td>
+wflow_publish(“analysis/sldsc_example_neuron_ATACseq.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/271e3417479a28aee62163ee706ef224c93adad4/docs/sldsc_example_neuron_ATACseq.html" target="_blank">271e341</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-07-08
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -854,6 +896,188 @@ do
   sbatch ${dir_code}/sldsc_annot_baselineLD_separate.sbatch ${dir_GWAS} ${trait} ASoC_npc_anno_hg19 ${dir_sLDSC_output}
 done
 </code></pre>
+</div>
+</div>
+<div id="extract-and-plot-s-ldsc-enrichment-results" class="section level2">
+<h2>Extract and plot S-LDSC enrichment results</h2>
+<pre class="r"><code>annot_list &lt;- c(&quot;iN-Glut ASoC&quot;, &quot;NPC ASoC&quot;, &quot;iN-GA OCR&quot;, &quot;iN-DN OCR&quot;, &quot;NPC OCR&quot;, &quot;iN-Glut OCR&quot;, &quot;iPSC OCR&quot;)
+trait_name_list &lt;- c(&quot;SCZ&quot;, &quot;BIP&quot;, &quot;MDD&quot;, &quot;Intelligence&quot;, &quot;IBD&quot;)</code></pre>
+<pre class="r"><code>library(ggplot2)
+library(foreach)
+library(doParallel)</code></pre>
+<pre><code>Loading required package: iterators</code></pre>
+<pre><code>Loading required package: parallel</code></pre>
+<pre class="r"><code>## Plot enrichment
+ggplot_enrichment &lt;- function(result_sLDSC, xlim = NULL, title = &quot;Enrichment&quot;){
+  
+  Enrichment &lt;- result_sLDSC$Enrichment
+  Enrichment_CI_L &lt;- result_sLDSC$Enrichment - 1.96*result_sLDSC$Enrichment_std_error
+  Enrichment_CI_H &lt;- result_sLDSC$Enrichment + 1.96*result_sLDSC$Enrichment_std_error
+
+  ## truncate at 1
+  Enrichment[Enrichment &lt; 1] &lt;- 1
+  Enrichment_CI_L[Enrichment_CI_L &lt; 1] &lt;- 1
+  Enrichment_CI_H[Enrichment_CI_H &lt; 1] &lt;- 1
+  
+  p &lt;- ggplot(result_sLDSC, aes(x = Enrichment, y = Category, colour = Color))+
+    geom_point()+
+    xlab(&quot;Enrichment&quot;)+
+    ggtitle(title)+
+    geom_errorbarh(aes(xmin = Enrichment - 1.96*Enrichment_std_error, 
+                       xmax = Enrichment + 1.96*Enrichment_std_error, height = 0.1))+ 
+    facet_wrap(Disease~.,ncol = 3)+
+    theme_bw()  + 
+    geom_vline(xintercept = 1,linetype=&quot;dotted&quot;, colour = &quot;red&quot;)+
+    theme(axis.ticks = element_blank(),  
+          panel.grid.minor = element_blank(), 
+          axis.line = element_line(colour = &quot;black&quot;), 
+          axis.text = element_text(face=&quot;bold&quot;,size = 12, colour = &quot;black&quot;),
+          axis.title = element_text(face=&quot;bold&quot;,size = 12),
+          strip.text = element_text(face=&quot;bold&quot;,size = 12), 
+          panel.spacing.x = unit(0.6,units = &quot;cm&quot;), 
+          axis.title.y = element_blank(), 
+          legend.position = &quot;none&quot;, 
+          plot.title = element_text(hjust = 0.5))
+  if(!is.null(xlim)){
+    p &lt;- p + coord_cartesian(xlim = xlim)
+  }
+  print(p)
+}
+
+ggplot_log2_enrichment &lt;- function(result_sLDSC, xlim = NULL, title = &quot;Enrichment&quot;){
+  
+  result_sLDSC$Enrichment_CI_L &lt;- result_sLDSC$Enrichment - 1.96*result_sLDSC$Enrichment_std_error
+  result_sLDSC$Enrichment_CI_H &lt;- result_sLDSC$Enrichment + 1.96*result_sLDSC$Enrichment_std_error
+
+  ## truncate at 1
+  result_sLDSC$Enrichment[result_sLDSC$Enrichment &lt; 1] &lt;- 1
+  result_sLDSC$Enrichment_CI_L[result_sLDSC$Enrichment_CI_L &lt; 1] &lt;- 1
+  result_sLDSC$Enrichment_CI_H[result_sLDSC$Enrichment_CI_H &lt; 1] &lt;- 1
+
+  p &lt;- ggplot(result_sLDSC, aes(x = log2(Enrichment), y = Category, colour = Color))+
+    geom_point()+
+    xlab(&quot;log2(Enrichment)&quot;)+
+    ggtitle(title)+
+    geom_errorbarh(aes(xmin = log2(Enrichment_CI_L), 
+                       xmax = log2(Enrichment_CI_H), height = 0.1))+ 
+    facet_wrap(Disease~.,ncol = 3)+
+    theme_bw()  + 
+    geom_vline(xintercept = 0,linetype=&quot;dotted&quot;, colour = &quot;red&quot;)+
+    theme(axis.ticks = element_blank(),  
+          panel.grid.minor = element_blank(), 
+          axis.line = element_line(colour = &quot;black&quot;), 
+          axis.text = element_text(face=&quot;bold&quot;,size = 12, colour = &quot;black&quot;),
+          axis.title = element_text(face=&quot;bold&quot;,size = 12),
+          strip.text = element_text(face=&quot;bold&quot;,size = 12), 
+          panel.spacing.x = unit(0.6,units = &quot;cm&quot;), 
+          axis.title.y = element_blank(), 
+          legend.position = &quot;none&quot;, 
+          plot.title = element_text(hjust = 0.5))
+  if(!is.null(xlim)){
+    p &lt;- p + coord_cartesian(xlim = xlim)
+  }
+  print(p)
+}
+
+ggplot_heritability &lt;- function(result_sLDSC, xlim = NULL, title = &quot;Heritability&quot;){
+  ## Proportion of heritability
+  p &lt;- ggplot(result_sLDSC, aes(x = Prop._h2*100, y = Category, colour = Color))+
+    geom_point()+
+    xlab(&quot;Heritability %&quot;)+
+    ggtitle(title)+
+    geom_errorbarh(aes(xmin = (Prop._h2-1.96*Prop._h2_std_error)*100, 
+                       xmax = (Prop._h2+1.96*Prop._h2_std_error)*100, height = 0.1))+ 
+    facet_wrap(Disease~.,ncol = 3)+
+    theme_bw()  + 
+    geom_vline(xintercept = 0,linetype=&quot;dotted&quot;, colour = &quot;red&quot;)+
+    theme(axis.ticks = element_blank(),  
+          panel.grid.minor = element_blank(), 
+          axis.line = element_line(colour = &quot;black&quot;), 
+          axis.text = element_text(face=&quot;bold&quot;,size = 12, colour = &quot;black&quot;),
+          axis.title = element_text(face=&quot;bold&quot;,size = 12),
+          strip.text = element_text(face=&quot;bold&quot;,size = 12), 
+          panel.spacing.x = unit(0.6,units = &quot;cm&quot;), 
+          axis.title.y = element_blank(), 
+          legend.position = &quot;none&quot;, 
+          plot.title = element_text(hjust = 0.5))
+  if(!is.null(xlim)){
+    p &lt;- p + coord_cartesian(xlim = xlim)
+  }
+  print(p)
+}
+
+## change names for traits
+change_annot_names &lt;- function(annot_list){
+  annot_list &lt;- gsub(&quot;^CN$&quot;,&quot;iN-Glut OCR&quot;, annot_list)
+  annot_list &lt;- gsub(&quot;^DN$&quot;,&quot;iN-DN OCR&quot;, annot_list)
+  annot_list &lt;- gsub(&quot;^GA$&quot;,&quot;iN-GA OCR&quot;, annot_list)
+  annot_list &lt;- gsub(&quot;^ips$&quot;,&quot;iPSC OCR&quot;, annot_list)
+  annot_list &lt;- gsub(&quot;^NSC$&quot;,&quot;NPC OCR&quot;, annot_list)
+  annot_list &lt;- gsub(&quot;^ASoC_glut$&quot;,&quot;iN-Glut ASoC&quot;, annot_list)
+  annot_list &lt;- gsub(&quot;^ASoC_npc$&quot;,&quot;NPC ASoC&quot;, annot_list)
+  return(annot_list)
+}
+
+## combine S-LDSC enrichment results across traits
+combine_sldsc_traits &lt;- function(trait_name_list, dir_results, baseline){
+  registerDoParallel(cores = 10)
+  
+  result_sLDSC &lt;- foreach(trait = trait_name_list, .combine = rbind)%dopar%{
+    sldsc_results &lt;- read.table(paste0(dir_results,&quot;/&quot;, trait, &quot;/&quot;, baseline, &quot;/&quot;, trait,&quot;_&quot;, &quot;CN_all_peaks.narrowPeak.cleaned.hg19.merged&quot;, &quot;_&quot;, baseline, &quot;.results&quot;), header = T, stringsAsFactors = F)
+    sldsc.CN &lt;- sldsc_results[sldsc_results$Category == &quot;L2_1&quot;,]
+    sldsc.CN$Category &lt;- &quot;CN&quot;
+    
+    sldsc_results &lt;- read.table(paste0(dir_results,&quot;/&quot;, trait, &quot;/&quot;, baseline, &quot;/&quot;, trait,&quot;_&quot;, &quot;DN_all_peaks.narrowPeak.cleaned.hg19.merged&quot;, &quot;_&quot;, baseline, &quot;.results&quot;), header = T, stringsAsFactors = F)
+    sldsc.DN &lt;- sldsc_results[sldsc_results$Category == &quot;L2_1&quot;,]
+    sldsc.DN$Category &lt;- &quot;DN&quot;
+    
+    sldsc_results &lt;- read.table(paste0(dir_results,&quot;/&quot;, trait, &quot;/&quot;, baseline, &quot;/&quot;, trait,&quot;_&quot;, &quot;GA_all_peaks.narrowPeak.cleaned.hg19.merged&quot;, &quot;_&quot;, baseline, &quot;.results&quot;), header = T, stringsAsFactors = F)
+    sldsc.GA &lt;- sldsc_results[sldsc_results$Category == &quot;L2_1&quot;,]
+    sldsc.GA$Category &lt;- &quot;GA&quot;
+    
+    sldsc_results &lt;- read.table(paste0(dir_results,&quot;/&quot;, trait, &quot;/&quot;, baseline, &quot;/&quot;, trait,&quot;_&quot;, &quot;ips_all_peaks.narrowPeak.cleaned.hg19.merged&quot;, &quot;_&quot;, baseline, &quot;.results&quot;), header = T, stringsAsFactors = F)
+    sldsc.ips &lt;- sldsc_results[sldsc_results$Category == &quot;L2_1&quot;,]
+    sldsc.ips$Category &lt;- &quot;ips&quot;
+    
+    sldsc_results &lt;- read.table(paste0(dir_results,&quot;/&quot;, trait, &quot;/&quot;, baseline, &quot;/&quot;, trait,&quot;_&quot;, &quot;NSC_all_peaks.narrowPeak.cleaned.hg19.merged&quot;, &quot;_&quot;, baseline, &quot;.results&quot;), header = T, stringsAsFactors = F)
+    sldsc.NSC &lt;- sldsc_results[sldsc_results$Category == &quot;L2_1&quot;,]
+    sldsc.NSC$Category &lt;- &quot;NSC&quot;
+    
+    sldsc_results &lt;- read.table(paste0(dir_results,&quot;/&quot;, trait, &quot;/&quot;, baseline, &quot;/&quot;, trait,&quot;_&quot;, &quot;ASoC_glut_anno_hg19&quot;, &quot;_&quot;, baseline, &quot;.results&quot;), header = T, stringsAsFactors = F)
+    sldsc.ASoC_glut &lt;- sldsc_results[sldsc_results$Category == &quot;L2_1&quot;,]
+    sldsc.ASoC_glut$Category &lt;- &quot;ASoC_glut&quot;
+    
+    sldsc_results &lt;- read.table(paste0(dir_results,&quot;/&quot;, trait, &quot;/&quot;, baseline, &quot;/&quot;, trait,&quot;_&quot;, &quot;ASoC_npc_anno_hg19&quot;, &quot;_&quot;, baseline, &quot;.results&quot;), header = T, stringsAsFactors = F)
+    sldsc.ASoC_npc &lt;- sldsc_results[sldsc_results$Category == &quot;L2_1&quot;,]
+    sldsc.ASoC_npc$Category &lt;- &quot;ASoC_npc&quot;
+    
+    sldsc.combined &lt;- rbind(sldsc.CN, sldsc.DN, sldsc.GA, sldsc.ips, sldsc.NSC, sldsc.ASoC_glut, sldsc.ASoC_npc)
+    sldsc.combined &lt;- cbind(Disease = trait, sldsc.combined)
+    sldsc.combined
+  }
+  return(result_sLDSC)
+}</code></pre>
+<pre class="r"><code>baseline &lt;- &quot;baselineLDv1.1&quot;
+
+dir_results &lt;- &quot;/project2/xinhe/kevinluo/ldsc/results/sLDSC_neuron_ATACseq_examples/&quot;
+result_sLDSC &lt;- combine_sldsc_traits(trait_name_list, dir_results, baseline)
+
+result_sLDSC$Category &lt;- change_annot_names(result_sLDSC$Category)
+
+result_sLDSC$Category &lt;- factor(result_sLDSC$Category, levels = rev(annot_list) )
+result_sLDSC$Color &lt;- factor(result_sLDSC$Category, levels = annot_list)</code></pre>
+<div id="enrichment" class="section level4">
+<h4>Enrichment</h4>
+<pre class="r"><code>DT::datatable(format(result_sLDSC[,1:7], digits = 2), options = list(scrollX = TRUE, keys = TRUE, pageLength = length(annot_list)),rownames = F)</code></pre>
+<div id="htmlwidget-8316daeedf19885da48f" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8316daeedf19885da48f">{"x":{"filter":"none","data":[["SCZ","SCZ","SCZ","SCZ","SCZ","SCZ","SCZ","BIP","BIP","BIP","BIP","BIP","BIP","BIP","MDD","MDD","MDD","MDD","MDD","MDD","MDD","Intelligence","Intelligence","Intelligence","Intelligence","Intelligence","Intelligence","Intelligence","IBD","IBD","IBD","IBD","IBD","IBD","IBD"],["iN-Glut OCR","iN-DN OCR","iN-GA OCR","iPSC OCR","NPC OCR","iN-Glut ASoC","NPC ASoC","iN-Glut OCR","iN-DN OCR","iN-GA OCR","iPSC OCR","NPC OCR","iN-Glut ASoC","NPC ASoC","iN-Glut OCR","iN-DN OCR","iN-GA OCR","iPSC OCR","NPC OCR","iN-Glut ASoC","NPC ASoC","iN-Glut OCR","iN-DN OCR","iN-GA OCR","iPSC OCR","NPC OCR","iN-Glut ASoC","NPC ASoC","iN-Glut OCR","iN-DN OCR","iN-GA OCR","iPSC OCR","NPC OCR","iN-Glut ASoC","NPC ASoC"],["0.03635","0.05724","0.05900","0.08299","0.03188","0.00079","0.00050","0.03635","0.05724","0.05900","0.08299","0.03188","0.00079","0.00050","0.03635","0.05724","0.05900","0.08299","0.03188","0.00079","0.00050","0.03635","0.05724","0.05900","0.08299","0.03188","0.00079","0.00050","0.03635","0.05724","0.05900","0.08299","0.03188","0.00079","0.00050"],[" 0.1496"," 0.2280"," 0.2616"," 0.1649"," 0.1285"," 0.0109"," 0.0091"," 0.1267"," 0.2396"," 0.2538"," 0.1396"," 0.1056"," 0.0112"," 0.0198"," 0.1204"," 0.2308"," 0.3042"," 0.0804"," 0.0954"," 0.0181"," 0.0102"," 0.2022"," 0.3174"," 0.2871"," 0.2473"," 0.1776"," 0.0147"," 0.0069","-0.1578","-0.1867","-0.2022","-0.1876","-0.0888"," 0.0033","-0.0054"],["0.0298","0.0335","0.0331","0.0402","0.0295","0.0073","0.0049","0.0487","0.0544","0.0561","0.0623","0.0423","0.0118","0.0086","0.0562","0.0664","0.0654","0.0718","0.0537","0.0114","0.0096","0.0246","0.0321","0.0310","0.0337","0.0255","0.0059","0.0055","0.0740","0.0960","0.0872","0.1168","0.0743","0.0148","0.0101"],["  4.11","  3.98","  4.43","  1.99","  4.03"," 13.77"," 18.37","  3.48","  4.19","  4.30","  1.68","  3.31"," 14.16"," 39.85","  3.31","  4.03","  5.16","  0.97","  2.99"," 22.84"," 20.63","  5.56","  5.54","  4.87","  2.98","  5.57"," 18.62"," 13.91"," -4.34"," -3.26"," -3.43"," -2.26"," -2.79","  4.19","-10.89"],[" 0.82"," 0.59"," 0.56"," 0.48"," 0.92"," 9.22"," 9.97"," 1.34"," 0.95"," 0.95"," 0.75"," 1.33","14.92","17.35"," 1.55"," 1.16"," 1.11"," 0.86"," 1.68","14.44","19.29"," 0.68"," 0.56"," 0.53"," 0.41"," 0.80"," 7.50","11.10"," 2.03"," 1.68"," 1.48"," 1.41"," 2.33","18.74","20.42"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Disease<\/th>\n      <th>Category<\/th>\n      <th>Prop._SNPs<\/th>\n      <th>Prop._h2<\/th>\n      <th>Prop._h2_std_error<\/th>\n      <th>Enrichment<\/th>\n      <th>Enrichment_std_error<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"keys":true,"pageLength":7,"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[7,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>ggplot_enrichment(result_sLDSC, title = &quot;&quot;, xlim = c(0,50))</code></pre>
+<p><img src="figure/sldsc_example_neuron_ATACseq.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="log2-enrichment" class="section level4">
+<h4>log2 Enrichment</h4>
+<pre class="r"><code>ggplot_log2_enrichment(result_sLDSC, title = &quot;&quot;)</code></pre>
+<p><img src="figure/sldsc_example_neuron_ATACseq.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -878,18 +1102,27 @@ locale:
 [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
 attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
+[1] parallel  stats     graphics  grDevices utils     datasets  methods  
+[8] base     
 
 other attached packages:
-[1] workflowr_1.6.2
+[1] doParallel_1.0.14 iterators_1.0.12  foreach_1.5.0     ggplot2_3.3.0    
+[5] workflowr_1.6.2  
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.4.6    rprojroot_1.3-2 digest_0.6.25   later_1.0.0    
- [5] R6_2.4.1        backports_1.1.7 git2r_0.27.1    magrittr_1.5   
- [9] evaluate_0.14   stringi_1.4.6   rlang_0.4.6     fs_1.3.1       
-[13] promises_1.1.0  whisker_0.4     rmarkdown_2.1   tools_3.5.1    
-[17] stringr_1.4.0   glue_1.4.1      httpuv_1.5.3.1  xfun_0.14      
-[21] yaml_2.2.0      compiler_3.5.1  htmltools_0.4.0 knitr_1.28     </code></pre>
+ [1] Rcpp_1.0.4.6      compiler_3.5.1    pillar_1.4.4      later_1.0.0      
+ [5] git2r_0.27.1      tools_3.5.1       digest_0.6.25     jsonlite_1.6     
+ [9] evaluate_0.14     lifecycle_0.2.0   tibble_3.0.1      gtable_0.3.0     
+[13] pkgconfig_2.0.3   rlang_0.4.6       shiny_1.4.0.2     crosstalk_1.0.0  
+[17] yaml_2.2.0        xfun_0.14         fastmap_1.0.1     withr_2.1.2      
+[21] stringr_1.4.0     dplyr_0.8.5       knitr_1.28        htmlwidgets_1.5.1
+[25] fs_1.3.1          vctrs_0.3.0       DT_0.13           rprojroot_1.3-2  
+[29] grid_3.5.1        tidyselect_0.2.5  glue_1.4.1        R6_2.4.1         
+[33] rmarkdown_2.1     farver_2.0.3      purrr_0.3.4       magrittr_1.5     
+[37] whisker_0.4       codetools_0.2-15  backports_1.1.7   scales_1.1.1     
+[41] promises_1.1.0    htmltools_0.4.0   ellipsis_0.3.1    assertthat_0.2.1 
+[45] xtable_1.8-4      mime_0.9          colorspace_1.4-1  httpuv_1.5.3.1   
+[49] labeling_0.3      stringi_1.4.6     munsell_0.5.0     crayon_1.3.4     </code></pre>
 </div>
 </div>
 </div>
