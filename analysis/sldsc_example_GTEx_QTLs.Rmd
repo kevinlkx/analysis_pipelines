@@ -70,7 +70,7 @@ library(foreach)
 library(doParallel)
 registerDoParallel(cores = 6)
 
-dir_results <- paste0("/project2/xinhe/kevinluo/ldsc/results/sLDSC_Hormozdiari_NG2018/LDSC_QTL/results/")
+dir_results <- paste0("/project2/xinhe/kevinluo/ldsc/results/sLDSC_Hormozdiari_NG2018/LDSC_QTL/results_sLDSC/")
 
 trait_name_list <- c("PASS_BMI1", "PASS_Rheumatoid_Arthritis", "PASS_Schizophrenia", "UKB_460K.blood_WHITE_COUNT", "UKB_460K.blood_PLATELET_COUNT")
 
