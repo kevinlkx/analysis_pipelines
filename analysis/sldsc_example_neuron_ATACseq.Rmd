@@ -79,10 +79,12 @@ Computed LD scores for ATAC-seq peaks and ASoC annotations can be found in `/pro
 ## Partition heritability using S-LDSC
 https://github.com/bulik/ldsc/wiki/Partitioned-Heritability
 
-### Prepare GWAS summary stats in LDSC format
-Convert GWAS summary stats to the .sumstats format using `munge_sumstats.py`
+### Prepare GWAS summary statistics in LDSC format
+Convert GWAS summary statistics to the .sumstats format using `munge_sumstats.py`
 
 See this page for [details](process_GWAS_sumstats_neuro_traits.html)
+
+Converted GWAS summary statistics (LDSC format) are available in  `/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/ldsc_format/`
 
 ### Partition heritability
 
