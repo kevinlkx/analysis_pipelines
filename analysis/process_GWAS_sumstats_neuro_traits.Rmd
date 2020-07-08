@@ -1,0 +1,366 @@
+---
+title: "Convert GWAS summary stats to LDSC format"
+author: "Kaixuan Luo"
+date: "11/21/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#### ADHD
+```{bash, eval=FALSE}
+conda activate ldsc
+
+trait="ADHD"
+mkdir -p /project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/
+ln -s /project2/xinhe/mqiao/GWAS/ADHD/adhd_jul2017.gz /project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/
+
+dir_GWAS_ldsc_format="/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/ldsc_format/"
+filename_GWAS_ldsc="/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/adhd_jul2017.gz"
+
+cd ${dir_GWAS_ldsc_format}
+zless ${filename_GWAS_ldsc} | head
+
+python $HOME/softwares/ldsc/munge_sumstats.py \
+--sumstats ${filename_GWAS_ldsc} \
+--merge-alleles /project2/xinhe/m6A/ldsc/LDSCORE/w_hm3.snplist \
+--N 55374 \
+--chunksize 500000 \
+--out ${dir_GWAS_ldsc_format}/${trait}
+
+zcat ${dir_GWAS_ldsc_format}/${trait}.sumstats.gz | awk '$2!=""' | gzip > ${dir_GWAS_ldsc_format}/${trait}.cleaned.sumstats.gz
+mv ${dir_GWAS_ldsc_format}/${trait}.cleaned.sumstats.gz ${dir_GWAS_ldsc_format}/${trait}.sumstats.gz
+
+```
+
+#### IBD
+```{bash, eval=FALSE}
+conda activate ldsc
+
+trait="IBD"
+mkdir -p /project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/
+ln -s /project2/xinhe/mqiao/GWAS/IBD/EUR.IBD.gwas_info03_filtered.assoc /project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/
+
+dir_GWAS_ldsc_format="/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/ldsc_format/"
+filename_GWAS_ldsc="/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/EUR.IBD.gwas_info03_filtered.assoc"
+
+cd ${dir_GWAS_ldsc_format}
+zless ${filename_GWAS_ldsc} | head
+
+python $HOME/softwares/ldsc/munge_sumstats.py \
+--sumstats ${filename_GWAS_ldsc} \
+--merge-alleles /project2/xinhe/m6A/ldsc/LDSCORE/w_hm3.snplist \
+--N 96486 \
+--chunksize 500000 \
+--out ${dir_GWAS_ldsc_format}/${trait}
+
+zcat ${dir_GWAS_ldsc_format}/${trait}.sumstats.gz | awk '$2!=""' | gzip > ${dir_GWAS_ldsc_format}/${trait}.cleaned.sumstats.gz
+mv ${dir_GWAS_ldsc_format}/${trait}.cleaned.sumstats.gz ${dir_GWAS_ldsc_format}/${trait}.sumstats.gz
+
+```
+
+
+#### BMI
+```{bash, eval=FALSE}
+conda activate ldsc
+
+trait="BMI"
+mkdir -p /project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/
+ln -s /project2/xinhe/mqiao/GWAS/BMI/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED.txt.gz /project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/
+
+dir_GWAS_ldsc_format="/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/ldsc_format/"
+
+filename_GWAS_ldsc="/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED.txt.gz"
+
+cd ${dir_GWAS_ldsc_format}
+zless ${filename_GWAS_ldsc} | head
+
+python $HOME/softwares/ldsc/munge_sumstats.py \
+--sumstats ${filename_GWAS_ldsc} \
+--merge-alleles /project2/xinhe/m6A/ldsc/LDSCORE/w_hm3.snplist \
+--a1 Tested_Allele \
+--a2 Other_Allele \
+--chunksize 500000 \
+--out ${dir_GWAS_ldsc_format}/${trait}
+
+zcat ${dir_GWAS_ldsc_format}/${trait}.sumstats.gz | awk '$2!=""' | gzip > ${dir_GWAS_ldsc_format}/${trait}.cleaned.sumstats.gz
+mv ${dir_GWAS_ldsc_format}/${trait}.cleaned.sumstats.gz ${dir_GWAS_ldsc_format}/${trait}.sumstats.gz
+
+```
+
+
+#### height
+```{bash, eval=FALSE}
+conda activate ldsc
+
+trait="height"
+mkdir -p /project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/
+ln -s /project2/xinhe/mqiao/GWAS/height/GIANT_HEIGHT_Wood_et_al_2014_publicrelease_HapMapCeuFreq.txt.gz /project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/
+
+dir_GWAS_ldsc_format="/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/ldsc_format/"
+
+filename_GWAS_ldsc="/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/GIANT_HEIGHT_Wood_et_al_2014_publicrelease_HapMapCeuFreq.txt.gz"
+
+cd ${dir_GWAS_ldsc_format}
+zless ${filename_GWAS_ldsc} | head
+
+python $HOME/softwares/ldsc/munge_sumstats.py \
+--sumstats ${filename_GWAS_ldsc} \
+--merge-alleles /project2/xinhe/m6A/ldsc/LDSCORE/w_hm3.snplist \
+--chunksize 500000 \
+--out ${dir_GWAS_ldsc_format}/${trait}
+
+zcat ${dir_GWAS_ldsc_format}/${trait}.sumstats.gz | awk '$2!=""' | gzip > ${dir_GWAS_ldsc_format}/${trait}.cleaned.sumstats.gz
+mv ${dir_GWAS_ldsc_format}/${trait}.cleaned.sumstats.gz ${dir_GWAS_ldsc_format}/${trait}.sumstats.gz
+```
+
+#### SCZ
+```{bash, eval=FALSE}
+conda activate ldsc
+
+trait="SCZ"
+mkdir -p /project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/
+ln -s /project2/xinhe/mqiao/GWAS/SCZ/scz2.snp.results.txt.gz /project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/
+
+dir_GWAS_ldsc_format="/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/ldsc_format/"
+
+filename_GWAS_ldsc="/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/scz2.snp.results.txt.gz"
+
+cd ${dir_GWAS_ldsc_format}
+zless ${filename_GWAS_ldsc} | head
+
+python $HOME/softwares/ldsc/munge_sumstats.py \
+--sumstats ${filename_GWAS_ldsc} \
+--merge-alleles /project2/xinhe/m6A/ldsc/LDSCORE/w_hm3.snplist \
+--N 79845 \
+--chunksize 500000 \
+--out ${dir_GWAS_ldsc_format}/${trait}
+
+zcat ${dir_GWAS_ldsc_format}/${trait}.sumstats.gz | awk '$2!=""' | gzip > ${dir_GWAS_ldsc_format}/${trait}.cleaned.sumstats.gz
+mv ${dir_GWAS_ldsc_format}/${trait}.cleaned.sumstats.gz ${dir_GWAS_ldsc_format}/${trait}.sumstats.gz
+
+```
+
+#### BIP
+```{bash, eval=FALSE}
+conda activate ldsc
+
+trait="BIP"
+mkdir -p /project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/
+ln -s /project2/xinhe/mqiao/GWAS/BIP/daner_PGC_BIP32b_mds7a_0416a.gz /project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/
+
+dir_GWAS_ldsc_format="/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/ldsc_format/"
+
+filename_GWAS_ldsc="/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/daner_PGC_BIP32b_mds7a_0416a.gz"
+
+cd ${dir_GWAS_ldsc_format}
+zless ${filename_GWAS_ldsc} | head
+
+python $HOME/softwares/ldsc/munge_sumstats.py \
+--sumstats ${filename_GWAS_ldsc} \
+--merge-alleles /project2/xinhe/m6A/ldsc/LDSCORE/w_hm3.snplist \
+--N-cas-col "Nca" \
+--N-con-col "Nco" \
+--chunksize 500000 \
+--out ${dir_GWAS_ldsc_format}/${trait}
+
+zcat ${dir_GWAS_ldsc_format}/${trait}.sumstats.gz | awk '$2!=""' | gzip > ${dir_GWAS_ldsc_format}/${trait}.cleaned.sumstats.gz
+mv ${dir_GWAS_ldsc_format}/${trait}.cleaned.sumstats.gz ${dir_GWAS_ldsc_format}/${trait}.sumstats.gz
+```
+
+
+#### MDD
+```{bash, eval=FALSE}
+conda activate ldsc
+
+trait="MDD"
+mkdir -p /project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/
+ln -s /project2/xinhe/mqiao/GWAS/MDD/MDD2018_ex23andMe.gz /project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/
+
+dir_GWAS_ldsc_format="/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/ldsc_format/"
+
+filename_GWAS_ldsc="/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/MDD2018_ex23andMe.gz"
+
+cd ${dir_GWAS_ldsc_format}
+zless ${filename_GWAS_ldsc} | head
+
+python $HOME/softwares/ldsc/munge_sumstats.py \
+--sumstats ${filename_GWAS_ldsc} \
+--merge-alleles /project2/xinhe/m6A/ldsc/LDSCORE/w_hm3.snplist \
+--N-cas-col "Nca" \
+--N-con-col "Nco" \
+--chunksize 500000 \
+--out ${dir_GWAS_ldsc_format}/${trait}
+
+zcat ${dir_GWAS_ldsc_format}/${trait}.sumstats.gz | awk '$2!=""' | gzip > ${dir_GWAS_ldsc_format}/${trait}.cleaned.sumstats.gz
+mv ${dir_GWAS_ldsc_format}/${trait}.cleaned.sumstats.gz ${dir_GWAS_ldsc_format}/${trait}.sumstats.gz
+```
+
+#### iPSYCH_ASD
+```{bash, eval=FALSE}
+conda activate ldsc
+
+trait="iPSYCH_ASD"
+mkdir -p /project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/
+ln -s /project2/xinhe/mqiao/GWAS/iPSYCH_ASD/iPSYCH-PGC_ASD_Nov2017.gz /project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/
+
+dir_GWAS_ldsc_format="/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/ldsc_format/"
+
+filename_GWAS_ldsc="/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/iPSYCH-PGC_ASD_Nov2017.gz"
+
+cd ${dir_GWAS_ldsc_format}
+zless ${filename_GWAS_ldsc} | head
+
+python $HOME/softwares/ldsc/munge_sumstats.py \
+--sumstats ${filename_GWAS_ldsc} \
+--merge-alleles /project2/xinhe/m6A/ldsc/LDSCORE/w_hm3.snplist \
+--N 46350 \
+--chunksize 500000 \
+--out ${dir_GWAS_ldsc_format}/${trait}
+
+zcat ${dir_GWAS_ldsc_format}/${trait}.sumstats.gz | awk '$2!=""' | gzip > ${dir_GWAS_ldsc_format}/${trait}.cleaned.sumstats.gz
+mv ${dir_GWAS_ldsc_format}/${trait}.cleaned.sumstats.gz ${dir_GWAS_ldsc_format}/${trait}.sumstats.gz
+
+```
+
+
+#### Intelligence
+```{bash, eval=FALSE}
+conda activate ldsc
+
+trait="Intelligence"
+mkdir -p /project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/
+ln -s /project2/xinhe/mqiao/GWAS/Intelligence/SavageJansen_2018_intelligence_metaanalysis.txt /project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/
+
+dir_GWAS_ldsc_format="/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/ldsc_format/"
+
+filename_GWAS_ldsc="/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/SavageJansen_2018_intelligence_metaanalysis.txt"
+
+cd ${dir_GWAS_ldsc_format}
+zless ${filename_GWAS_ldsc} | head
+
+python $HOME/softwares/ldsc/munge_sumstats.py \
+--sumstats ${filename_GWAS_ldsc} \
+--merge-alleles /project2/xinhe/m6A/ldsc/LDSCORE/w_hm3.snplist \
+--N-col "N_analyzed" \
+--chunksize 500000 \
+--out ${dir_GWAS_ldsc_format}/${trait}
+
+zcat ${dir_GWAS_ldsc_format}/${trait}.sumstats.gz | awk '$2!=""' | gzip > ${dir_GWAS_ldsc_format}/${trait}.cleaned.sumstats.gz
+mv ${dir_GWAS_ldsc_format}/${trait}.cleaned.sumstats.gz ${dir_GWAS_ldsc_format}/${trait}.sumstats.gz
+```
+
+
+#### Education
+```{bash, eval=FALSE}
+conda activate ldsc
+
+trait="Education"
+mkdir -p /project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/
+ln -s /project2/xinhe/mqiao/GWAS/Education/EduYears_Main.txt.gz /project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/
+
+dir_GWAS_ldsc_format="/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/ldsc_format/"
+
+filename_GWAS_ldsc="/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/EduYears_Main.txt.gz"
+
+cd ${dir_GWAS_ldsc_format}
+zless ${filename_GWAS_ldsc} | head
+
+python $HOME/softwares/ldsc/munge_sumstats.py \
+--sumstats ${filename_GWAS_ldsc} \
+--merge-alleles /project2/xinhe/m6A/ldsc/LDSCORE/w_hm3.snplist \
+--N 293723 \
+--chunksize 500000 \
+--out ${dir_GWAS_ldsc_format}/${trait}
+
+zcat ${dir_GWAS_ldsc_format}/${trait}.sumstats.gz | awk '$2!=""' | gzip > ${dir_GWAS_ldsc_format}/${trait}.cleaned.sumstats.gz
+mv ${dir_GWAS_ldsc_format}/${trait}.cleaned.sumstats.gz ${dir_GWAS_ldsc_format}/${trait}.sumstats.gz
+```
+
+
+#### Neuroticism
+```{bash, eval=FALSE}
+conda activate ldsc
+
+trait="Neuroticism"
+mkdir -p /project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/
+ln -s /project2/xinhe/mqiao/GWAS/Neu/sumstats_neuroticism_ctg_format.txt.gz /project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/
+
+dir_GWAS_ldsc_format="/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/ldsc_format/"
+
+filename_GWAS_ldsc="/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/sumstats_neuroticism_ctg_format.txt.gz"
+
+cd ${dir_GWAS_ldsc_format}
+zless ${filename_GWAS_ldsc} | head
+
+python $HOME/softwares/ldsc/munge_sumstats.py \
+--sumstats ${filename_GWAS_ldsc} \
+--merge-alleles /project2/xinhe/m6A/ldsc/LDSCORE/w_hm3.snplist \
+--snp "RSID" \
+--ignore "SNP" \
+--chunksize 500000 \
+--out ${dir_GWAS_ldsc_format}/${trait}
+
+zcat ${dir_GWAS_ldsc_format}/${trait}.sumstats.gz | awk '$2!=""' | gzip > ${dir_GWAS_ldsc_format}/${trait}.cleaned.sumstats.gz
+mv ${dir_GWAS_ldsc_format}/${trait}.cleaned.sumstats.gz ${dir_GWAS_ldsc_format}/${trait}.sumstats.gz
+```
+
+
+#### Alzheimer
+```{bash, eval=FALSE}
+conda activate ldsc
+
+trait="Alzheimer"
+mkdir -p /project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/
+ln -s /project2/xinhe/mqiao/GWAS/AD_2018/AD_sumstats_Jansenetal.txt.gz /project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/
+
+dir_GWAS_ldsc_format="/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/ldsc_format/"
+
+filename_GWAS_ldsc="/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/AD_sumstats_Jansenetal.txt.gz"
+
+cd ${dir_GWAS_ldsc_format}
+zless ${filename_GWAS_ldsc} | head
+
+python $HOME/softwares/ldsc/munge_sumstats.py \
+--sumstats ${filename_GWAS_ldsc} \
+--merge-alleles /project2/xinhe/m6A/ldsc/LDSCORE/w_hm3.snplist \
+--signed-sumstats Z,0 \
+--N-col "Nsum" \
+--chunksize 500000 \
+--out ${dir_GWAS_ldsc_format}/${trait}
+
+zcat ${dir_GWAS_ldsc_format}/${trait}.sumstats.gz | awk '$2!=""' | gzip > ${dir_GWAS_ldsc_format}/${trait}.cleaned.sumstats.gz
+mv ${dir_GWAS_ldsc_format}/${trait}.cleaned.sumstats.gz ${dir_GWAS_ldsc_format}/${trait}.sumstats.gz
+```
+
+
+#### Parkinson
+```{bash, eval=FALSE}
+conda activate ldsc
+
+trait="Parkinson"
+mkdir -p /project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/
+
+ln -s /project2/xinhe/mqiao/GWAS/Parkinson/Parkinson_GWAS_rsID.gz /project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/
+
+dir_GWAS_ldsc_format="/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/ldsc_format/"
+
+filename_GWAS_ldsc="/project2/xinhe/kevinluo/GWAS/GWAS_summary_stats/GWAS_from_Min/raw_data/Parkinson_GWAS_rsID.gz"
+
+cd ${dir_GWAS_ldsc_format}
+zless ${filename_GWAS_ldsc} | head
+
+python $HOME/softwares/ldsc/munge_sumstats.py \
+--sumstats ${filename_GWAS_ldsc} \
+--merge-alleles /project2/xinhe/m6A/ldsc/LDSCORE/w_hm3.snplist \
+--signed-sumstats b,0 \
+--N 4093 \
+--snp "rsID" \
+--chunksize 500000 \
+--out ${dir_GWAS_ldsc_format}/${trait}
+
+zcat ${dir_GWAS_ldsc_format}/${trait}.sumstats.gz | awk '$2!=""' | gzip > ${dir_GWAS_ldsc_format}/${trait}.cleaned.sumstats.gz
+mv ${dir_GWAS_ldsc_format}/${trait}.cleaned.sumstats.gz ${dir_GWAS_ldsc_format}/${trait}.sumstats.gz
+```
