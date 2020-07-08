@@ -1,5 +1,5 @@
 ---
-title: "s-LDSC example analysis using neuron ATAC-seq data"
+title: "S-LDSC example analysis to estimate the enrichment of GWAS variants in neuron ATAC-seq OCR and ASoC variants"
 author: "Kaixuan Luo"
 date: "07/08/2020"
 output: html_document
@@ -8,6 +8,8 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+This tutorial shows an example analysis using S-LDSC analysis to estimate the enrichment of GWAS variants in neuron ATAC-seq annotations: open chromatin regions (OCR) and allele-specific open chromatin (ASoC) variants.
 
 ## Prepare annotation files and compute LD scores for annotations
 
