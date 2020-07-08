@@ -50,7 +50,7 @@ write.table(ASoC_sig.bed, paste0(dir_annot_bed, "/", annot_name, ".bed"), sep = 
 
 ### Compute LD scores for ATAC-seq peaks and ASoC annotations
 
-The following [code](https://github.com/kevinlkx/analysis_pipelines/code/ldsc_binary_annot_QTL.sbatch) generates ldsc-friendly annotation files (annot.gz) from the annotation BED files, then computes LD scores with the annot file (annot.gz).
+The following [code](https://github.com/kevinlkx/analysis_pipelines/tree/master/code/ldsc_binary_annot_QTL.sbatch) generates ldsc-friendly annotation files (annot.gz) from the annotation BED files, then computes LD scores with the annot file (annot.gz).
 ```{bash, eval=FALSE}
 ## Compute LD scores for ATAC-seq peak annotations
 dir_code=~/projects/analysis_pipelines/code/
@@ -86,9 +86,7 @@ See this page for [details](process_GWAS_sumstats_neuro_traits.html)
 
 ### Partition heritability
 
-The following [code](https://github.com/kevinlkx/analysis_pipelines/code/sldsc_annot_baselineLD_separate.sbatch) estimates the partitioned heritability and enrichment for annotations
-
-* https://github.com/kevinlkx/analysis_pipelines/code/sldsc_annot_baselineLD_separate.sbatch
+The following [code](https://github.com/kevinlkx/analysis_pipelines/tree/master/code/sldsc_annot_baselineLD_separate.sbatch) estimates the partitioned heritability and enrichment for annotations
 ```{bash, eval=FALSE}
 #!/bin/bash
 
