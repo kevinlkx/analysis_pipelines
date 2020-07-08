@@ -160,3 +160,196 @@ do
 done
 ```
 
+## Extract and plot S-LDSC enrichment results
+
+```{r}
+annot_list <- c("iN-Glut ASoC", "NPC ASoC", "iN-GA OCR", "iN-DN OCR", "NPC OCR", "iN-Glut OCR", "iPSC OCR")
+trait_name_list <- c("SCZ", "BIP", "MDD", "Intelligence", "IBD")
+```
+
+```{r}
+library(ggplot2)
+library(foreach)
+library(doParallel)
+
+## Plot enrichment
+ggplot_enrichment <- function(result_sLDSC, xlim = NULL, title = "Enrichment"){
+  
+  Enrichment <- result_sLDSC$Enrichment
+  Enrichment_CI_L <- result_sLDSC$Enrichment - 1.96*result_sLDSC$Enrichment_std_error
+  Enrichment_CI_H <- result_sLDSC$Enrichment + 1.96*result_sLDSC$Enrichment_std_error
+
+  ## truncate at 1
+  Enrichment[Enrichment < 1] <- 1
+  Enrichment_CI_L[Enrichment_CI_L < 1] <- 1
+  Enrichment_CI_H[Enrichment_CI_H < 1] <- 1
+  
+  p <- ggplot(result_sLDSC, aes(x = Enrichment, y = Category, colour = Color))+
+    geom_point()+
+    xlab("Enrichment")+
+    ggtitle(title)+
+    geom_errorbarh(aes(xmin = Enrichment - 1.96*Enrichment_std_error, 
+                       xmax = Enrichment + 1.96*Enrichment_std_error, height = 0.1))+ 
+    facet_wrap(Disease~.,ncol = 3)+
+    theme_bw()  + 
+    geom_vline(xintercept = 1,linetype="dotted", colour = "red")+
+    theme(axis.ticks = element_blank(),  
+          panel.grid.minor = element_blank(), 
+          axis.line = element_line(colour = "black"), 
+          axis.text = element_text(face="bold",size = 12, colour = "black"),
+          axis.title = element_text(face="bold",size = 12),
+          strip.text = element_text(face="bold",size = 12), 
+          panel.spacing.x = unit(0.6,units = "cm"), 
+          axis.title.y = element_blank(), 
+          legend.position = "none", 
+          plot.title = element_text(hjust = 0.5))
+  if(!is.null(xlim)){
+    p <- p + coord_cartesian(xlim = xlim)
+  }
+  print(p)
+}
+
+ggplot_log2_enrichment <- function(result_sLDSC, xlim = NULL, title = "Enrichment"){
+  
+  result_sLDSC$Enrichment_CI_L <- result_sLDSC$Enrichment - 1.96*result_sLDSC$Enrichment_std_error
+  result_sLDSC$Enrichment_CI_H <- result_sLDSC$Enrichment + 1.96*result_sLDSC$Enrichment_std_error
+
+  ## truncate at 1
+  result_sLDSC$Enrichment[result_sLDSC$Enrichment < 1] <- 1
+  result_sLDSC$Enrichment_CI_L[result_sLDSC$Enrichment_CI_L < 1] <- 1
+  result_sLDSC$Enrichment_CI_H[result_sLDSC$Enrichment_CI_H < 1] <- 1
+
+  p <- ggplot(result_sLDSC, aes(x = log2(Enrichment), y = Category, colour = Color))+
+    geom_point()+
+    xlab("log2(Enrichment)")+
+    ggtitle(title)+
+    geom_errorbarh(aes(xmin = log2(Enrichment_CI_L), 
+                       xmax = log2(Enrichment_CI_H), height = 0.1))+ 
+    facet_wrap(Disease~.,ncol = 3)+
+    theme_bw()  + 
+    geom_vline(xintercept = 0,linetype="dotted", colour = "red")+
+    theme(axis.ticks = element_blank(),  
+          panel.grid.minor = element_blank(), 
+          axis.line = element_line(colour = "black"), 
+          axis.text = element_text(face="bold",size = 12, colour = "black"),
+          axis.title = element_text(face="bold",size = 12),
+          strip.text = element_text(face="bold",size = 12), 
+          panel.spacing.x = unit(0.6,units = "cm"), 
+          axis.title.y = element_blank(), 
+          legend.position = "none", 
+          plot.title = element_text(hjust = 0.5))
+  if(!is.null(xlim)){
+    p <- p + coord_cartesian(xlim = xlim)
+  }
+  print(p)
+}
+
+ggplot_heritability <- function(result_sLDSC, xlim = NULL, title = "Heritability"){
+  ## Proportion of heritability
+  p <- ggplot(result_sLDSC, aes(x = Prop._h2*100, y = Category, colour = Color))+
+    geom_point()+
+    xlab("Heritability %")+
+    ggtitle(title)+
+    geom_errorbarh(aes(xmin = (Prop._h2-1.96*Prop._h2_std_error)*100, 
+                       xmax = (Prop._h2+1.96*Prop._h2_std_error)*100, height = 0.1))+ 
+    facet_wrap(Disease~.,ncol = 3)+
+    theme_bw()  + 
+    geom_vline(xintercept = 0,linetype="dotted", colour = "red")+
+    theme(axis.ticks = element_blank(),  
+          panel.grid.minor = element_blank(), 
+          axis.line = element_line(colour = "black"), 
+          axis.text = element_text(face="bold",size = 12, colour = "black"),
+          axis.title = element_text(face="bold",size = 12),
+          strip.text = element_text(face="bold",size = 12), 
+          panel.spacing.x = unit(0.6,units = "cm"), 
+          axis.title.y = element_blank(), 
+          legend.position = "none", 
+          plot.title = element_text(hjust = 0.5))
+  if(!is.null(xlim)){
+    p <- p + coord_cartesian(xlim = xlim)
+  }
+  print(p)
+}
+
+## change names for traits
+change_annot_names <- function(annot_list){
+  annot_list <- gsub("^CN$","iN-Glut OCR", annot_list)
+  annot_list <- gsub("^DN$","iN-DN OCR", annot_list)
+  annot_list <- gsub("^GA$","iN-GA OCR", annot_list)
+  annot_list <- gsub("^ips$","iPSC OCR", annot_list)
+  annot_list <- gsub("^NSC$","NPC OCR", annot_list)
+  annot_list <- gsub("^ASoC_glut$","iN-Glut ASoC", annot_list)
+  annot_list <- gsub("^ASoC_npc$","NPC ASoC", annot_list)
+  return(annot_list)
+}
+
+## combine S-LDSC enrichment results across traits
+combine_sldsc_traits <- function(trait_name_list, dir_results, baseline){
+  registerDoParallel(cores = 10)
+  
+  result_sLDSC <- foreach(trait = trait_name_list, .combine = rbind)%dopar%{
+    sldsc_results <- read.table(paste0(dir_results,"/", trait, "/", baseline, "/", trait,"_", "CN_all_peaks.narrowPeak.cleaned.hg19.merged", "_", baseline, ".results"), header = T, stringsAsFactors = F)
+    sldsc.CN <- sldsc_results[sldsc_results$Category == "L2_1",]
+    sldsc.CN$Category <- "CN"
+    
+    sldsc_results <- read.table(paste0(dir_results,"/", trait, "/", baseline, "/", trait,"_", "DN_all_peaks.narrowPeak.cleaned.hg19.merged", "_", baseline, ".results"), header = T, stringsAsFactors = F)
+    sldsc.DN <- sldsc_results[sldsc_results$Category == "L2_1",]
+    sldsc.DN$Category <- "DN"
+    
+    sldsc_results <- read.table(paste0(dir_results,"/", trait, "/", baseline, "/", trait,"_", "GA_all_peaks.narrowPeak.cleaned.hg19.merged", "_", baseline, ".results"), header = T, stringsAsFactors = F)
+    sldsc.GA <- sldsc_results[sldsc_results$Category == "L2_1",]
+    sldsc.GA$Category <- "GA"
+    
+    sldsc_results <- read.table(paste0(dir_results,"/", trait, "/", baseline, "/", trait,"_", "ips_all_peaks.narrowPeak.cleaned.hg19.merged", "_", baseline, ".results"), header = T, stringsAsFactors = F)
+    sldsc.ips <- sldsc_results[sldsc_results$Category == "L2_1",]
+    sldsc.ips$Category <- "ips"
+    
+    sldsc_results <- read.table(paste0(dir_results,"/", trait, "/", baseline, "/", trait,"_", "NSC_all_peaks.narrowPeak.cleaned.hg19.merged", "_", baseline, ".results"), header = T, stringsAsFactors = F)
+    sldsc.NSC <- sldsc_results[sldsc_results$Category == "L2_1",]
+    sldsc.NSC$Category <- "NSC"
+    
+    sldsc_results <- read.table(paste0(dir_results,"/", trait, "/", baseline, "/", trait,"_", "ASoC_glut_anno_hg19", "_", baseline, ".results"), header = T, stringsAsFactors = F)
+    sldsc.ASoC_glut <- sldsc_results[sldsc_results$Category == "L2_1",]
+    sldsc.ASoC_glut$Category <- "ASoC_glut"
+    
+    sldsc_results <- read.table(paste0(dir_results,"/", trait, "/", baseline, "/", trait,"_", "ASoC_npc_anno_hg19", "_", baseline, ".results"), header = T, stringsAsFactors = F)
+    sldsc.ASoC_npc <- sldsc_results[sldsc_results$Category == "L2_1",]
+    sldsc.ASoC_npc$Category <- "ASoC_npc"
+    
+    sldsc.combined <- rbind(sldsc.CN, sldsc.DN, sldsc.GA, sldsc.ips, sldsc.NSC, sldsc.ASoC_glut, sldsc.ASoC_npc)
+    sldsc.combined <- cbind(Disease = trait, sldsc.combined)
+    sldsc.combined
+  }
+  return(result_sLDSC)
+}
+
+```
+
+```{r}
+baseline <- "baselineLDv1.1"
+
+dir_results <- "/project2/xinhe/kevinluo/ldsc/results/sLDSC_neuron_ATACseq_examples/"
+result_sLDSC <- combine_sldsc_traits(trait_name_list, dir_results, baseline)
+
+result_sLDSC$Category <- change_annot_names(result_sLDSC$Category)
+
+result_sLDSC$Category <- factor(result_sLDSC$Category, levels = rev(annot_list) )
+result_sLDSC$Color <- factor(result_sLDSC$Category, levels = annot_list)
+
+```
+
+#### Enrichment
+```{r}
+DT::datatable(format(result_sLDSC[,1:7], digits = 2), options = list(scrollX = TRUE, keys = TRUE, pageLength = length(annot_list)),rownames = F)
+```
+
+```{r}
+ggplot_enrichment(result_sLDSC, title = "", xlim = c(0,50))
+```
+
+
+#### log2 Enrichment
+```{r}
+ggplot_log2_enrichment(result_sLDSC, title = "")
+```
+
