@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-This tutorial shows an example analysis using S-LDSC analysis to estimate the enrichment of GWAS variants in neuron ATAC-seq annotations: open chromatin regions (OCR) and allele-specific open chromatin (ASoC) variants.
+This tutorial shows an example analysis using S-LDSC analysis to estimate the enrichment of GWAS variants in neuron ATAC-seq annotations: open chromatin regions (OCR) and allele-specific open chromatin (ASoC) variants. The analysis uses data from our paper: Zhang et al. Allele-specific open chromatin in human iPSC neurons elucidates functional noncoding disease variants. Science 2020.
 
 ## Prepare annotation files and compute LD scores for annotations
 
