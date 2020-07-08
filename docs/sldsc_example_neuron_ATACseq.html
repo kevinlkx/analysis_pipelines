@@ -13,7 +13,7 @@
 
 <meta name="date" content="2020-07-08" />
 
-<title>s-LDSC example analysis using neuron ATAC-seq data</title>
+<title>S-LDSC example analysis to estimate the enrichment of GWAS variants in neuron ATAC-seq OCR and ASoC variants</title>
 
 <script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -394,7 +394,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">s-LDSC example analysis using neuron ATAC-seq data</h1>
+<h1 class="title toc-ignore">S-LDSC example analysis to estimate the enrichment of GWAS variants in neuron ATAC-seq OCR and ASoC variants</h1>
 <h4 class="author">Kaixuan Luo</h4>
 <h4 class="date">07/08/2020</h4>
 
@@ -512,16 +512,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreee2d790426655bd655623b2ae253f98cfcab816c0targetblanke2d7904a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/e2d790426655bd655623b2ae253f98cfcab816c0" target="_blank">e2d7904</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree58daf6fb19a9ed2d2f8517bb8a8def141cf4ae57targetblank58daf6fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/58daf6fb19a9ed2d2f8517bb8a8def141cf4ae57" target="_blank">58daf6f</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreee2d790426655bd655623b2ae253f98cfcab816c0targetblanke2d7904a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree58daf6fb19a9ed2d2f8517bb8a8def141cf4ae57targetblank58daf6fa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/e2d790426655bd655623b2ae253f98cfcab816c0" target="_blank">e2d7904</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/58daf6fb19a9ed2d2f8517bb8a8def141cf4ae57" target="_blank">58daf6f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -568,6 +568,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/58daf6fb19a9ed2d2f8517bb8a8def141cf4ae57/analysis/sldsc_example_neuron_ATACseq.Rmd" target="_blank">58daf6f</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-07-08
+</td>
+<td>
+wflow_publish(“analysis/sldsc_example_neuron_ATACseq.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/03346651e2081f52eb9fe4bdf16d120d3233180b/docs/sldsc_example_neuron_ATACseq.html" target="_blank">0334665</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-07-08
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -762,6 +796,7 @@ wflow_publish(“analysis/sldsc_example_neuron_ATACseq.Rmd”)
 </div>
 </div>
 </div>
+<p>This tutorial shows an example analysis using S-LDSC analysis to estimate the enrichment of GWAS variants in neuron ATAC-seq annotations: open chromatin regions (OCR) and allele-specific open chromatin (ASoC) variants.</p>
 <div id="prepare-annotation-files-and-compute-ld-scores-for-annotations" class="section level2">
 <h2>Prepare annotation files and compute LD scores for annotations</h2>
 <div id="prepare-annotations-in-bed-format-for-asoc-binary-annotations" class="section level3">
@@ -1073,11 +1108,85 @@ result_sLDSC$Color &lt;- factor(result_sLDSC$Category, levels = annot_list)</cod
 <script type="application/json" data-for="htmlwidget-8316daeedf19885da48f">{"x":{"filter":"none","data":[["SCZ","SCZ","SCZ","SCZ","SCZ","SCZ","SCZ","BIP","BIP","BIP","BIP","BIP","BIP","BIP","MDD","MDD","MDD","MDD","MDD","MDD","MDD","Intelligence","Intelligence","Intelligence","Intelligence","Intelligence","Intelligence","Intelligence","IBD","IBD","IBD","IBD","IBD","IBD","IBD"],["iN-Glut OCR","iN-DN OCR","iN-GA OCR","iPSC OCR","NPC OCR","iN-Glut ASoC","NPC ASoC","iN-Glut OCR","iN-DN OCR","iN-GA OCR","iPSC OCR","NPC OCR","iN-Glut ASoC","NPC ASoC","iN-Glut OCR","iN-DN OCR","iN-GA OCR","iPSC OCR","NPC OCR","iN-Glut ASoC","NPC ASoC","iN-Glut OCR","iN-DN OCR","iN-GA OCR","iPSC OCR","NPC OCR","iN-Glut ASoC","NPC ASoC","iN-Glut OCR","iN-DN OCR","iN-GA OCR","iPSC OCR","NPC OCR","iN-Glut ASoC","NPC ASoC"],["0.03635","0.05724","0.05900","0.08299","0.03188","0.00079","0.00050","0.03635","0.05724","0.05900","0.08299","0.03188","0.00079","0.00050","0.03635","0.05724","0.05900","0.08299","0.03188","0.00079","0.00050","0.03635","0.05724","0.05900","0.08299","0.03188","0.00079","0.00050","0.03635","0.05724","0.05900","0.08299","0.03188","0.00079","0.00050"],[" 0.1496"," 0.2280"," 0.2616"," 0.1649"," 0.1285"," 0.0109"," 0.0091"," 0.1267"," 0.2396"," 0.2538"," 0.1396"," 0.1056"," 0.0112"," 0.0198"," 0.1204"," 0.2308"," 0.3042"," 0.0804"," 0.0954"," 0.0181"," 0.0102"," 0.2022"," 0.3174"," 0.2871"," 0.2473"," 0.1776"," 0.0147"," 0.0069","-0.1578","-0.1867","-0.2022","-0.1876","-0.0888"," 0.0033","-0.0054"],["0.0298","0.0335","0.0331","0.0402","0.0295","0.0073","0.0049","0.0487","0.0544","0.0561","0.0623","0.0423","0.0118","0.0086","0.0562","0.0664","0.0654","0.0718","0.0537","0.0114","0.0096","0.0246","0.0321","0.0310","0.0337","0.0255","0.0059","0.0055","0.0740","0.0960","0.0872","0.1168","0.0743","0.0148","0.0101"],["  4.11","  3.98","  4.43","  1.99","  4.03"," 13.77"," 18.37","  3.48","  4.19","  4.30","  1.68","  3.31"," 14.16"," 39.85","  3.31","  4.03","  5.16","  0.97","  2.99"," 22.84"," 20.63","  5.56","  5.54","  4.87","  2.98","  5.57"," 18.62"," 13.91"," -4.34"," -3.26"," -3.43"," -2.26"," -2.79","  4.19","-10.89"],[" 0.82"," 0.59"," 0.56"," 0.48"," 0.92"," 9.22"," 9.97"," 1.34"," 0.95"," 0.95"," 0.75"," 1.33","14.92","17.35"," 1.55"," 1.16"," 1.11"," 0.86"," 1.68","14.44","19.29"," 0.68"," 0.56"," 0.53"," 0.41"," 0.80"," 7.50","11.10"," 2.03"," 1.68"," 1.48"," 1.41"," 2.33","18.74","20.42"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Disease<\/th>\n      <th>Category<\/th>\n      <th>Prop._SNPs<\/th>\n      <th>Prop._h2<\/th>\n      <th>Prop._h2_std_error<\/th>\n      <th>Enrichment<\/th>\n      <th>Enrichment_std_error<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"keys":true,"pageLength":7,"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[7,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 <pre class="r"><code>ggplot_enrichment(result_sLDSC, title = &quot;&quot;, xlim = c(0,50))</code></pre>
 <p><img src="figure/sldsc_example_neuron_ATACseq.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/03346651e2081f52eb9fe4bdf16d120d3233180b/docs/figure/sldsc_example_neuron_ATACseq.Rmd/unnamed-chunk-10-1.png" target="_blank">0334665</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-07-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="log2-enrichment" class="section level4">
 <h4>log2 Enrichment</h4>
 <pre class="r"><code>ggplot_log2_enrichment(result_sLDSC, title = &quot;&quot;)</code></pre>
 <p><img src="figure/sldsc_example_neuron_ATACseq.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/03346651e2081f52eb9fe4bdf16d120d3233180b/docs/figure/sldsc_example_neuron_ATACseq.Rmd/unnamed-chunk-11-1.png" target="_blank">0334665</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2020-07-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
