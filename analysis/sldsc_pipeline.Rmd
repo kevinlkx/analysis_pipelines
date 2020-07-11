@@ -88,6 +88,11 @@ mkdir 1000G_Phase3_baselineLD_v2.2_ldscores
 tar -xvzf 1000G_Phase3_baselineLD_v2.2_ldscores.tgz -C 1000G_Phase3_baselineLD_v2.2_ldscores
 ```
 
+* `baseline_gene_MAF_LD` model
+
+We used a modified baselineLD annotation in our m6A QTL paper, including gene annotations (coding, UTRs, intron, promoter), MAF bins and LD-related annotations. We did not include functional annotations such as enhancer markers in this version of baseline model, because these annotations are likely correlated with the QTL features of interest (e.g. enhancers are enriched in eQTLs), and including them may bias our estimated enrichment.
+The ld scores for this version of `baseline_gene_MAF_LD` annotation can be found in RCC under directory: `/project2/xinhe/kevinluo/ldsc/annot/ldscores/baseline_gene_MAF_LD/`.
+
 #### Download regression weights
 ```{bash, eval=FALSE}
 # wget https://data.broadinstitute.org/alkesgroup/LDSCORE/weights_hm3_no_hla.tgz
