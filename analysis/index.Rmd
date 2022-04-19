@@ -20,5 +20,6 @@ editor_options:
 ## TWAS
 * [TWAS FUSION pipeline](twas_fusion_pipeline.html)
 
-
+## TORUS
+* [TORUS enrichment analysis example using mapgen on aFib GWAS with heart scATAC-seq data](mapgen_torus_enrichment_heart_atlas.html)
 
