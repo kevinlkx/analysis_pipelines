@@ -1,0 +1,212 @@
+---
+title: "Enrichment analysis using mapgen with TORUS"
+author: "Kaixuan Luo"
+date: "2022-04-11"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+Here we show an example of performing enrichment analysis on AFib GWAS data using `mapgen` with `TORUS`. 
+
+## Univariate enrichment analysis
+
+Here we use scATAC-seq DA peaks for each cell type as a separate annotation (univariate).
+
+This example is based on the [R script from Alan](https://github.com/xinhe-lab/heart_atlas/blob/master/R/torus_enrichment.R)
+
+```{bash, eval=FALSE, include=FALSE}
+cd /project2/gca/Heart_Atlas/reorganized_data/
+
+mkdir -p example_data/GWAS/
+cp /project2/gca/Heart_Atlas/reorganized_data/GWAS/summary_statistics/aFib/ebi-a-GCST006414_aFib.df.rds example_data/GWAS/ebi-a-GCST006414_aFib.df.rds
+
+mkdir -p example_data/ATAC_seq/PeakCalls
+cp ATAC_seq/PeakCalls/DA_MARKERS_FDRP_1_log2FC_1.rds example_data/ATAC_seq/PeakCalls/DA_MARKERS_FDRP_1_log2FC_1.rds
+
+cp GWAS/Torus/Torus_CellType_Enrichment_Results_Univariate_MORE.df.rds example_data/Torus/Torus_CellType_Enrichment_Results_Univariate_MORE.df.rds
+```
+
+```{r load-packages, eval=TRUE, message=FALSE}
+suppressMessages(library(liftOver))
+suppressMessages(library(ComplexHeatmap))
+library(mapgen)
+```
+
+```{r setting}
+data.dir <- '/project2/gca/Heart_Atlas/reorganized_data/example_data/'
+```
+
+Load GWAS summary statistics of AFib
+```{r load-GWAS, eval=FALSE}
+gwas.sumstats <- readRDS(paste0(data.dir,"GWAS/ebi-a-GCST006414_aFib.df.rds"))
+head(gwas.sumstats)
+```
+
+Prepare annotations for TORUS
+```{r prepare-annots, eval=FALSE}
+# load DA peaks (in hg38)
+markers <- readRDS(paste0(data.dir, '/ATAC_seq/PeakCalls/DA_MARKERS_FDRP_1_log2FC_1.rds'))
+
+# liftover peaks from hg38 to hg19
+path <- system.file(package="liftOver", "extdata", "hg38ToHg19.over.chain")
+ch <- import.chain(path)
+markers.hg19 <- lapply(markers, function(x){unlist(liftOver(x, ch))})
+
+system('mkdir -p Torus/bed_annotations_hg19')
+# save to bed format
+for(i in 1:length(markers.hg19)){
+  seqlevelsStyle(markers.hg19[[i]]) <- "NCBI"
+}
+
+lapply(names(markers.hg19), function(x){
+  rtracklayer::export(markers.hg19[[x]], 
+                      format = 'bed', 
+                      con = paste0(data.dir, '/Torus/bed_annotations_hg19/', x,'_narrowPeaks.bed'))})
+
+annotations <- list.files(path = paste0(data.dir, '/Torus/bed_annotations_hg19'), pattern = '*.bed', full.names = T)
+
+```
+
+Run TORUS for each annotation separately
+```{r run-torus, eval=FALSE}
+enrich.res <- vector('list', length(annotations))
+for(i in seq_along(annotations)){
+  print(tools::file_path_sans_ext(annotations[i]))
+  
+  # Make TORUS input data
+  torus.files <- prepare_torus_input_files(gwas.sumstats, annotations[i])
+  
+  # Estimates enrichment using TORUS
+  torus.result <- run_torus(torus.files$torus_annot_file,
+                            torus.files$torus_zscore_file, 
+                            option = "est", torus_path = "torus") 
+  
+  enrich.res[[i]] <- torus.result$enrich
+}
+names(enrich.res) <- basename(annotations)
+
+# saveRDS(enrich.res, 'Torus/Torus_univariate_enrichment_result.rds')
+```
+
+
+Compare to pre-computed result
+```{r, eval=FALSE}
+enrich.alltraits.res <- readRDS(paste0(data.dir,'/Torus/Torus_CellType_Enrichment_Results_Univariate_MORE.df.rds'))
+stopifnot(identical(enrich.res, enrich.alltraits.res$aFib))
+```
+
+
+### Plot enrichment for all traits
+
+Load enrichment results
+```{r load-extract-enrichment, eval=TRUE}
+
+enrich.res <- readRDS(paste0(data.dir, '/Torus/Torus_CellType_Enrichment_Results_Univariate_MORE.df.rds'))
+annotations <- list.files(path = paste0(data.dir, '/Torus/bed_annotations_hg19'), pattern = '*.bed', full.names = T)
+
+pval_from_ci <- function(mean, upper, ci){
+  nsamp <- length(mean)
+  pval.res <- rep(0, nsamp)
+  for(i in 1:nsamp){
+    alph <- (1-ci)/2
+    zval <- qnorm(p = 1-alph)
+    se <- (upper[i]-mean[i])/zval
+    
+    pval.res[i] <- 1 - pnorm(q = mean[i] / se)   
+  }
+  return(pval.res)
+}
+
+res <- lapply(enrich.res, function(x){ Reduce(x = x, f = rbind)})
+res <- lapply(res, function(x){x[x$term != "Intercept",]})
+for(i in 1:length(res)){
+  res[[i]]$pvalue <- pval_from_ci(mean = res[[i]]$estimate, upper = res[[i]]$high, ci = 0.95)
+}
+estimates <- as.data.frame(sapply(res, function(x){x["estimate"]}))
+pvalues <- as.data.frame(sapply(res, function(x){x["pvalue"]}))
+fdr <- matrix(p.adjust(unlist(pvalues), method = 'BH'), nrow = nrow(pvalues))
+
+rnames <- basename(annotations)
+names.order <- c("aFib", "PR_Interval","heart_rate","heart_failure",
+                 "CAD","DiastolicBP","asthma","BMI","Height")
+celltype_ideal_order <- c("Cardiomyocyte","Smooth Muscle","Pericyte","Endothelial","Fibroblast","Neuronal", "Lymphoid","Myeloid")
+# celltype_ideal_order <- c("Cardiomyocyte","Pericyte","Endothelial","Fibroblast")
+
+row.names(estimates) <- sub('_narrowPeaks.bed','',rnames)
+colnames(estimates) <- names(enrich.res)
+estimates <- estimates[celltype_ideal_order,names.order]
+estimates <- t(estimates)
+
+row.names(fdr) <- sub('_narrowPeaks.bed','',rnames)
+colnames(fdr) <- names(enrich.res)
+fdr <- fdr[celltype_ideal_order,names.order]
+fdr <- t(fdr)
+
+star.mat <- matrix('ns', nrow = nrow(fdr), ncol = ncol(fdr))
+star.mat[fdr < 0.05] <- '*'
+star.mat[fdr < 0.0001] <- '***'
+rownames(star.mat) <- rownames(fdr)
+colnames(star.mat) <- colnames(fdr)
+
+mat.to.viz <- estimates/log(2)
+mat.to.viz[mat.to.viz < 0] <- 0
+```
+
+Plot enrichment
+```{r plot-heatmap, fig.width=5, fig.height=4, eval=TRUE}
+
+lgd_list <- list()
+
+col_fun <- c("lightblue", "orange", "firebrick")
+names(col_fun) <- c("ns", '*', '***')
+
+lgd_list[["fdr"]] <- Legend(title = "fdr (binned)",
+                            labels = c("ns", '*', '***'),
+                            legend_gp = gpar(fill = col_fun))
+
+tic_vec <- c(0, 2, 4)
+lgd_list[["log2_enrich"]] <- Legend(title = "log2_enrich",
+                                    labels = tic_vec,
+                                    # labels_gp = gpar(fontsize = 14),
+                                    grid_height = unit(6, "mm"),
+                                    grid_width = unit(6, "mm"),
+                                    graphics = list(
+                                      function(x, y, w, h) 
+                                        grid.circle(x, y, 
+                                                    r = (tic_vec[1]/10 + 0.2) * unit(2.5, "mm"),
+                                                    gp = gpar(fill = "black")),
+                                      function(x, y, w, h) 
+                                        grid.circle(x, y, 
+                                                    r = (tic_vec[2]/10 + 0.2) * unit(2.5, "mm"),
+                                                    gp = gpar(fill = "black")),
+                                      function(x, y, w, h) 
+                                        grid.circle(x, y, 
+                                                    r = (tic_vec[3]/10 + 0.2) * unit(2.5, "mm"),
+                                                    gp = gpar(fill = "black"))
+                                    ))
+
+map1 <- Heatmap(star.mat,
+                name = "Association Effect Size",
+                col = col_fun,
+                rect_gp = gpar(type = "none"),
+                cell_fun = function(j, i, x, y, width, height, fill) {
+                  grid.rect(x = x, y = y, width = width, height = height, 
+                            gp = gpar(col = NA, fill = NA))
+                  grid.circle(x = x, y = y,
+                              r = (mat.to.viz[i, j]/10 + 0.2) * unit(2.5, "mm"),
+                              gp = gpar(fill = col_fun[star.mat[i, j]], col = NA))
+                },
+                border_gp = gpar(col = "black"),
+                row_title = "Trait",
+                column_title = "Cell Type",
+                cluster_rows = F, cluster_columns = F,
+                show_heatmap_legend = F,
+                row_names_gp = gpar(fontsize = 10.5),
+                column_names_rot = 45,
+                column_names_side = "top", 
+                use_raster = T)
+
+draw(map1, annotation_legend_list = lgd_list)
+```
+
