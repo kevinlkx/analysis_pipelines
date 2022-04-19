@@ -477,16 +477,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreef4ef40caf461dd491b4682c304b9d47fc1690bfftargetblankf4ef40ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/f4ef40caf461dd491b4682c304b9d47fc1690bff" target="_blank">f4ef40c</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreecef098909adfbe9875e962a352cbcb0fbb4f5eb2targetblankcef0989a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/cef098909adfbe9875e962a352cbcb0fbb4f5eb2" target="_blank">cef0989</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreef4ef40caf461dd491b4682c304b9d47fc1690bfftargetblankf4ef40ca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreecef098909adfbe9875e962a352cbcb0fbb4f5eb2targetblankcef0989a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/f4ef40caf461dd491b4682c304b9d47fc1690bff" target="_blank">f4ef40c</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/cef098909adfbe9875e962a352cbcb0fbb4f5eb2" target="_blank">cef0989</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -517,7 +517,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in th
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/torus_enrichment_heart_atlas.Rmd</code>) and HTML (<code>docs/torus_enrichment_heart_atlas.html</code>) files. If you've configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/mapgen_torus_enrichment_heart_atlas.Rmd</code>) and HTML (<code>docs/mapgen_torus_enrichment_heart_atlas.html</code>) files. If you've configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -546,7 +546,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/kevinlkx/analysis_pipelines/blob/f4ef40caf461dd491b4682c304b9d47fc1690bff/analysis/torus_enrichment_heart_atlas.Rmd" target="_blank">f4ef40c</a>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/39e9a664537258ac8b8b6dca060d53b64be6b2c1/analysis/mapgen_torus_enrichment_heart_atlas.Rmd" target="_blank">39e9a66</a>
 </td>
 <td>
 kevinlkx
@@ -555,7 +555,24 @@ kevinlkx
 2022-04-19
 </td>
 <td>
-wflow_rename(&quot;analysis/torus_enrichment.Rmd&quot;, &quot;analysis/torus_enrichment_heart_atlas.Rmd&quot;)
+wflow_rename(&quot;analysis/torus_enrichment_heart_atlas.Rmd&quot;, &quot;analysis/mapgen_torus_enrichment_heart_atlas.Rmd&quot;)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/39e9a664537258ac8b8b6dca060d53b64be6b2c1/docs/mapgen_torus_enrichment_heart_atlas.html" target="_blank">39e9a66</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2022-04-19
+</td>
+<td>
+wflow_rename(&quot;analysis/torus_enrichment_heart_atlas.Rmd&quot;, &quot;analysis/mapgen_torus_enrichment_heart_atlas.Rmd&quot;)
 </td>
 </tr>
 </tbody>
@@ -726,7 +743,44 @@ map1 &lt;- Heatmap(star.mat,
 
 Set `ht_opt$message = FALSE` to turn off this message.</code></pre>
 <pre class="r"><code>draw(map1, annotation_legend_list = lgd_list)</code></pre>
-<p><img src="figure/torus_enrichment_heart_atlas.Rmd/plot-heatmap-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="figure/mapgen_torus_enrichment_heart_atlas.Rmd/plot-heatmap-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-heatmap-1">
+Past versions of plot-heatmap-1.png
+</button>
+</p>
+<div id="fig-plot-heatmap-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/39e9a664537258ac8b8b6dca060d53b64be6b2c1/docs/figure/mapgen_torus_enrichment_heart_atlas.Rmd/plot-heatmap-1.png" target="_blank">39e9a66</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2022-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
