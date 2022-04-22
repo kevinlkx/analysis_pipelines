@@ -76,27 +76,28 @@ names(enrich.res) <- basename(annotations)
 for(i in seq_along(annotations)){
   annot.name <- gsub('_narrowPeaks*', '', tools::file_path_sans_ext(basename(annotations[i])))
 
-  # Make TORUS input data
+  # Prepare TORUS input data
   torus.files <- prepare_torus_input_files(gwas.sumstats, 
                                            annotations[i], 
-                                           torus_input_dir = paste0(data.dir, '/Torus/input'))
+                                           torus_input_dir = paste0(data.dir, '/Torus/input/', annot.name))
   
   # Estimates enrichment using TORUS
   torus.result <- run_torus(torus.files$torus_annot_file,
                             torus.files$torus_zscore_file, 
-                            option = "est", torus_path = "torus") 
+                            option = "est", 
+                            torus_path = "torus") # set the path to your 'torus' executable
   
   enrich.res[[i]] <- torus.result$enrich
 }
 
-# saveRDS(enrich.res, 'Torus/Torus_univariate_enrichment_result.rds')
+saveRDS(enrich.res, paste0(data.dir, '/Torus/Torus_univariate_enrichment_result.rds'))
 ```
 
 
 Compare to pre-computed result
 ```{r, eval=FALSE}
 enrich.alltraits.res <- readRDS(paste0(data.dir,'/Torus/Torus_CellType_Enrichment_Results_Univariate_MORE.df.rds'))
-stopifnot(identical(enrich.res, enrich.alltraits.res$aFib))
+identical(enrich.res, enrich.alltraits.res$aFib)
 ```
 
 
