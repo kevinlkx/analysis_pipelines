@@ -34,12 +34,12 @@ library(mapgen)
 ```
 
 ```{r setting}
-data.dir <- '/project2/gca/Heart_Atlas/reorganized_data/example_data/'
+data.dir <- '/project2/gca/Heart_Atlas/reorganized_data/example_data'
 ```
 
 Load GWAS summary statistics of AFib
 ```{r load-GWAS, eval=FALSE}
-gwas.sumstats <- readRDS(paste0(data.dir,"GWAS/ebi-a-GCST006414_aFib.df.rds"))
+gwas.sumstats <- readRDS(paste0(data.dir, '/GWAS/ebi-a-GCST006414_aFib.df.rds'))
 head(gwas.sumstats)
 ```
 
@@ -71,11 +71,15 @@ annotations <- list.files(path = paste0(data.dir, '/Torus/bed_annotations_hg19')
 Run TORUS for each annotation separately
 ```{r run-torus, eval=FALSE}
 enrich.res <- vector('list', length(annotations))
+names(enrich.res) <- basename(annotations)
+
 for(i in seq_along(annotations)){
-  print(tools::file_path_sans_ext(annotations[i]))
-  
+  annot.name <- gsub('_narrowPeaks*', '', tools::file_path_sans_ext(basename(annotations[i])))
+
   # Make TORUS input data
-  torus.files <- prepare_torus_input_files(gwas.sumstats, annotations[i])
+  torus.files <- prepare_torus_input_files(gwas.sumstats, 
+                                           annotations[i], 
+                                           torus_input_dir = paste0(data.dir, '/Torus/input'))
   
   # Estimates enrichment using TORUS
   torus.result <- run_torus(torus.files$torus_annot_file,
@@ -84,7 +88,6 @@ for(i in seq_along(annotations)){
   
   enrich.res[[i]] <- torus.result$enrich
 }
-names(enrich.res) <- basename(annotations)
 
 # saveRDS(enrich.res, 'Torus/Torus_univariate_enrichment_result.rds')
 ```
