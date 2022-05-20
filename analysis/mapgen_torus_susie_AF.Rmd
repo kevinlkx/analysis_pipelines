@@ -45,8 +45,11 @@ head(gwas.sumstats)
 
 Prepare annotations for TORUS
 ```{r prepare-annots, eval=FALSE}
-annotation_bed_files <- list.files(path = paste0(data.dir, '/finemapping/annotations_for_finemapping_hg19'), pattern = '*.bed', full.names = T)
-torus.files <- prepare_torus_input_files(gwas.sumstats, annotation_bed_files, torus_input_dir = paste0(data.dir, '/finemapping/torus_input'))
+annotation_bed_files <- list.files(path = paste0(data.dir, '/finemapping/annotations_for_finemapping_hg19'), 
+                                   pattern = '*.bed', full.names = T)
+torus.files <- prepare_torus_input_files(gwas.sumstats, 
+                                         annotation_bed_files, 
+                                         torus_input_dir = paste0(data.dir, '/finemapping/torus_input'))
 ```
 
 Run TORUS to estimate enrichment (joint annotations) and compute SNP-level prior
@@ -58,10 +61,8 @@ torus.result <- run_torus(torus.files$torus_annot_file,
                           torus.files$torus_zscore_file,
                           option = "est-prior",
                           torus_path = "torus") # set the path to 'torus' executable.
-
 torus.enrich <- torus.result$enrich
 torus.prior <- torus.result$snp_prior
-
 saveRDS(torus.result, paste0(data.dir, '/finemapping/Torus_Enrichment_Results_Joint.rds'))
 ```
 
@@ -77,14 +78,19 @@ saveRDS(torus.fdr, paste0(data.dir, '/finemapping/Torus_FDR_Results_Joint.rds'))
 
 Select GWAS significant loci with -log10(pval) < 5e-8
 ```{r select-gwas, eval=FALSE}
-sig.loci <- gwas.sumstats %>% group_by(locus) %>% summarise(max_mlogP = max(pval)) %>% filter(max_mlogP > -log10(5e-8)) %>% pull(locus)
+sig.loci <- gwas.sumstats %>% 
+  group_by(locus) %>% 
+  summarise(max_mlogP = max(pval)) %>% 
+  filter(max_mlogP > -log10(5e-8)) %>% pull(locus)
+
 gwas.sumstats.sigloci <- gwas.sumstats[gwas.sumstats$locus %in% sig.loci, ]
 print(length(unique(gwas.sumstats.sigloci$locus)))
 ```
 
 Add Torus priors to GWAS summary statistics
 ```{r add-torus-prior, eval=FALSE}
-sumstats.sigloci <- prepare_susie_data_with_torus_result(sumstats = gwas.sumstats.sigloci, torus_prior = torus.prior)
+sumstats.sigloci <- prepare_susie_data_with_torus_result(sumstats = gwas.sumstats.sigloci, 
+                                                         torus_prior = torus.prior)
 saveRDS(sumstats.sigloci, paste0(data.dir, '/finemapping/sumstats.sigloci.rds'))
 cat("Finemap",length(unique(sumstats.sigloci$locus)), "loci.\n")
 ```
