@@ -477,16 +477,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreebf4b90d5d37a5e9d8a820661221e73a7c88cfffbtargetblankbf4b90da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/bf4b90d5d37a5e9d8a820661221e73a7c88cfffb" target="_blank">bf4b90d</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree521735576a2e7d51dda2b7081e2db8b0f32e0896targetblank5217355a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/521735576a2e7d51dda2b7081e2db8b0f32e0896" target="_blank">5217355</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreebf4b90d5d37a5e9d8a820661221e73a7c88cfffbtargetblankbf4b90da" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree521735576a2e7d51dda2b7081e2db8b0f32e0896targetblank5217355a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/bf4b90d5d37a5e9d8a820661221e73a7c88cfffb" target="_blank">bf4b90d</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/521735576a2e7d51dda2b7081e2db8b0f32e0896" target="_blank">5217355</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -541,6 +541,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/521735576a2e7d51dda2b7081e2db8b0f32e0896/analysis/mapgen_torus_susie_AF.Rmd" target="_blank">5217355</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2022-05-20
+</td>
+<td>
+added session info
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/f8e55e45745392c1af21d11a55754803c894580f/docs/mapgen_torus_susie_AF.html" target="_blank">f8e55e4</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2022-05-20
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -677,6 +711,53 @@ susie_finemap_L1 &lt;- run_finemapping(sumstats.sigloci, bigSNP, priortype = &#3
 <p>We can annotate our summary statistics with this information using merge_susie_sumstats()</p>
 <pre class="r"><code>gwas_finemapped &lt;- merge_susie_sumstats(susie_results = susie_finemap_L1, sumstats = sumstats.sigloci)
 saveRDS(gwas_finemapped, paste0(data.dir, &#39;/finemapping/AF_finemapping_result_torusprior_122loci.rds&#39;))</code></pre>
+<p>Print session info</p>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.4 (2021-02-15)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Scientific Linux 7.4 (Nitrogen)
+
+Matrix products: default
+BLAS/LAPACK: /software/openblas-0.3.13-el7-x86_64/lib/libopenblas_haswellp-r0.3.13.so
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] dplyr_1.0.8     mapgen_0.3.8    workflowr_1.7.0
+
+loaded via a namespace (and not attached):
+ [1] tidyselect_1.1.2       xfun_0.30              bslib_0.3.1           
+ [4] purrr_0.3.4            generics_0.1.2         colorspace_2.0-3      
+ [7] vctrs_0.4.1            htmltools_0.5.2        stats4_4.0.4          
+[10] yaml_2.3.5             utf8_1.2.2             rlang_1.0.2           
+[13] jquerylib_0.1.4        later_1.3.0            pillar_1.7.0          
+[16] DBI_1.1.2              glue_1.6.2             BiocGenerics_0.36.1   
+[19] GenomeInfoDbData_1.2.4 lifecycle_1.0.1        stringr_1.4.0         
+[22] zlibbioc_1.36.0        munsell_0.5.0          gtable_0.3.0          
+[25] evaluate_0.15          knitr_1.38             callr_3.7.0           
+[28] IRanges_2.24.1         fastmap_1.1.0          httpuv_1.6.5          
+[31] ps_1.6.0               GenomeInfoDb_1.26.7    parallel_4.0.4        
+[34] fansi_1.0.3            Rcpp_1.0.8.3           scales_1.2.0          
+[37] promises_1.2.0.1       S4Vectors_0.28.1       jsonlite_1.8.0        
+[40] XVector_0.30.0         fs_1.5.2               ggplot2_3.3.5         
+[43] digest_0.6.29          stringi_1.7.6          processx_3.5.3        
+[46] getPass_0.2-2          grid_4.0.4             GenomicRanges_1.42.0  
+[49] rprojroot_2.0.2        cli_3.2.0              tools_4.0.4           
+[52] bitops_1.0-7           magrittr_2.0.3         sass_0.4.1            
+[55] RCurl_1.98-1.6         tibble_3.1.6           crayon_1.5.1          
+[58] whisker_0.4            pkgconfig_2.0.3        ellipsis_0.3.2        
+[61] assertthat_0.2.1       rmarkdown_2.13         httr_1.4.2            
+[64] rstudioapi_0.13        R6_2.5.1               git2r_0.30.1          
+[67] compiler_4.0.4        </code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
