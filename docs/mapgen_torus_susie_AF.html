@@ -477,16 +477,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreed62fc99e6e061884e0c4547d87fd164e1d0eded1targetblankd62fc99a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/d62fc99e6e061884e0c4547d87fd164e1d0eded1" target="_blank">d62fc99</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree5e151d4f2cad1063fe0e7d4289387a84377178f6targetblank5e151d4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/5e151d4f2cad1063fe0e7d4289387a84377178f6" target="_blank">5e151d4</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreed62fc99e6e061884e0c4547d87fd164e1d0eded1targetblankd62fc99a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree5e151d4f2cad1063fe0e7d4289387a84377178f6targetblank5e151d4a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/d62fc99e6e061884e0c4547d87fd164e1d0eded1" target="_blank">d62fc99</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/5e151d4f2cad1063fe0e7d4289387a84377178f6" target="_blank">5e151d4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -546,6 +546,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/5e151d4f2cad1063fe0e7d4289387a84377178f6/analysis/mapgen_torus_susie_AF.Rmd" target="_blank">5e151d4</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2022-05-20
+</td>
+<td>
+Edited the documentation
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/efc1951f49b1d829883a9a50179422fc6129f5d3/docs/mapgen_torus_susie_AF.html" target="_blank">efc1951</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2022-05-20
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/kevinlkx/analysis_pipelines/blob/d62fc99e6e061884e0c4547d87fd164e1d0eded1/analysis/mapgen_torus_susie_AF.Rmd" target="_blank">d62fc99</a>
 </td>
 <td>
@@ -575,25 +609,31 @@ library(dplyr)</code></pre>
 <pre class="r"><code>gwas.sumstats &lt;- readRDS(paste0(data.dir, &#39;/GWAS/ebi-a-GCST006414_aFib.df.rds&#39;))
 head(gwas.sumstats)</code></pre>
 <p>Prepare annotations for TORUS</p>
-<pre class="r"><code>annotation_bed_files &lt;- list.files(path = paste0(data.dir, &#39;/finemapping/annotations_for_finemapping_hg19&#39;), pattern = &#39;*.bed&#39;, full.names = T)
-torus.files &lt;- prepare_torus_input_files(gwas.sumstats, annotation_bed_files, torus_input_dir = paste0(data.dir, &#39;/finemapping/torus_input&#39;))</code></pre>
+<pre class="r"><code>annotation_bed_files &lt;- list.files(path = paste0(data.dir, &#39;/finemapping/annotations_for_finemapping_hg19&#39;), 
+                                   pattern = &#39;*.bed&#39;, full.names = T)
+torus.files &lt;- prepare_torus_input_files(gwas.sumstats, 
+                                         annotation_bed_files, 
+                                         torus_input_dir = paste0(data.dir, &#39;/finemapping/torus_input&#39;))</code></pre>
 <p>Run TORUS to estimate enrichment (joint annotations) and compute SNP-level prior</p>
 <p>run_torus() with option = &quot;est-prior&quot; returns a list with: enrichment estimates (log odds ratio) and 95% confidence intervals of each annotation, and SNP-level priors using the enrichment estimates.</p>
 <pre class="r"><code>torus.result &lt;- run_torus(torus.files$torus_annot_file, 
                           torus.files$torus_zscore_file,
                           option = &quot;est-prior&quot;,
                           torus_path = &quot;torus&quot;) # set the path to &#39;torus&#39; executable.
-
 torus.enrich &lt;- torus.result$enrich
 torus.prior &lt;- torus.result$snp_prior
-
 saveRDS(torus.result, paste0(data.dir, &#39;/finemapping/Torus_Enrichment_Results_Joint.rds&#39;))</code></pre>
 <p>Select GWAS significant loci with -log10(pval) &lt; 5e-8</p>
-<pre class="r"><code>sig.loci &lt;- gwas.sumstats %&gt;% group_by(locus) %&gt;% summarise(max_mlogP = max(pval)) %&gt;% filter(max_mlogP &gt; -log10(5e-8)) %&gt;% pull(locus)
+<pre class="r"><code>sig.loci &lt;- gwas.sumstats %&gt;% 
+  group_by(locus) %&gt;% 
+  summarise(max_mlogP = max(pval)) %&gt;% 
+  filter(max_mlogP &gt; -log10(5e-8)) %&gt;% pull(locus)
+
 gwas.sumstats.sigloci &lt;- gwas.sumstats[gwas.sumstats$locus %in% sig.loci, ]
 print(length(unique(gwas.sumstats.sigloci$locus)))</code></pre>
 <p>Add Torus priors to GWAS summary statistics</p>
-<pre class="r"><code>sumstats.sigloci &lt;- prepare_susie_data_with_torus_result(sumstats = gwas.sumstats.sigloci, torus_prior = torus.prior)
+<pre class="r"><code>sumstats.sigloci &lt;- prepare_susie_data_with_torus_result(sumstats = gwas.sumstats.sigloci, 
+                                                         torus_prior = torus.prior)
 saveRDS(sumstats.sigloci, paste0(data.dir, &#39;/finemapping/sumstats.sigloci.rds&#39;))
 cat(&quot;Finemap&quot;,length(unique(sumstats.sigloci$locus)), &quot;loci.\n&quot;)</code></pre>
 <p>Run finemapping using SuSiE</p>
