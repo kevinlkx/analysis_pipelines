@@ -45,8 +45,7 @@ head(gwas.sumstats)
 
 Prepare annotations for TORUS
 ```{r prepare-annots, eval=FALSE}
-annotation_bed_files <- list.files(path = paste0(data.dir, '/finemapping/annotations_for_finemapping_hg19'), 
-                                   pattern = '*.bed', full.names = T)
+annotation_bed_files <- list.files(paste0(data.dir, '/finemapping/annotations_for_finemapping_hg19'), pattern = '*.bed', full.names = T)
 torus.files <- prepare_torus_input_files(gwas.sumstats, 
                                          annotation_bed_files, 
                                          torus_input_dir = paste0(data.dir, '/finemapping/torus_input'))
