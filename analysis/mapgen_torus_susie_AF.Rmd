@@ -100,19 +100,17 @@ sumstats.sigloci <- readRDS(paste0(data.dir, '/finemapping/sumstats.sigloci.rds'
 cat("Finemap",length(unique(sumstats.sigloci$locus)), "loci.\n")
 # susie_finemap_L1 is a list of SuSiE results, one for each chunk/LD block. 
 susie_finemap_L1 <- run_finemapping(sumstats.sigloci, bigSNP, priortype = 'torus', L = 1)
+
+# add susie PIP information to GWAS summary stats
+gwas_finemapped <- merge_susie_sumstats(susie_results = susie_finemap_L1, sumstats = sumstats.sigloci)
+saveRDS(gwas_finemapped, paste0(data.dir, '/finemapping/AF_finemapping_result_torusprior_122loci.rds'))
 ```
 
 ```{bash, include=FALSE, eval=FALSE}
 sbatch --array=1-122 --time=1:0:0 --mem=15G /home/kaixuan/projects/analysis_pipelines/scripts/run_finemapping.sbatch
 ```
 
-We can annotate our summary statistics with this information using merge_susie_sumstats()
-```{r merge-susie-sumstats, eval=FALSE}
-gwas_finemapped <- merge_susie_sumstats(susie_results = susie_finemap_L1, sumstats = sumstats.sigloci)
-saveRDS(gwas_finemapped, paste0(data.dir, '/finemapping/AF_finemapping_result_torusprior_122loci.rds'))
-```
-
-Print session info
+Session info
 ```{r}
 sessionInfo()
 ```
