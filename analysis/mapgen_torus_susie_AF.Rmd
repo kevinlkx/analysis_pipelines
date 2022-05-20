@@ -112,3 +112,8 @@ gwas_finemapped <- merge_susie_sumstats(susie_results = susie_finemap_L1, sumsta
 saveRDS(gwas_finemapped, paste0(data.dir, '/finemapping/AF_finemapping_result_torusprior_122loci.rds'))
 ```
 
+Print session info
+```{r}
+sessionInfo()
+```
+
