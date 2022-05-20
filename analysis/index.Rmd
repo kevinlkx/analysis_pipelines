@@ -23,3 +23,5 @@ editor_options:
 ## TORUS
 * [TORUS enrichment analysis example using mapgen on aFib GWAS with heart scATAC-seq data](mapgen_torus_enrichment_heart_atlas.html)
 
+## GWAS Finemapping
+* [Finemapping aFib GWAS summary statistics using mapgen with TORUS priors](mapgen_torus_susie_AF.html)
