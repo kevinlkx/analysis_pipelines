@@ -477,16 +477,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree423c024ee0f1e312a522645f7f503a26bd0fda24targetblank423c024a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/423c024ee0f1e312a522645f7f503a26bd0fda24" target="_blank">423c024</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreecfe8e82be7431ae77bb2d8b3ea279fd862762344targetblankcfe8e82a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/cfe8e82be7431ae77bb2d8b3ea279fd862762344" target="_blank">cfe8e82</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree423c024ee0f1e312a522645f7f503a26bd0fda24targetblank423c024a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreecfe8e82be7431ae77bb2d8b3ea279fd862762344targetblankcfe8e82a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/423c024ee0f1e312a522645f7f503a26bd0fda24" target="_blank">423c024</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/cfe8e82be7431ae77bb2d8b3ea279fd862762344" target="_blank">cfe8e82</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -548,6 +548,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/cfe8e82be7431ae77bb2d8b3ea279fd862762344/analysis/prepare_AF_genemapping_annotations.Rmd" target="_blank">cfe8e82</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2022-05-25
+</td>
+<td>
+wrote a note about AF gene mapping annotations
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/00c7de7a8afffb01a65bf89b5c7f1e26da833ec7/docs/prepare_AF_genemapping_annotations.html" target="_blank">00c7de7</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2022-05-25
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/kevinlkx/analysis_pipelines/blob/423c024ee0f1e312a522645f7f503a26bd0fda24/analysis/prepare_AF_genemapping_annotations.Rmd" target="_blank">423c024</a>
 </td>
 <td>
@@ -590,11 +624,11 @@ union.ocrs.hg38 &lt;- readRDS(file.path(data.dir, &#39;/annotations/union_ocrs_h
 union.ocrs.hg19 &lt;- hg38ToHg19(union.ocrs.hg38)
 genomic.annots$OCRs_hg19 &lt;- union.ocrs.hg19
 
-# load HiC, prepare by running `prepare_HiC.R` script
+# load HiC
 genomic.annots$HiC &lt;- readRDS(file.path(data.dir, &#39;/annotations/iPSC_CM_pcHiC_protein_Hg19.gr.rds&#39;))
 
 # load ABC scores
-ABC &lt;- data.table::fread(&quot;/project2/gca/Heart_Atlas/reorganized_data/example_data/genemapping/annotations/heart_ventricle-ENCODE_ABC.tsv.gz&quot;)
+ABC &lt;- data.table::fread(file.path(data.dir, &quot;/annotations/heart_ventricle-ENCODE_ABC.tsv.gz&quot;))
 ABC.gr &lt;- process_ABC(ABC, ABC.thresh = 0.015, full.element = TRUE)
 ABC.gr &lt;- ABC.gr[ABC.gr$gene_name %in% gene.annots$gene_name, ] # restrict to protein coding genes
 genomic.annots$ABC &lt;- ABC.gr
