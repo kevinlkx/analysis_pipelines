@@ -477,16 +477,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreecfe8e82be7431ae77bb2d8b3ea279fd862762344targetblankcfe8e82a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/cfe8e82be7431ae77bb2d8b3ea279fd862762344" target="_blank">cfe8e82</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreeda12b254523f6a2fcd294c9279d6caff026b5eb6targetblankda12b25a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/da12b254523f6a2fcd294c9279d6caff026b5eb6" target="_blank">da12b25</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreecfe8e82be7431ae77bb2d8b3ea279fd862762344targetblankcfe8e82a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreeda12b254523f6a2fcd294c9279d6caff026b5eb6targetblankda12b25a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/cfe8e82be7431ae77bb2d8b3ea279fd862762344" target="_blank">cfe8e82</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/da12b254523f6a2fcd294c9279d6caff026b5eb6" target="_blank">da12b25</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -548,6 +548,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/da12b254523f6a2fcd294c9279d6caff026b5eb6/analysis/prepare_AF_genemapping_annotations.Rmd" target="_blank">da12b25</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2022-05-25
+</td>
+<td>
+edited the documentation
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/99e55b4ba35e8fcb2802205aa21b33a18e520b21/docs/prepare_AF_genemapping_annotations.html" target="_blank">99e55b4</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2022-05-25
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/kevinlkx/analysis_pipelines/blob/cfe8e82be7431ae77bb2d8b3ea279fd862762344/analysis/prepare_AF_genemapping_annotations.Rmd" target="_blank">cfe8e82</a>
 </td>
 <td>
@@ -601,7 +635,7 @@ wrote a note about AF gene mapping annotations
 </div>
 </div>
 </div>
-<p>Here we show an example of performing enrichment analysis on AFib GWAS data using <code>mapgen</code> with <code>TORUS</code>.</p>
+<p>Here we show the annotations used in <code>mapgen</code> gene mapping for AFib GWAS data.</p>
 <pre class="r"><code>library(mapgen)
 library(dplyr)
 library(liftOver)
@@ -614,7 +648,7 @@ library(GenomicRanges)</code></pre>
   unlist(liftOver(gr, ch))
 }</code></pre>
 <pre class="r"><code>data.dir &lt;- &#39;/project2/gca/Heart_Atlas/reorganized_data/example_data/genemapping&#39;</code></pre>
-<p>Make genomic annotations</p>
+<p>Make annotations</p>
 <pre class="r"><code># genes
 genomic.annots &lt;- readRDS(file.path(data.dir, &#39;/annotations/hg19_gtf_genomic_annots.gr.rds&#39;))
 gene.annots &lt;- genomic.annots$genes
@@ -652,109 +686,6 @@ genomic.annots$enhancer_nearby_promoter_20kb &lt;- enhancer_nearby_promoter_20kb
 genomic.annots$enhancer_nearby_promoter_10kb &lt;- enhancer_nearby_promoter_10kb
 
 saveRDS(genomic.annots, file.path(data.dir, &#39;/annotations/AF_gene_mapping_annots_hg19.gr.rds&#39;))</code></pre>
-<p>Session info</p>
-<pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.0.4 (2021-02-15)
-Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: Scientific Linux 7.4 (Nitrogen)
-
-Matrix products: default
-BLAS/LAPACK: /software/openblas-0.3.13-el7-x86_64/lib/libopenblas_haswellp-r0.3.13.so
-
-locale:
- [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
- [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
- [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
-
-attached base packages:
-[1] parallel  stats4    stats     graphics  grDevices utils     datasets 
-[8] methods   base     
-
-other attached packages:
- [1] forcats_0.5.1                          
- [2] stringr_1.4.0                          
- [3] purrr_0.3.4                            
- [4] readr_2.1.2                            
- [5] tidyr_1.2.0                            
- [6] tibble_3.1.6                           
- [7] ggplot2_3.3.5                          
- [8] tidyverse_1.3.1                        
- [9] liftOver_1.14.0                        
-[10] Homo.sapiens_1.3.1                     
-[11] TxDb.Hsapiens.UCSC.hg19.knownGene_3.2.2
-[12] org.Hs.eg.db_3.12.0                    
-[13] GO.db_3.12.1                           
-[14] OrganismDbi_1.32.0                     
-[15] GenomicFeatures_1.42.3                 
-[16] AnnotationDbi_1.52.0                   
-[17] Biobase_2.50.0                         
-[18] rtracklayer_1.50.0                     
-[19] GenomicRanges_1.42.0                   
-[20] GenomeInfoDb_1.26.7                    
-[21] IRanges_2.24.1                         
-[22] S4Vectors_0.28.1                       
-[23] BiocGenerics_0.36.1                    
-[24] gwascat_2.22.0                         
-[25] dplyr_1.0.8                            
-[26] mapgen_0.3.9                           
-[27] workflowr_1.7.0                        
-
-loaded via a namespace (and not attached):
-  [1] colorspace_2.0-3            ellipsis_0.3.2             
-  [3] rprojroot_2.0.2             XVector_0.30.0             
-  [5] fs_1.5.2                    rstudioapi_0.13            
-  [7] bit64_4.0.5                 lubridate_1.8.0            
-  [9] fansi_1.0.3                 xml2_1.3.3                 
- [11] splines_4.0.4               snpStats_1.40.0            
- [13] cachem_1.0.6                knitr_1.38                 
- [15] jsonlite_1.8.0              Rsamtools_2.6.0            
- [17] broom_0.8.0                 dbplyr_2.1.1               
- [19] graph_1.68.0                BiocManager_1.30.16        
- [21] compiler_4.0.4              httr_1.4.2                 
- [23] backports_1.4.1             assertthat_0.2.1           
- [25] Matrix_1.4-1                fastmap_1.1.0              
- [27] cli_3.2.0                   later_1.3.0                
- [29] htmltools_0.5.2             prettyunits_1.1.1          
- [31] tools_4.0.4                 gtable_0.3.0               
- [33] glue_1.6.2                  GenomeInfoDbData_1.2.4     
- [35] rappdirs_0.3.3              Rcpp_1.0.8.3               
- [37] cellranger_1.1.0            jquerylib_0.1.4            
- [39] vctrs_0.4.1                 Biostrings_2.58.0          
- [41] xfun_0.30                   ps_1.6.0                   
- [43] rvest_1.0.2                 lifecycle_1.0.1            
- [45] XML_3.99-0.9                getPass_0.2-2              
- [47] zlibbioc_1.36.0             scales_1.2.0               
- [49] BSgenome_1.58.0             VariantAnnotation_1.36.0   
- [51] hms_1.1.1                   promises_1.2.0.1           
- [53] MatrixGenerics_1.2.1        SummarizedExperiment_1.20.0
- [55] RBGL_1.66.0                 yaml_2.3.5                 
- [57] curl_4.3.2                  memoise_2.0.1              
- [59] sass_0.4.1                  biomaRt_2.46.3             
- [61] stringi_1.7.6               RSQLite_2.2.11             
- [63] BiocParallel_1.24.1         rlang_1.0.2                
- [65] pkgconfig_2.0.3             matrixStats_0.61.0         
- [67] bitops_1.0-7                evaluate_0.15              
- [69] lattice_0.20-45             GenomicAlignments_1.26.0   
- [71] bit_4.0.4                   processx_3.5.3             
- [73] tidyselect_1.1.2            magrittr_2.0.3             
- [75] R6_2.5.1                    generics_0.1.2             
- [77] DelayedArray_0.16.3         DBI_1.1.2                  
- [79] withr_2.5.0                 haven_2.5.0                
- [81] pillar_1.7.0                whisker_0.4                
- [83] survival_3.3-1              RCurl_1.98-1.6             
- [85] modelr_0.1.8                crayon_1.5.1               
- [87] utf8_1.2.2                  BiocFileCache_1.14.0       
- [89] tzdb_0.3.0                  rmarkdown_2.13             
- [91] progress_1.2.2              readxl_1.4.0               
- [93] grid_4.0.4                  blob_1.2.3                 
- [95] callr_3.7.0                 git2r_0.30.1               
- [97] reprex_2.0.1                digest_0.6.29              
- [99] httpuv_1.6.5                openssl_2.0.0              
-[101] munsell_0.5.0               bslib_0.3.1                
-[103] askpass_1.1                </code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
