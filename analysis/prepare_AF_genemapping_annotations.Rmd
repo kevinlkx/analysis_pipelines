@@ -7,7 +7,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-Here we show an example of performing enrichment analysis on AFib GWAS data using `mapgen` with `TORUS`. 
+Here we show the annotations used in `mapgen` gene mapping for AFib GWAS data.
 
 ```{bash, eval=FALSE, include=FALSE}
 cd /project2/gca/Heart_Atlas/reorganized_data/
@@ -46,7 +46,7 @@ hg38ToHg19 <- function(gr){
 data.dir <- '/project2/gca/Heart_Atlas/reorganized_data/example_data/genemapping'
 ```
 
-Make genomic annotations
+Make annotations
 ```{r, eval=FALSE, include=FALSE}
 
 gtf.file <- '/project2/gca/software/annotations/gencode.v19.annotation.gtf.gz'
@@ -140,10 +140,5 @@ genomic.annots$enhancer_nearby_promoter_10kb <- enhancer_nearby_promoter_10kb
 
 saveRDS(genomic.annots, file.path(data.dir, '/annotations/AF_gene_mapping_annots_hg19.gr.rds'))
 
-```
-
-Session info
-```{r}
-sessionInfo()
 ```
 
