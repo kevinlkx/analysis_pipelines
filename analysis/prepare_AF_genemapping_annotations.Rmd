@@ -111,11 +111,11 @@ union.ocrs.hg38 <- readRDS(file.path(data.dir, '/annotations/union_ocrs_hg38.gr.
 union.ocrs.hg19 <- hg38ToHg19(union.ocrs.hg38)
 genomic.annots$OCRs_hg19 <- union.ocrs.hg19
 
-# load HiC, prepare by running `prepare_HiC.R` script
+# load HiC
 genomic.annots$HiC <- readRDS(file.path(data.dir, '/annotations/iPSC_CM_pcHiC_protein_Hg19.gr.rds'))
 
 # load ABC scores
-ABC <- data.table::fread("/project2/gca/Heart_Atlas/reorganized_data/example_data/genemapping/annotations/heart_ventricle-ENCODE_ABC.tsv.gz")
+ABC <- data.table::fread(file.path(data.dir, "/annotations/heart_ventricle-ENCODE_ABC.tsv.gz"))
 ABC.gr <- process_ABC(ABC, ABC.thresh = 0.015, full.element = TRUE)
 ABC.gr <- ABC.gr[ABC.gr$gene_name %in% gene.annots$gene_name, ] # restrict to protein coding genes
 genomic.annots$ABC <- ABC.gr
