@@ -1,0 +1,149 @@
+---
+title: "Prepare AF gene mapping annotations"
+author: "Kaixuan Luo"
+date: "2022-05-25"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+Here we show an example of performing enrichment analysis on AFib GWAS data using `mapgen` with `TORUS`. 
+
+```{bash, eval=FALSE, include=FALSE}
+cd /project2/gca/Heart_Atlas/reorganized_data/
+mkdir -p /project2/gca/Heart_Atlas/reorganized_data/example_data/genemapping/annotations
+
+cp /project2/gca/aselewa/heart_atlas_project/ArchR/ArchR_heart_latest_noAtrium/PeakCalls/UnionSet.gr.rds /project2/gca/Heart_Atlas/reorganized_data/example_data/genemapping/annotations/union_ocrs_hg38.gr.rds
+
+cp /project2/gca/aselewa/heart_atlas_project/genomic_annotations/hg19_gtf_genomic_annots.gr.rds /project2/gca/Heart_Atlas/reorganized_data/example_data/genemapping/annotations
+
+cp /project2/gca/aselewa/heart_atlas_project/HiC/iPSC_CM_pcHiC_protein_Hg19.gr.rds /project2/gca/Heart_Atlas/reorganized_data/example_data/genemapping/annotations
+
+cp /project2/gca/aselewa/heart_atlas_project/ArchR/ArchR_heart_latest_noAtrium/CoAccessibility/Coaccess_CMs_corr_0_maxDist_1Mb_enhancers_hg19.gr.rds /project2/gca/Heart_Atlas/reorganized_data/example_data/genemapping/annotations
+
+cp /project2/xinhe/kevinluo/gene-level-finemapping/ABC/Nasser2021/tissues/heart_ventricle-ENCODE_ABC.tsv.gz /project2/gca/Heart_Atlas/reorganized_data/example_data/genemapping/annotations
+
+```
+
+```{r load-packages, eval=TRUE, message=FALSE}
+library(mapgen)
+library(dplyr)
+library(liftOver)
+library(tidyverse)
+library(rtracklayer)
+library(GenomicRanges)
+```
+
+```{r}
+hg38ToHg19 <- function(gr){
+  path <- system.file(package="liftOver", "extdata", "hg38ToHg19.over.chain")
+  ch <- import.chain(path)
+  unlist(liftOver(gr, ch))
+}
+```
+
+```{r setting}
+data.dir <- '/project2/gca/Heart_Atlas/reorganized_data/example_data/genemapping'
+```
+
+Make genomic annotations
+```{r, eval=FALSE, include=FALSE}
+
+gtf.file <- '/project2/gca/software/annotations/gencode.v19.annotation.gtf.gz'
+#gtf.file <- '/project2/xinhe/shared_data/gencode/gencode.v35.GRCh38.gtf.gz'
+
+my.gtf <- rtracklayer::import(con = gtf.file, format = 'gtf')
+seqlevels(my.gtf, pruning.mode = "coarse") <- paste0("chr",1:22)
+
+my.gtf.protein <- my.gtf[which(my.gtf$gene_type=="protein_coding"),]
+
+my.genes <- my.gtf.protein[my.gtf.protein$type=="gene",]
+
+canonical.transcripts <- my.gtf.protein %>% 
+    as_tibble() %>% 
+    dplyr::filter(type == "transcript") %>% 
+    group_by(gene_id) %>% 
+    mutate(transLength = abs(end - start)) %>% 
+    arrange(-transLength) %>% 
+    dplyr::slice(1)
+
+canoncial.transcripts.str <- canonical.transcripts %>% .$transcript_id
+
+my.gtf.protein.canonical <- my.gtf.protein[my.gtf.protein$transcript_id %in% canoncial.transcripts.str,] # keep only canonical transcripts
+my.exons <- my.gtf.protein.canonical[my.gtf.protein.canonical$type=="exon",]
+my.UTR <- my.gtf.protein.canonical[my.gtf.protein.canonical$type=="UTR",]
+
+my.introns <- GenomicRanges::setdiff(my.genes, my.exons)
+introns.gene.overlap <- findOverlaps(my.genes, my.introns)
+my.introns <- my.introns[subjectHits(introns.gene.overlap),]
+my.introns$gene_name <- my.genes$gene_name[queryHits(introns.gene.overlap)]
+
+my.genes.plus <- my.genes[strand(my.genes)=="+",]
+my.genes.neg <- my.genes[strand(my.genes)=="-",]
+my.promoters.plus <- GRanges(seqnames(my.genes.plus), ranges = IRanges(start = start(my.genes.plus) - 2000, end = start(my.genes.plus)), strand = strand(my.genes.plus))
+my.promoters.neg <- GRanges(seqnames(my.genes.neg), ranges = IRanges(start = end(my.genes.neg), end = end(my.genes.neg) + 2000), strand = strand(my.genes.neg))
+my.promoters <- append(my.promoters.plus, my.promoters.neg)
+my.promoters$gene_name <- c(my.genes.plus$gene_name, my.genes.neg$gene_name)
+
+exon.chr <- c(as.character(seqnames(my.exons)), as.character(seqnames(my.exons)))
+exon.pos <- c(start(my.exons), end(my.exons))
+exon.gene.name <- c(my.exons$gene_name, my.exons$gene_name)
+my.splice.junc <- GRanges(seqnames = exon.chr, ranges = IRanges(start = exon.pos-100, end = exon.pos+100), gene_name = exon.gene.name)
+
+annots <- list(
+    genes = my.genes,
+    exons = my.exons,
+    introns = my.introns,
+    UTRs = my.UTR,
+    promoters = my.promoters,
+    splice_junctions = my.splice.junc
+)
+saveRDS(annots, file.path(data.dir, '/annotations/hg19_gtf_genomic_annots2.gr.rds'))
+```
+
+```{r, eval=FALSE}
+# genes
+genomic.annots <- readRDS(file.path(data.dir, '/annotations/hg19_gtf_genomic_annots.gr.rds'))
+gene.annots <- genomic.annots$genes
+
+# OCRs
+union.ocrs.hg38 <- readRDS(file.path(data.dir, '/annotations/union_ocrs_hg38.gr.rds'))
+union.ocrs.hg19 <- hg38ToHg19(union.ocrs.hg38)
+genomic.annots$OCRs_hg19 <- union.ocrs.hg19
+
+# load HiC, prepare by running `prepare_HiC.R` script
+genomic.annots$HiC <- readRDS(file.path(data.dir, '/annotations/iPSC_CM_pcHiC_protein_Hg19.gr.rds'))
+
+# load ABC scores
+ABC <- data.table::fread("/project2/gca/Heart_Atlas/reorganized_data/example_data/genemapping/annotations/heart_ventricle-ENCODE_ABC.tsv.gz")
+ABC.gr <- process_ABC(ABC, ABC.thresh = 0.015, full.element = TRUE)
+ABC.gr <- ABC.gr[ABC.gr$gene_name %in% gene.annots$gene_name, ] # restrict to protein coding genes
+genomic.annots$ABC <- ABC.gr
+
+# load coaccessibility 
+coaccess <- readRDS(file.path(data.dir, '/annotations/Coaccess_CMs_corr_0_maxDist_1Mb_enhancers_hg19.gr.rds'))
+coaccess <- coaccess[coaccess$correlation>0.7,]
+genomic.annots$coacc <- coaccess
+
+# add active promoters
+active.promoters <- subsetByOverlaps(genomic.annots$promoters, union.ocrs.hg19, minoverlap = 100)
+genomic.annots$active.promoters <- active.promoters
+
+# add nearby interactions
+enhancer.regions <- union.ocrs.hg19[union.ocrs.hg19$peakType!="Promoter",]
+
+enhancer_nearby_promoter_20kb <- nearby_interactions(enhancer.regions, active.promoters, dist_limit = 20000)
+enhancer_nearby_promoter_10kb <- nearby_interactions(enhancer.regions, active.promoters, dist_limit = 10000)
+
+genomic.annots$enhancer_nearby_promoter_20kb <- enhancer_nearby_promoter_20kb
+genomic.annots$enhancer_nearby_promoter_10kb <- enhancer_nearby_promoter_10kb
+
+saveRDS(genomic.annots, file.path(data.dir, '/annotations/AF_gene_mapping_annots_hg19.gr.rds'))
+
+```
+
+Session info
+```{r}
+sessionInfo()
+```
+
