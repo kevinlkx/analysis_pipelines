@@ -306,7 +306,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-05-20
+<strong>Last updated:</strong> 2022-08-18
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -337,16 +337,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreeed628ca06eb13479d9c478b5d22df54a7fcfbf55targetblanked628caa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/ed628ca06eb13479d9c478b5d22df54a7fcfbf55" target="_blank">ed628ca</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree84247b729c95860b31bc62593189ff1e4e2a66f1targetblank84247b7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/84247b729c95860b31bc62593189ff1e4e2a66f1" target="_blank">84247b7</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreeed628ca06eb13479d9c478b5d22df54a7fcfbf55targetblanked628caa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree84247b729c95860b31bc62593189ff1e4e2a66f1targetblank84247b7a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/ed628ca06eb13479d9c478b5d22df54a7fcfbf55" target="_blank">ed628ca</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/84247b729c95860b31bc62593189ff1e4e2a66f1" target="_blank">84247b7</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -359,14 +359,16 @@ Ignored files:
 Untracked files:
     Untracked:  analysis/test_sldsc_splicingAnnot.Rmd
     Untracked:  code/sldsc_annot_generic_baselineLD_separate.sbatch
-    Untracked:  scripts/
+    Untracked:  scripts/tmp.R
 
 Unstaged changes:
+    Modified:   analysis/mapgen_torus_susie_AF.Rmd
     Modified:   analysis/sldsc_example_GTEx_QTLs.Rmd
+    Modified:   scripts/run_finemapping.R
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
 </p>
 </div>
 </div>
@@ -377,7 +379,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in th
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/index.Rmd</code>) and HTML (<code>docs/index.html</code>) files. If you've configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/index.Rmd</code>) and HTML (<code>docs/index.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -401,6 +403,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/84247b729c95860b31bc62593189ff1e4e2a66f1/analysis/index.Rmd" target="_blank">84247b7</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2022-08-18
+</td>
+<td>
+added link to mapgen trackplot example
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/d41fa3c47a03ea4fb75cbd7d53234e6be5da2bc7/docs/index.html" target="_blank">d41fa3c</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2022-05-20
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -483,7 +519,7 @@ kevinlkx
 2020-07-08
 </td>
 <td>
-wflow_publish(&quot;analysis/index.Rmd&quot;)
+wflow_publish(“analysis/index.Rmd”)
 </td>
 </tr>
 <tr>
@@ -534,7 +570,7 @@ kevinlkx
 2020-07-07
 </td>
 <td>
-wflow_publish(&quot;analysis/index.Rmd&quot;)
+wflow_publish(“analysis/index.Rmd”)
 </td>
 </tr>
 <tr>
@@ -568,7 +604,7 @@ kevinlkx
 2020-05-25
 </td>
 <td>
-wflow_publish(&quot;analysis/index.Rmd&quot;)
+wflow_publish(“analysis/index.Rmd”)
 </td>
 </tr>
 <tr>
@@ -636,7 +672,7 @@ kevinlkx
 2020-05-24
 </td>
 <td>
-wflow_publish(&quot;analysis/index.Rmd&quot;)
+wflow_publish(“analysis/index.Rmd”)
 </td>
 </tr>
 <tr>
@@ -670,7 +706,7 @@ kevinlkx
 2020-05-24
 </td>
 <td>
-wflow_publish(&quot;analysis/index.Rmd&quot;)
+wflow_publish(“analysis/index.Rmd”)
 </td>
 </tr>
 <tr>
@@ -742,7 +778,7 @@ Start workflowr project.
 <ul>
 <li><a href="ldsc_install.html">LDSC installation</a></li>
 <li><a href="sldsc_pipeline.html">S-LDSC pipeline</a></li>
-<li><a href="sldsc_example_GTEx_QTLs.html">an example running S-LDSC on GTEx eQTLs from Hormozdiari, F. et al. Nature Genetics 2018 paper</a></li>
+<li><a href="sldsc_example_GTEx_QTLs.html">an example running S-LDSC on GTEx eQTLs from Hormozdiari, F. et al. Nature Genetics 2018 paper</a></li>
 <li><a href="sldsc_example_neuron_ATACseq.html">an example running S-LDSC on neuron ATAC-seq annotations</a></li>
 </ul>
 </div>
@@ -762,6 +798,12 @@ Start workflowr project.
 <h2>GWAS Finemapping</h2>
 <ul>
 <li><a href="mapgen_torus_susie_AF.html">Finemapping aFib GWAS summary statistics using mapgen with TORUS priors</a></li>
+</ul>
+</div>
+<div id="mapgen-trackplot" class="section level2">
+<h2>Mapgen trackplot</h2>
+<ul>
+<li><a href="make_mapgen_trackplots.html">Tutorial for making track plots to visualize AF finemapping and gene mapping results</a></li>
 </ul>
 </div>
 
