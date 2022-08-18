@@ -1,11 +1,13 @@
 ---
 title: "Tutorial for making track plots to visualize finemapping results for genomic regions"
-author: Kaixuan Luo, Alan Selewa
-output: html_document
+author: Kaixuan Luo
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 ```
 
 Track plot tutorial
