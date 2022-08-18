@@ -25,3 +25,6 @@ editor_options:
 
 ## GWAS Finemapping
 * [Finemapping aFib GWAS summary statistics using mapgen with TORUS priors](mapgen_torus_susie_AF.html)
+
+## Mapgen trackplot
+* [Tutorial for making track plots to visualize AF finemapping and gene mapping results](make_mapgen_trackplots.html)
