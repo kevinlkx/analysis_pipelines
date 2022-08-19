@@ -10,6 +10,7 @@ finemapping_annot_trackplot <- function(finemapstats,
                                         HiC_loops,
                                         txdb=NULL,
                                         data_colors = seq_along(countsdata),
+                                        data_ylim = c(0,1),
                                         highlight_snps = NULL,
                                         highlight_colors = "pink") {
 
@@ -118,7 +119,7 @@ finemapping_annot_trackplot <- function(finemapstats,
                                     col = data_colors[i],
                                     name = x,
                                     showAxis=FALSE,
-                                    ylim = c(0,0.8))
+                                    ylim = data_ylim)
 
       displayPars(countsdata.track) <- dpars.data
       countsdata.track
