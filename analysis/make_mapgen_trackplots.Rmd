@@ -70,7 +70,7 @@ H3K27ac_peaks <- rtracklayer::import("data/H3K27ac_heart_concat.bed")
 DHS_peaks <- rtracklayer::import("data/FetalHeart_E083-DNase_hg19_cleaned_narrowPeak.bed.gz")
 ```
 
-Load ATAC data files
+Load ATAC data files. These data need to be in wig, bigWig/bw, bedGraph, or bam format. 
 ```{r load-counts-data}
 atac_data_files <- c("data/Hg19_Cardiomyocyte-TileSize-500-normMethod-ReadsInTSS-ArchR.bw.bedGraph",
                      "data/Hg19_Endothelial-TileSize-500-normMethod-ReadsInTSS-ArchR.bw.bedGraph")
@@ -101,6 +101,7 @@ finemapping_annot_trackplot(finemapstats.gr,
                             genome = "hg19", 
                             countsdata = atac_data, 
                             data_colors = c("red", "green"), 
+                            data_ylim = c(0,0.8),
                             peaks = list("H3K27ac" = H3K27ac_peaks, "DHS" = DHS_peaks), 
                             HiC_loops = list("PC-HiC" = pcHiC.gr),
                             highlight_snps = "topSNP")
