@@ -64,6 +64,14 @@ Load Promoter-capture HiC (PCHi-C) data from iPSC derived cardiomyocytes (CMs).
 pcHiC.gr <- readRDS(system.file("extdata", "pcHiC.CM.gr.rds", package = "mapgen"))
 ```
 
+Load ABC data
+```{r load-ABC}
+ABC <- fread(file.path(data.dir, "heart_ventricle-ENCODE_ABC.tsv.gz"))
+ABC.gr <- process_ABC(ABC, ABC.thresh = 0.015, full.element = TRUE)
+ABC.gr <- ABC.gr[ABC.gr$gene_name %in% gene.annots$gene_name, ] # restrict to protein coding genes
+ABC.gr$score <- ABC.gr$ABC.Score * 100
+```
+
 Load H3K27ac and DHS bed files
 ```{r load-peaks}
 H3K27ac_peaks <- rtracklayer::import(file.path(data.dir, "H3K27ac_heart_concat.bed"))
@@ -95,18 +103,16 @@ region <- get_gene_region(gene.mapping.res, gene.of.interest, ext = 10000)
 
 ```{r make-txdb-obj, eval=FALSE, include=FALSE}
 # Make the `txdb` object of the gene annotations
-txdb <- AnnotationDbi::loadDb("/project2/xinhe/kevinluo/gene-level-finemapping/annot/gene_annotationsencode.v35.GRCh37.txdb.sqlite")
-txdb_gencodeV19_gtf <- makeTxDbFromGFF('/project2/gca/software/annotations/gencode.v19.annotation.gtf.gz', format = "gtf")
-saveDb(txdb_gencodeV19_gtf, "/project2/xinhe/kevinluo/gene-level-finemapping/annot/gene_annotations/gencode.v19.annotation.gtf.sqlite")
-
-# txdb_gencodeV19 <- makeTxDbFromUCSC(genome="hg19",tablename="wgEncodeGencodeBasicV19")
-# saveDb(txdb_gencodeV19, "/project2/xinhe/kevinluo/gene-level-finemapping/annot/gene_annotations/UCSC.wgEncodeGencodeBasicV19.sqlite")
-# txdb_gencodeV19_UCSC <- AnnotationDbi::loadDb("/project2/xinhe/kevinluo/gene-level-finemapping/annot/gene_annotations/UCSC.wgEncodeGencodeBasicV19.sqlite")
+# txdb <- AnnotationDbi::loadDb("/project2/xinhe/kevinluo/gene-level-finemapping/annot/gene_annotationsencode.v35.GRCh37.txdb.sqlite")
+# txdb_gencodeV19_gtf <- makeTxDbFromGFF('/project2/gca/software/annotations/gencode.v19.annotation.gtf.gz', format = "gtf")
+# saveDb(txdb_gencodeV19_gtf, "/project2/xinhe/kevinluo/gene-level-finemapping/annot/gene_annotations/gencode.v19.annotation.gtf.sqlite")
 ```
 
 ```{r track-plot-txdb-gtf, fig.width=12, fig.height=8, warning=FALSE}
 # Load the txdb object of the gene annotations
 txdb <- AnnotationDbi::loadDb("/project2/xinhe/kevinluo/gene-level-finemapping/annot/gene_annotations/gencode.v19.annotation.gtf.sqlite")
+peaks <- list("H3K27ac" = H3K27ac_peaks, "DHS" = DHS_peaks)
+HiC_loops <- list("PC-HiC" = pcHiC.gr, "ABC" = ABC.gr)
 
 finemapping_annot_trackplot(finemapstats.gr, 
                             region, 
@@ -118,7 +124,8 @@ finemapping_annot_trackplot(finemapstats.gr,
                             countsdata = atac_data, 
                             data_colors = c("red", "green", "purple"), 
                             data_ylim = c(0,0.8),
-                            peaks = list("H3K27ac" = H3K27ac_peaks, "DHS" = DHS_peaks), 
-                            HiC_loops = list("PC-HiC" = pcHiC.gr),
-                            highlight_snps = "topSNP")
+                            peaks = peaks, 
+                            HiC_loops = HiC_loops,
+                            highlight_snps = "topSNP",
+                            verbose = TRUE)
 ```
