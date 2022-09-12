@@ -7,7 +7,7 @@ editor_options:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
 ```
 
 Track plot tutorial
@@ -35,11 +35,11 @@ suppressMessages(library(rtracklayer)) # loading bigwigs/bed files
 suppressMessages(library(bigsnpr)) # loading genotype data from 1000Genomes for LD calculation
 suppressMessages(library(Gviz)) # make track plots
 library(mapgen)
-source("../code/mapgen_trackplots.R")
+source("code/mapgen_trackplots.R")
 ```
 
 ```{r settings}
-setwd("/project2/xinhe/kevinluo/gene-level-finemapping/trackplot_tutorial")
+data.dir <- "/project2/xinhe/kevinluo/gene-level-finemapping/trackplot_tutorial/data"
 ```
 
 Load fine-mapping results.
@@ -66,24 +66,25 @@ pcHiC.gr <- readRDS(system.file("extdata", "pcHiC.CM.gr.rds", package = "mapgen"
 
 Load H3K27ac and DHS bed files
 ```{r load-peaks}
-H3K27ac_peaks <- rtracklayer::import("data/H3K27ac_heart_concat.bed")
-DHS_peaks <- rtracklayer::import("data/FetalHeart_E083-DNase_hg19_cleaned_narrowPeak.bed.gz")
+H3K27ac_peaks <- rtracklayer::import(file.path(data.dir, "H3K27ac_heart_concat.bed"))
+DHS_peaks <- rtracklayer::import(file.path(data.dir, "FetalHeart_E083-DNase_hg19_cleaned_narrowPeak.bed.gz"))
 ```
 
 Load ATAC data files. These data need to be in wig, bigWig/bw, bedGraph, or bam format. 
 ```{r load-counts-data}
-atac_data_files <- c("data/Hg19_Cardiomyocyte-TileSize-500-normMethod-ReadsInTSS-ArchR.bw.bedGraph",
-                     "data/Hg19_Endothelial-TileSize-500-normMethod-ReadsInTSS-ArchR.bw.bedGraph")
+atac_data_files <- c(file.path(data.dir, "Hg19_Cardiomyocyte-TileSize-500-normMethod-ReadsInTSS-ArchR.bw.bedGraph"),
+                     file.path(data.dir, "Hg19_Endothelial-TileSize-500-normMethod-ReadsInTSS-ArchR.bw.bedGraph"),
+                     file.path(data.dir, "Hg19_Fibroblast-TileSize-500-normMethod-ReadsInTSS-ArchR.bw.bedGraph"))
 
 atac_data <- lapply(atac_data_files, function(x){rtracklayer::import(x)})
-names(atac_data) <- c("Cardiomyocyte", "Endothelial")
+names(atac_data) <- c("Cardiomyocyte", "Endothelial", "Fibroblast")
 ```
 
 Make a track plot to visualize a locus
 
 Load gene mapping result
 ```{r load-gene-mapping-res}
-gene.mapping.res <- readRDS("data/aFib_Finemapped_GeneMapped_ActivePromoter_07242021.gr.rds")
+gene.mapping.res <- readRDS(file.path(data.dir, "aFib_Finemapped_GeneMapped_ActivePromoter_07242021.gr.rds"))
 ```
 
 Get the genomic region for gene of interest
@@ -94,17 +95,45 @@ region <- get_gene_region(gene.mapping.res, gene.of.interest, ext = 10000)
 
 Make track plot
 ```{r track-plot, fig.width=12, fig.height=8, warning=FALSE}
-pdf(paste0(gene.of.interest,'_trackplot.pdf'), width=12, height=8)
 finemapping_annot_trackplot(finemapstats.gr, 
                             region, 
                             gene.annots, 
                             genome = "hg19", 
+                            genetrack_db = "UCSC",
+                            filter_protein_coding_genes = FALSE,
                             countsdata = atac_data, 
-                            data_colors = c("red", "green"), 
+                            data_colors = c("red", "green", "purple"), 
                             data_ylim = c(0,0.8),
                             peaks = list("H3K27ac" = H3K27ac_peaks, "DHS" = DHS_peaks), 
                             HiC_loops = list("PC-HiC" = pcHiC.gr),
                             highlight_snps = "topSNP")
-dev.off()
 ```
 
+Make the `txdb` object of the gene annotations
+```{r make-txdb-obj, eval=FALSE}
+txdb <- AnnotationDbi::loadDb("/project2/xinhe/kevinluo/gene-level-finemapping/annot/gene_annotationsencode.v35.GRCh37.txdb.sqlite")
+txdb_gencodeV19_gtf <- makeTxDbFromGFF('/project2/gca/software/annotations/gencode.v19.annotation.gtf.gz', format = "gtf")
+saveDb(txdb_gencodeV19_gtf, "/project2/xinhe/kevinluo/gene-level-finemapping/annot/gene_annotations/gencode.v19.annotation.gtf.sqlite")
+
+# txdb_gencodeV19 <- makeTxDbFromUCSC(genome="hg19",tablename="wgEncodeGencodeBasicV19")
+# saveDb(txdb_gencodeV19, "/project2/xinhe/kevinluo/gene-level-finemapping/annot/gene_annotations/UCSC.wgEncodeGencodeBasicV19.sqlite")
+# txdb_gencodeV19_UCSC <- AnnotationDbi::loadDb("/project2/xinhe/kevinluo/gene-level-finemapping/annot/gene_annotations/UCSC.wgEncodeGencodeBasicV19.sqlite")
+```
+
+```{r track-plot-txdb-gtf, fig.width=12, fig.height=8, warning=FALSE}
+txdb_gencodeV19 <- AnnotationDbi::loadDb("/project2/xinhe/kevinluo/gene-level-finemapping/annot/gene_annotations/gencode.v19.annotation.gtf.sqlite")
+
+finemapping_annot_trackplot(finemapstats.gr, 
+                            region, 
+                            gene.annots, 
+                            genome = "hg19", 
+                            genetrack_db = "txdb",
+                            txdb = txdb_gencodeV19,
+                            filter_protein_coding_genes = TRUE,
+                            countsdata = atac_data, 
+                            data_colors = c("red", "green", "purple"), 
+                            data_ylim = c(0,0.8),
+                            peaks = list("H3K27ac" = H3K27ac_peaks, "DHS" = DHS_peaks), 
+                            HiC_loops = list("PC-HiC" = pcHiC.gr),
+                            highlight_snps = "topSNP")
+```
