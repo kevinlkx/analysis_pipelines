@@ -68,7 +68,6 @@ Load ABC data
 ```{r load-ABC}
 ABC <- fread(file.path(data.dir, "heart_ventricle-ENCODE_ABC.tsv.gz"))
 ABC.gr <- process_ABC(ABC, ABC.thresh = 0.015, full.element = TRUE)
-ABC.gr <- ABC.gr[ABC.gr$gene_name %in% gene.annots$gene_name, ] # restrict to protein coding genes
 ABC.gr$score <- ABC.gr$ABC.Score * 100
 ```
 
