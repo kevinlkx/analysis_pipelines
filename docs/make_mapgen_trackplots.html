@@ -523,15 +523,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreeadbc5ca0e412b3b281ca1e4d1467959c23294899targetblankadbc5caa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreea014500a8df84c62b548518ccba8abef8aa9a870targetblanka014500a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/kevinlkx/analysis_pipelines/tree/adbc5ca0e412b3b281ca1e4d1467959c23294899" target="_blank">adbc5ca</a>
+<a href="https://github.com/kevinlkx/analysis_pipelines/tree/a014500a8df84c62b548518ccba8abef8aa9a870" target="_blank">a014500</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreeadbc5ca0e412b3b281ca1e4d1467959c23294899targetblankadbc5caa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreea014500a8df84c62b548518ccba8abef8aa9a870targetblanka014500a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -541,7 +541,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/kevinlkx/analysis_pipelines/tree/adbc5ca0e412b3b281ca1e4d1467959c23294899" target="_blank">adbc5ca</a>.
+<a href="https://github.com/kevinlkx/analysis_pipelines/tree/a014500a8df84c62b548518ccba8abef8aa9a870" target="_blank">a014500</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -615,6 +615,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/a014500a8df84c62b548518ccba8abef8aa9a870/analysis/make_mapgen_trackplots.Rmd" target="_blank">a014500</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2022-09-12
+</td>
+<td>
+added ABC data
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/da4ec13806863fd03b668f51aeefa6790355bf22/docs/make_mapgen_trackplots.html" target="_blank">da4ec13</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2022-09-12
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -836,7 +870,6 @@ cardiomyocytes (CMs).</p>
 <p>Load ABC data</p>
 <pre class="r"><code>ABC &lt;- fread(file.path(data.dir, &quot;heart_ventricle-ENCODE_ABC.tsv.gz&quot;))
 ABC.gr &lt;- process_ABC(ABC, ABC.thresh = 0.015, full.element = TRUE)
-ABC.gr &lt;- ABC.gr[ABC.gr$gene_name %in% gene.annots$gene_name, ] # restrict to protein coding genes
 ABC.gr$score &lt;- ABC.gr$ABC.Score * 100</code></pre>
 <p>Load H3K27ac and DHS bed files</p>
 <pre class="r"><code>H3K27ac_peaks &lt;- rtracklayer::import(file.path(data.dir, &quot;H3K27ac_heart_concat.bed&quot;))
@@ -910,6 +943,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/da4ec13806863fd03b668f51aeefa6790355bf22/docs/figure/make_mapgen_trackplots.Rmd/track-plot-txdb-gtf-1.png" target="_blank">da4ec13</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2022-09-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/kevinlkx/analysis_pipelines/blob/76c15461ee95c6ec35ecaefc1dadf5e86d609f30/docs/figure/make_mapgen_trackplots.Rmd/track-plot-txdb-gtf-1.png" target="_blank">76c1546</a>
