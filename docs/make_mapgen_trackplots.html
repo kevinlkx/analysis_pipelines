@@ -14,6 +14,7 @@
 
 <title>Tutorial for making track plots to visualize finemapping results for genomic regions</title>
 
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -45,6 +46,8 @@ div.section {
   padding-top: 12px;
 }
 </style>
+
+
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -358,7 +361,8 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Tutorial for making track plots to visualize finemapping results for genomic regions</h1>
+<h1 class="title toc-ignore">Tutorial for making track plots to
+visualize finemapping results for genomic regions</h1>
 <h4 class="author">Kaixuan Luo</h4>
 
 </div>
@@ -366,7 +370,9 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -375,7 +381,9 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -384,17 +392,27 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-08-19
+<strong>Last updated:</strong> 2022-09-12
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
 </p>
 <p>
-<strong>Knit directory:</strong> <code>analysis_pipelines/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>analysis_pipelines/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -403,91 +421,138 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
 <div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20200524code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20200524)</code> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20200524code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20200524)</code> </a>
 </p>
 </div>
-<div id="strongSeedstrongcodesetseed20200524code" class="panel-collapse collapse">
+<div id="strongSeedstrongcodesetseed20200524code"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20200524)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(20200524)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
 </p>
 </div>
-<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
 <div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
 </p>
 </div>
 <div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree6e9c89d42def2c21555975876f81a0f4c2c86debtargetblank6e9c89da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/6e9c89d42def2c21555975876f81a0f4c2c86deb" target="_blank">6e9c89d</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreecdf3452d422854214cafe52e81504e73821adb30targetblankcdf3452a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/kevinlkx/analysis_pipelines/tree/cdf3452d422854214cafe52e81504e73821adb30" target="_blank">cdf3452</a>
+</a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree6e9c89d42def2c21555975876f81a0f4c2c86debtargetblank6e9c89da" class="panel-collapse collapse">
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreecdf3452d422854214cafe52e81504e73821adb30targetblankcdf3452a"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/6e9c89d42def2c21555975876f81a0f4c2c86deb" target="_blank">6e9c89d</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version
+<a href="https://github.com/kevinlkx/analysis_pipelines/tree/cdf3452d422854214cafe52e81504e73821adb30" target="_blank">cdf3452</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
 Ignored files:
@@ -507,7 +572,9 @@ Unstaged changes:
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -518,7 +585,13 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/make_mapgen_trackplots.Rmd</code>) and HTML (<code>docs/make_mapgen_trackplots.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were
+made to the R Markdown
+(<code>analysis/make_mapgen_trackplots.Rmd</code>) and HTML
+(<code>docs/make_mapgen_trackplots.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -542,6 +615,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/cdf3452d422854214cafe52e81504e73821adb30/analysis/make_mapgen_trackplots.Rmd" target="_blank">cdf3452</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2022-09-12
+</td>
+<td>
+added txdb built from gtf
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/45bb1945a94a9eb3eb00e0b0ec4cec6694834c3a/docs/make_mapgen_trackplots.html" target="_blank">45bb194</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2022-08-19
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -623,9 +730,13 @@ added trackplot tutorials
 <ul>
 <li>Genetic fine-mapping summary statistics.</li>
 <li>Gene annotations (exons, introns, UTRs, etc.).</li>
-<li>Functional annotation data, e.g.: ATAC-seq data, histone ChIP-seq peaks, PC-HiC loops, etc.</li>
+<li>Functional annotation data, e.g.: ATAC-seq data, histone ChIP-seq
+peaks, PC-HiC loops, etc.</li>
 </ul>
-<p>To make the trackplots, you will need to have the following packages installed: <code>AnnotationDbi</code>, <code>org.Hs.eg.db</code>, <code>GenomicInteractions</code>, <code>Gviz</code>, <code>rtracklayer</code> from Bioconductor.</p>
+<p>To make the trackplots, you will need to have the following packages
+installed: <code>AnnotationDbi</code>, <code>org.Hs.eg.db</code>,
+<code>GenomicInteractions</code>, <code>Gviz</code>,
+<code>rtracklayer</code> from Bioconductor.</p>
 <p>Load R packages</p>
 <pre class="r"><code>suppressMessages(library(data.table))
 suppressMessages(library(tidyverse))
@@ -637,8 +748,8 @@ suppressMessages(library(rtracklayer)) # loading bigwigs/bed files
 suppressMessages(library(bigsnpr)) # loading genotype data from 1000Genomes for LD calculation
 suppressMessages(library(Gviz)) # make track plots
 library(mapgen)
-source(&quot;../code/mapgen_trackplots.R&quot;)</code></pre>
-<pre class="r"><code>setwd(&quot;/project2/xinhe/kevinluo/gene-level-finemapping/trackplot_tutorial&quot;)</code></pre>
+source(&quot;code/mapgen_trackplots.R&quot;)</code></pre>
+<pre class="r"><code>data.dir &lt;- &quot;/project2/xinhe/kevinluo/gene-level-finemapping/trackplot_tutorial/data&quot;</code></pre>
 <p>Load fine-mapping results.</p>
 <pre class="r"><code>finemapstats &lt;- readRDS(system.file(&quot;extdata&quot;, &quot;aFib_Finemapped.tble.rds&quot;, package = &quot;mapgen&quot;))
 finemapstats.gr &lt;- process_finemapping_sumstats(finemapstats, 
@@ -647,47 +758,270 @@ finemapstats.gr &lt;- process_finemapping_sumstats(finemapstats,
                                                 pval = &#39;pval&#39;, zscore = &#39;zscore&#39;, 
                                                 cs = &#39;CS&#39;, locus = &#39;locus&#39;,  
                                                 pip.thresh = 0)</code></pre>
+<pre><code>Processing fine-mapping summary statistics ...</code></pre>
 <p>Load genomic annotations and gene information</p>
 <pre class="r"><code>genomic.annots &lt;- readRDS(system.file(&quot;extdata&quot;, &quot;genomic.annots.hg19.gr.rds&quot;, package = &quot;mapgen&quot;))
 gene.annots &lt;- genomic.annots$genes</code></pre>
-<p>Load Promoter-capture HiC (PCHi-C) data from iPSC derived cardiomyocytes (CMs).</p>
+<p>Load Promoter-capture HiC (PCHi-C) data from iPSC derived
+cardiomyocytes (CMs).</p>
 <pre class="r"><code>pcHiC.gr &lt;- readRDS(system.file(&quot;extdata&quot;, &quot;pcHiC.CM.gr.rds&quot;, package = &quot;mapgen&quot;))</code></pre>
 <p>Load H3K27ac and DHS bed files</p>
-<pre class="r"><code>H3K27ac_peaks &lt;- rtracklayer::import(&quot;data/H3K27ac_heart_concat.bed&quot;)
-DHS_peaks &lt;- rtracklayer::import(&quot;data/FetalHeart_E083-DNase_hg19_cleaned_narrowPeak.bed.gz&quot;)</code></pre>
-<p>Load ATAC data files. These data need to be in wig, bigWig/bw, bedGraph, or bam format.</p>
-<pre class="r"><code>atac_data_files &lt;- c(&quot;data/Hg19_Cardiomyocyte-TileSize-500-normMethod-ReadsInTSS-ArchR.bw.bedGraph&quot;,
-                     &quot;data/Hg19_Endothelial-TileSize-500-normMethod-ReadsInTSS-ArchR.bw.bedGraph&quot;)
+<pre class="r"><code>H3K27ac_peaks &lt;- rtracklayer::import(file.path(data.dir, &quot;H3K27ac_heart_concat.bed&quot;))
+DHS_peaks &lt;- rtracklayer::import(file.path(data.dir, &quot;FetalHeart_E083-DNase_hg19_cleaned_narrowPeak.bed.gz&quot;))</code></pre>
+<p>Load ATAC data files. These data need to be in wig, bigWig/bw,
+bedGraph, or bam format.</p>
+<pre class="r"><code>atac_data_files &lt;- c(file.path(data.dir, &quot;Hg19_Cardiomyocyte-TileSize-500-normMethod-ReadsInTSS-ArchR.bw.bedGraph&quot;),
+                     file.path(data.dir, &quot;Hg19_Endothelial-TileSize-500-normMethod-ReadsInTSS-ArchR.bw.bedGraph&quot;),
+                     file.path(data.dir, &quot;Hg19_Fibroblast-TileSize-500-normMethod-ReadsInTSS-ArchR.bw.bedGraph&quot;))
 
 atac_data &lt;- lapply(atac_data_files, function(x){rtracklayer::import(x)})
-names(atac_data) &lt;- c(&quot;Cardiomyocyte&quot;, &quot;Endothelial&quot;)</code></pre>
+names(atac_data) &lt;- c(&quot;Cardiomyocyte&quot;, &quot;Endothelial&quot;, &quot;Fibroblast&quot;)</code></pre>
 <p>Make a track plot to visualize a locus</p>
 <p>Load gene mapping result</p>
-<pre class="r"><code>gene.mapping.res &lt;- readRDS(&quot;data/aFib_Finemapped_GeneMapped_ActivePromoter_07242021.gr.rds&quot;)</code></pre>
+<pre class="r"><code>gene.mapping.res &lt;- readRDS(file.path(data.dir, &quot;aFib_Finemapped_GeneMapped_ActivePromoter_07242021.gr.rds&quot;))</code></pre>
 <p>Get the genomic region for gene of interest</p>
 <pre class="r"><code>gene.of.interest &lt;- &quot;FGF9&quot;
 region &lt;- get_gene_region(gene.mapping.res, gene.of.interest, ext = 10000)</code></pre>
 <p>Make track plot</p>
-<pre class="r"><code>pdf(paste0(gene.of.interest,&#39;_trackplot.pdf&#39;), width=12, height=8)
-finemapping_annot_trackplot(finemapstats.gr, 
+<pre class="r"><code>finemapping_annot_trackplot(finemapstats.gr, 
                             region, 
                             gene.annots, 
                             genome = &quot;hg19&quot;, 
+                            genetrack_db = &quot;UCSC&quot;,
+                            filter_protein_coding_genes = FALSE,
                             countsdata = atac_data, 
-                            data_colors = c(&quot;red&quot;, &quot;green&quot;), 
+                            data_colors = c(&quot;red&quot;, &quot;green&quot;, &quot;purple&quot;), 
                             data_ylim = c(0,0.8),
                             peaks = list(&quot;H3K27ac&quot; = H3K27ac_peaks, &quot;DHS&quot; = DHS_peaks), 
                             HiC_loops = list(&quot;PC-HiC&quot; = pcHiC.gr),
-                            highlight_snps = &quot;topSNP&quot;)
-dev.off()</code></pre>
+                            highlight_snps = &quot;topSNP&quot;)</code></pre>
+<pre><code>Making trackplots ...
+6857 snps included.
+Adding Cardiomyocyte track...
+Adding Endothelial track...
+Adding Fibroblast track...
+Adding H3K27ac track... 
+Adding DHS track... 
+Adding PC-HiC track...
+Making gene track object using TxDb.Hsapiens.UCSC.hg19.knownGene ...</code></pre>
+<pre><code>&#39;select()&#39; returned 1:1 mapping between keys and columns</code></pre>
+<pre><code>Highlight SNPs: rs9506925 </code></pre>
+<p><img src="figure/make_mapgen_trackplots.Rmd/track-plot-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>Make the <code>txdb</code> object of the gene annotations</p>
+<pre class="r"><code>txdb &lt;- AnnotationDbi::loadDb(&quot;/project2/xinhe/kevinluo/gene-level-finemapping/annot/gene_annotationsencode.v35.GRCh37.txdb.sqlite&quot;)
+txdb_gencodeV19_gtf &lt;- makeTxDbFromGFF(&#39;/project2/gca/software/annotations/gencode.v19.annotation.gtf.gz&#39;, format = &quot;gtf&quot;)
+saveDb(txdb_gencodeV19_gtf, &quot;/project2/xinhe/kevinluo/gene-level-finemapping/annot/gene_annotations/gencode.v19.annotation.gtf.sqlite&quot;)
+
+# txdb_gencodeV19 &lt;- makeTxDbFromUCSC(genome=&quot;hg19&quot;,tablename=&quot;wgEncodeGencodeBasicV19&quot;)
+# saveDb(txdb_gencodeV19, &quot;/project2/xinhe/kevinluo/gene-level-finemapping/annot/gene_annotations/UCSC.wgEncodeGencodeBasicV19.sqlite&quot;)
+# txdb_gencodeV19_UCSC &lt;- AnnotationDbi::loadDb(&quot;/project2/xinhe/kevinluo/gene-level-finemapping/annot/gene_annotations/UCSC.wgEncodeGencodeBasicV19.sqlite&quot;)</code></pre>
+<pre class="r"><code>txdb_gencodeV19 &lt;- AnnotationDbi::loadDb(&quot;/project2/xinhe/kevinluo/gene-level-finemapping/annot/gene_annotations/gencode.v19.annotation.gtf.sqlite&quot;)</code></pre>
+<pre><code>Loading required package: GenomicFeatures</code></pre>
+<pre class="r"><code>finemapping_annot_trackplot(finemapstats.gr, 
+                            region, 
+                            gene.annots, 
+                            genome = &quot;hg19&quot;, 
+                            genetrack_db = &quot;txdb&quot;,
+                            txdb = txdb_gencodeV19,
+                            filter_protein_coding_genes = TRUE,
+                            countsdata = atac_data, 
+                            data_colors = c(&quot;red&quot;, &quot;green&quot;, &quot;purple&quot;), 
+                            data_ylim = c(0,0.8),
+                            peaks = list(&quot;H3K27ac&quot; = H3K27ac_peaks, &quot;DHS&quot; = DHS_peaks), 
+                            HiC_loops = list(&quot;PC-HiC&quot; = pcHiC.gr),
+                            highlight_snps = &quot;topSNP&quot;)</code></pre>
+<pre><code>Making trackplots ...
+6857 snps included.
+Adding Cardiomyocyte track...
+Adding Endothelial track...
+Adding Fibroblast track...
+Adding H3K27ac track... 
+Adding DHS track... 
+Adding PC-HiC track...
+Making gene track object using gene annotations in txdb ...</code></pre>
+<pre><code>&#39;select()&#39; returned 1:1 mapping between keys and columns</code></pre>
+<pre><code>Highlight SNPs: rs9506925 </code></pre>
+<p><img src="figure/make_mapgen_trackplots.Rmd/track-plot-txdb-gtf-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
-<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.2.0 (2022-04-22)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: CentOS Linux 7 (Core)
+
+Matrix products: default
+BLAS/LAPACK: /software/openblas-0.3.13-el7-x86_64/lib/libopenblas_haswellp-r0.3.13.so
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8 LC_NUMERIC=C         LC_TIME=C           
+ [4] LC_COLLATE=C         LC_MONETARY=C        LC_MESSAGES=C       
+ [7] LC_PAPER=C           LC_NAME=C            LC_ADDRESS=C        
+[10] LC_TELEPHONE=C       LC_MEASUREMENT=C     LC_IDENTIFICATION=C 
+
+attached base packages:
+[1] grid      stats4    stats     graphics  grDevices utils     datasets 
+[8] methods   base     
+
+other attached packages:
+ [1] GenomicFeatures_1.48.3      mapgen_0.3.10.9000         
+ [3] Gviz_1.40.1                 bigsnpr_1.10.8             
+ [5] bigstatsr_1.5.6             rtracklayer_1.56.0         
+ [7] GenomicInteractions_1.30.0  InteractionSet_1.24.0      
+ [9] SummarizedExperiment_1.26.1 MatrixGenerics_1.8.0       
+[11] matrixStats_0.62.0          org.Hs.eg.db_3.15.0        
+[13] AnnotationDbi_1.58.0        Biobase_2.56.0             
+[15] GenomicRanges_1.48.0        GenomeInfoDb_1.32.2        
+[17] IRanges_2.30.0              S4Vectors_0.34.0           
+[19] BiocGenerics_0.42.0         forcats_0.5.1              
+[21] stringr_1.4.0               dplyr_1.0.9                
+[23] purrr_0.3.4                 readr_2.1.2                
+[25] tidyr_1.2.0                 tibble_3.1.7               
+[27] ggplot2_3.3.6               tidyverse_1.3.1            
+[29] data.table_1.14.2           workflowr_1.7.0            
+
+loaded via a namespace (and not attached):
+  [1] readxl_1.4.0                           
+  [2] backports_1.4.1                        
+  [3] Hmisc_4.7-1                            
+  [4] BiocFileCache_2.4.0                    
+  [5] igraph_1.3.4                           
+  [6] lazyeval_0.2.2                         
+  [7] splines_4.2.0                          
+  [8] BiocParallel_1.30.3                    
+  [9] digest_0.6.29                          
+ [10] foreach_1.5.2                          
+ [11] ensembldb_2.20.2                       
+ [12] htmltools_0.5.2                        
+ [13] fansi_1.0.3                            
+ [14] checkmate_2.1.0                        
+ [15] magrittr_2.0.3                         
+ [16] memoise_2.0.1                          
+ [17] BSgenome_1.64.0                        
+ [18] doParallel_1.0.17                      
+ [19] cluster_2.1.3                          
+ [20] bigassertr_0.1.5                       
+ [21] tzdb_0.3.0                             
+ [22] Biostrings_2.64.0                      
+ [23] modelr_0.1.8                           
+ [24] prettyunits_1.1.1                      
+ [25] jpeg_0.1-9                             
+ [26] colorspace_2.0-3                       
+ [27] blob_1.2.3                             
+ [28] rvest_1.0.2                            
+ [29] rappdirs_0.3.3                         
+ [30] haven_2.5.0                            
+ [31] xfun_0.30                              
+ [32] callr_3.7.0                            
+ [33] crayon_1.5.1                           
+ [34] RCurl_1.98-1.7                         
+ [35] jsonlite_1.8.0                         
+ [36] TxDb.Hsapiens.UCSC.hg19.knownGene_3.2.2
+ [37] flock_0.7                              
+ [38] iterators_1.0.14                       
+ [39] VariantAnnotation_1.42.1               
+ [40] survival_3.3-1                         
+ [41] glue_1.6.2                             
+ [42] gtable_0.3.0                           
+ [43] zlibbioc_1.42.0                        
+ [44] XVector_0.36.0                         
+ [45] DelayedArray_0.22.0                    
+ [46] scales_1.2.0                           
+ [47] rngtools_1.5.2                         
+ [48] bigparallelr_0.3.2                     
+ [49] DBI_1.1.3                              
+ [50] Rcpp_1.0.8.3                           
+ [51] htmlTable_2.4.0                        
+ [52] progress_1.2.2                         
+ [53] foreign_0.8-82                         
+ [54] bit_4.0.4                              
+ [55] Formula_1.2-4                          
+ [56] htmlwidgets_1.5.4                      
+ [57] httr_1.4.3                             
+ [58] RColorBrewer_1.1-3                     
+ [59] ellipsis_0.3.2                         
+ [60] pkgconfig_2.0.3                        
+ [61] XML_3.99-0.9                           
+ [62] nnet_7.3-17                            
+ [63] sass_0.4.1                             
+ [64] dbplyr_2.1.1                           
+ [65] deldir_1.0-6                           
+ [66] utf8_1.2.2                             
+ [67] tidyselect_1.1.2                       
+ [68] rlang_1.0.2                            
+ [69] later_1.3.0                            
+ [70] munsell_0.5.0                          
+ [71] cellranger_1.1.0                       
+ [72] tools_4.2.0                            
+ [73] cachem_1.0.6                           
+ [74] cli_3.3.0                              
+ [75] generics_0.1.2                         
+ [76] RSQLite_2.2.14                         
+ [77] broom_0.8.0                            
+ [78] evaluate_0.15                          
+ [79] fastmap_1.1.0                          
+ [80] yaml_2.3.5                             
+ [81] processx_3.5.3                         
+ [82] knitr_1.39                             
+ [83] bit64_4.0.5                            
+ [84] fs_1.5.2                               
+ [85] AnnotationFilter_1.20.0                
+ [86] KEGGREST_1.36.2                        
+ [87] doRNG_1.8.2                            
+ [88] whisker_0.4                            
+ [89] xml2_1.3.3                             
+ [90] biomaRt_2.52.0                         
+ [91] compiler_4.2.0                         
+ [92] rstudioapi_0.13                        
+ [93] filelock_1.0.2                         
+ [94] curl_4.3.2                             
+ [95] png_0.1-7                              
+ [96] reprex_2.0.1                           
+ [97] bslib_0.3.1                            
+ [98] stringi_1.7.6                          
+ [99] highr_0.9                              
+[100] ps_1.7.0                               
+[101] bigsparser_0.6.1                       
+[102] lattice_0.20-45                        
+[103] ProtGenerics_1.28.0                    
+[104] Matrix_1.4-1                           
+[105] vctrs_0.4.1                            
+[106] pillar_1.7.0                           
+[107] lifecycle_1.0.1                        
+[108] jquerylib_0.1.4                        
+[109] cowplot_1.1.1                          
+[110] bitops_1.0-7                           
+[111] httpuv_1.6.5                           
+[112] R6_2.5.1                               
+[113] BiocIO_1.6.0                           
+[114] latticeExtra_0.6-30                    
+[115] promises_1.2.0.1                       
+[116] gridExtra_2.3                          
+[117] codetools_0.2-18                       
+[118] dichromat_2.0-0.1                      
+[119] assertthat_0.2.1                       
+[120] rprojroot_2.0.3                        
+[121] rjson_0.2.21                           
+[122] withr_2.5.0                            
+[123] GenomicAlignments_1.32.0               
+[124] Rsamtools_2.12.0                       
+[125] GenomeInfoDbData_1.2.8                 
+[126] parallel_4.2.0                         
+[127] hms_1.1.1                              
+[128] rpart_4.1.16                           
+[129] rmarkdown_2.14                         
+[130] git2r_0.30.1                           
+[131] biovizBase_1.44.0                      
+[132] getPass_0.2-2                          
+[133] lubridate_1.8.0                        
+[134] base64enc_0.1-3                        
+[135] interp_1.1-3                           
+[136] restfulr_0.0.14                        </code></pre>
 </div>
 </div>
 
@@ -703,6 +1037,8 @@ footer is added to webpages before the MathJax javascript. -->
     "HTML-CSS": { availableFonts: ["TeX"] }
   });
 </script>
+
+
 
 
 </div>
