@@ -520,15 +520,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreec299df67af4f3b361e4eebc79e1b91c312b3a833targetblankc299df6a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree429745c40409ef66f27c79b021ca2678f3577f7atargetblank429745ca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/kevinlkx/analysis_pipelines/tree/c299df67af4f3b361e4eebc79e1b91c312b3a833" target="_blank">c299df6</a>
+<a href="https://github.com/kevinlkx/analysis_pipelines/tree/429745c40409ef66f27c79b021ca2678f3577f7a" target="_blank">429745c</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreec299df67af4f3b361e4eebc79e1b91c312b3a833targetblankc299df6a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree429745c40409ef66f27c79b021ca2678f3577f7atargetblank429745ca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -538,7 +538,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/kevinlkx/analysis_pipelines/tree/c299df67af4f3b361e4eebc79e1b91c312b3a833" target="_blank">c299df6</a>.
+<a href="https://github.com/kevinlkx/analysis_pipelines/tree/429745c40409ef66f27c79b021ca2678f3577f7a" target="_blank">429745c</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -618,6 +618,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/429745c40409ef66f27c79b021ca2678f3577f7a/analysis/mapgen_torus_susie_AF.Rmd" target="_blank">429745c</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2023-10-20
+</td>
+<td>
+wflow_publish("analysis/mapgen_torus_susie_AF.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/1e5ba5ae390109ce346d643bfadcfe3392db2dc3/docs/mapgen_torus_susie_AF.html" target="_blank">1e5ba5a</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2023-10-20
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -847,8 +881,7 @@ torus.enrich &lt;- torus.result$enrich
 torus.prior &lt;- torus.result$snp_prior</code></pre>
 <p>Select GWAS significant loci with -log10(pval) &lt; 5e-8</p>
 <pre class="r"><code>sig.loci &lt;- gwas.sumstats %&gt;% dplyr::filter(pval &gt; -log10(5e-8)) %&gt;% dplyr::pull(locus) %&gt;% unique()
-gwas.sumstats.sigloci &lt;- gwas.sumstats[gwas.sumstats$locus %in% sig.loci, ]
-cat(length(unique(gwas.sumstats.sigloci$locus)), &quot;loci selected.\n&quot;)</code></pre>
+gwas.sumstats.sigloci &lt;- gwas.sumstats[gwas.sumstats$locus %in% sig.loci, ]</code></pre>
 <p>Add Torus priors to GWAS summary statistics</p>
 <pre class="r"><code>sumstats.sigloci &lt;- prepare_susie_data_with_torus_result(sumstats = gwas.sumstats.sigloci, 
                                                          torus_prior = torus.prior)
