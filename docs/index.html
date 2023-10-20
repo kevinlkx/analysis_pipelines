@@ -13,6 +13,7 @@
 
 <title>Home</title>
 
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -41,6 +42,8 @@ div.section {
   padding-top: 12px;
 }
 </style>
+
+
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -150,11 +153,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -183,8 +190,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -192,16 +199,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -288,7 +288,9 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -297,7 +299,9 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -306,17 +310,27 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-08-18
+<strong>Last updated:</strong> 2023-10-20
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
 </p>
 <p>
-<strong>Knit directory:</strong> <code>analysis_pipelines/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>analysis_pipelines/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -325,31 +339,54 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree84247b729c95860b31bc62593189ff1e4e2a66f1targetblank84247b7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/kevinlkx/analysis_pipelines/tree/84247b729c95860b31bc62593189ff1e4e2a66f1" target="_blank">84247b7</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree86f46016a67433f729e2fa2d87967326e20d52f7targetblank86f4601a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/kevinlkx/analysis_pipelines/tree/86f46016a67433f729e2fa2d87967326e20d52f7" target="_blank">86f4601</a>
+</a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree84247b729c95860b31bc62593189ff1e4e2a66f1targetblank84247b7a" class="panel-collapse collapse">
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree86f46016a67433f729e2fa2d87967326e20d52f7targetblank86f4601a"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/kevinlkx/analysis_pipelines/tree/84247b729c95860b31bc62593189ff1e4e2a66f1" target="_blank">84247b7</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version
+<a href="https://github.com/kevinlkx/analysis_pipelines/tree/86f46016a67433f729e2fa2d87967326e20d52f7" target="_blank">86f4601</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
 Ignored files:
@@ -358,17 +395,26 @@ Ignored files:
 
 Untracked files:
     Untracked:  analysis/test_sldsc_splicingAnnot.Rmd
+    Untracked:  code/compute_ldscore_generic_annot.sbatch
+    Untracked:  code/extract_baselineLD_generic_annot.R
+    Untracked:  code/ldsc_make_binary_annot_compute_ldscores_bedfiles.sbatch
+    Untracked:  code/make_ldsc_binary_annots_from_bedfiles.R
     Untracked:  code/sldsc_annot_generic_baselineLD_separate.sbatch
     Untracked:  scripts/tmp.R
 
 Unstaged changes:
-    Modified:   analysis/mapgen_torus_susie_AF.Rmd
+    Modified:   analysis/mapgen_torus_enrichment_heart_atlas.Rmd
     Modified:   analysis/sldsc_example_GTEx_QTLs.Rmd
+    Modified:   analysis/sldsc_pipeline.Rmd
+    Modified:   code/extract_baselineLDv2.2_generic_annot.R
+    Modified:   code/mapgen_trackplots.R
     Modified:   scripts/run_finemapping.R
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -379,7 +425,11 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/index.Rmd</code>) and HTML (<code>docs/index.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/index.Rmd</code>) and HTML
+(<code>docs/index.html</code>) files. If you’ve configured a remote Git
+repository (see <code>?wflow_git_remote</code>), click on the hyperlinks
+in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -403,6 +453,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/86f46016a67433f729e2fa2d87967326e20d52f7/analysis/index.Rmd" target="_blank">86f4601</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2023-10-20
+</td>
+<td>
+wflow_publish("analysis/index.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/a065c8d9955d9d11f426a092bc1de5f9fae87f0f/docs/index.html" target="_blank">a065c8d</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2022-08-18
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -519,7 +603,7 @@ kevinlkx
 2020-07-08
 </td>
 <td>
-wflow_publish(“analysis/index.Rmd”)
+wflow_publish("analysis/index.Rmd")
 </td>
 </tr>
 <tr>
@@ -570,7 +654,7 @@ kevinlkx
 2020-07-07
 </td>
 <td>
-wflow_publish(“analysis/index.Rmd”)
+wflow_publish("analysis/index.Rmd")
 </td>
 </tr>
 <tr>
@@ -604,7 +688,7 @@ kevinlkx
 2020-05-25
 </td>
 <td>
-wflow_publish(“analysis/index.Rmd”)
+wflow_publish("analysis/index.Rmd")
 </td>
 </tr>
 <tr>
@@ -672,7 +756,7 @@ kevinlkx
 2020-05-24
 </td>
 <td>
-wflow_publish(“analysis/index.Rmd”)
+wflow_publish("analysis/index.Rmd")
 </td>
 </tr>
 <tr>
@@ -706,7 +790,7 @@ kevinlkx
 2020-05-24
 </td>
 <td>
-wflow_publish(“analysis/index.Rmd”)
+wflow_publish("analysis/index.Rmd")
 </td>
 </tr>
 <tr>
@@ -778,8 +862,11 @@ Start workflowr project.
 <ul>
 <li><a href="ldsc_install.html">LDSC installation</a></li>
 <li><a href="sldsc_pipeline.html">S-LDSC pipeline</a></li>
-<li><a href="sldsc_example_GTEx_QTLs.html">an example running S-LDSC on GTEx eQTLs from Hormozdiari, F. et al. Nature Genetics 2018 paper</a></li>
-<li><a href="sldsc_example_neuron_ATACseq.html">an example running S-LDSC on neuron ATAC-seq annotations</a></li>
+<li><a href="sldsc_example_GTEx_QTLs.html">an example running S-LDSC on
+GTEx eQTLs from Hormozdiari, F. et al. Nature Genetics 2018
+paper</a></li>
+<li><a href="sldsc_example_neuron_ATACseq.html">an example running
+S-LDSC on neuron ATAC-seq annotations</a></li>
 </ul>
 </div>
 <div id="twas" class="section level2">
@@ -788,22 +875,27 @@ Start workflowr project.
 <li><a href="twas_fusion_pipeline.html">TWAS FUSION pipeline</a></li>
 </ul>
 </div>
-<div id="torus" class="section level2">
-<h2>TORUS</h2>
+<div id="enrichment-analysis-using-mapgen-with-torus"
+class="section level2">
+<h2>Enrichment analysis using Mapgen with TORUS</h2>
 <ul>
-<li><a href="mapgen_torus_enrichment_heart_atlas.html">TORUS enrichment analysis example using mapgen on aFib GWAS with heart scATAC-seq data</a></li>
+<li><a href="mapgen_torus_enrichment_heart_atlas.html">Enrichment
+analysis example using Mapgen on aFib GWAS with heart scATAC-seq
+data</a></li>
 </ul>
 </div>
-<div id="gwas-finemapping" class="section level2">
-<h2>GWAS Finemapping</h2>
+<div id="functional-finemapping" class="section level2">
+<h2>Functional Finemapping</h2>
 <ul>
-<li><a href="mapgen_torus_susie_AF.html">Finemapping aFib GWAS summary statistics using mapgen with TORUS priors</a></li>
+<li><a href="mapgen_torus_susie_AF.html">Finemapping aFib GWAS summary
+statistics using mapgen with TORUS priors</a></li>
 </ul>
 </div>
 <div id="mapgen-trackplot" class="section level2">
 <h2>Mapgen trackplot</h2>
 <ul>
-<li><a href="make_mapgen_trackplots.html">Tutorial for making track plots to visualize AF finemapping and gene mapping results</a></li>
+<li><a href="make_mapgen_trackplots.html">Tutorial for making track
+plots to visualize AF finemapping and gene mapping results</a></li>
 </ul>
 </div>
 
@@ -819,6 +911,8 @@ footer is added to webpages before the MathJax javascript. -->
     "HTML-CSS": { availableFonts: ["TeX"] }
   });
 </script>
+
+
 
 
 
