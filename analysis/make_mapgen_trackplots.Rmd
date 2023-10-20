@@ -21,110 +21,129 @@ Track plot tutorial
 ATAC-seq data, histone ChIP-seq peaks, PC-HiC loops, etc.
 
 To make the trackplots, you will need to have the following packages installed:
-`AnnotationDbi`, `org.Hs.eg.db`, `GenomicInteractions`, `Gviz`, `rtracklayer` from Bioconductor.
+`GenomicFeatures`, `AnnotationDbi`, `org.Hs.eg.db`, `GenomicInteractions`, `Gviz`, `rtracklayer` from Bioconductor.
 
 Load R packages
 ```{r load-packages, message=FALSE, warning=FALSE}
-suppressMessages(library(data.table))
-suppressMessages(library(tidyverse))
-suppressMessages(library(GenomicRanges))
-suppressMessages(library(AnnotationDbi)) # match gene ID to gene symbol
-suppressMessages(library(org.Hs.eg.db)) # match gene ID to gene symbol
-suppressMessages(library(GenomicInteractions)) # visualize HiC plots
-suppressMessages(library(rtracklayer)) # loading bigwigs/bed files
-suppressMessages(library(bigsnpr)) # loading genotype data from 1000Genomes for LD calculation
-suppressMessages(library(Gviz)) # make track plots
+library(GenomicFeatures) #  Making and manipulating annotations
+library(rtracklayer) # Import annotation data
+library(Gviz) # R package used to visualize track plots
+library(GenomicInteractions) # visualize HiC loops
+library(AnnotationDbi) # match gene ID to gene symbol
+library(org.Hs.eg.db) # match gene ID to gene symbol
 library(mapgen)
-source("code/mapgen_trackplots.R")
 ```
 
 ```{r settings}
-data.dir <- "/project2/xinhe/kevinluo/gene-level-finemapping/trackplot_tutorial/data"
+trackdata.dir <- "/project2/xinhe/shared_data/mapgen/example_data/trackplot"
 ```
 
 Load fine-mapping results.
 ```{r load-finemapping-res}
-finemapstats <- readRDS(system.file("extdata", "aFib_Finemapped.tble.rds", package = "mapgen"))
-finemapstats.gr <- process_finemapping_sumstats(finemapstats, 
-                                                snp = 'snp', chr = 'chr', 
-                                                pos = 'pos', pip = 'susie_pip', 
-                                                pval = 'pval', zscore = 'zscore', 
-                                                cs = 'CS', locus = 'locus',  
-                                                pip.thresh = 0)
+finemapstats <- readRDS(system.file("extdata", "AF.finemapping.sumstats.rds", package = "mapgen"))
+finemapstats <- process_finemapping_sumstats(finemapstats, 
+                                             snp = 'snp', 
+                                             chr = 'chr', 
+                                             pos = 'pos', 
+                                             pip = 'susie_pip', 
+                                             pval = 'pval', 
+                                             zscore = 'zscore', 
+                                             cs = 'cs', 
+                                             locus = 'locus',  
+                                             pip.thresh = 0)
 ```
 
 Load genomic annotations and gene information
+
+We included gene annotations (hg19) in the package, downloaded from 
+[GENCODE release 19][GENCODE V19].
 ```{r load-annotations}
-genomic.annots <- readRDS(system.file("extdata", "genomic.annots.hg19.gr.rds", package = "mapgen"))
+genomic.annots <- readRDS(system.file("extdata", "genomic.annots.hg19.rds", package = "mapgen"))
 gene.annots <- genomic.annots$genes
 ```
 
 Load Promoter-capture HiC (PCHi-C) data from iPSC derived cardiomyocytes (CMs).
 ```{r load-pcHiC}
-pcHiC.gr <- readRDS(system.file("extdata", "pcHiC.CM.gr.rds", package = "mapgen"))
+pcHiC <- readRDS(system.file("extdata", "pcHiC.CM.gr.rds", package = "mapgen"))
+pcHiC <- pcHiC[pcHiC$gene_name %in% gene.annots$gene_name, ] # restrict to protein coding genes
 ```
 
 Load ABC data
 ```{r load-ABC}
-ABC <- fread(file.path(data.dir, "heart_ventricle-ENCODE_ABC.tsv.gz"))
-ABC.gr <- process_ABC(ABC, ABC.thresh = 0.015, full.element = TRUE)
-ABC.gr$score <- ABC.gr$ABC.Score * 100
+ABC <- data.table::fread(system.file("extdata", "heart_ventricle-ENCODE_ABC.tsv.gz", package = "mapgen"))
+ABC <- process_ABC(ABC, full.element = TRUE)
+ABC <- ABC[ABC$gene_name %in% gene.annots$gene_name, ] # restrict to protein coding genes
+ABC$score <- ABC$score * 100 # scale to visualize the ABC scores
+head(ABC, 3)
 ```
 
 Load H3K27ac and DHS bed files
 ```{r load-peaks}
-H3K27ac_peaks <- rtracklayer::import(file.path(data.dir, "H3K27ac_heart_concat.bed"))
-DHS_peaks <- rtracklayer::import(file.path(data.dir, "FetalHeart_E083-DNase_hg19_cleaned_narrowPeak.bed.gz"))
+H3K27ac_peaks <- rtracklayer::import(file.path(trackdata.dir, "H3K27ac.heart.concat.hg19.bed.gz"))
+DHS_peaks <- rtracklayer::import(file.path(trackdata.dir, "FetalHeart_E083.DNase.hg19.narrowPeak.bed.gz"))
 ```
 
 Load ATAC data files. These data need to be in wig, bigWig/bw, bedGraph, or bam format. 
 ```{r load-counts-data}
-atac_data_files <- c(file.path(data.dir, "Hg19_Cardiomyocyte-TileSize-500-normMethod-ReadsInTSS-ArchR.bw.bedGraph"),
-                     file.path(data.dir, "Hg19_Endothelial-TileSize-500-normMethod-ReadsInTSS-ArchR.bw.bedGraph"),
-                     file.path(data.dir, "Hg19_Fibroblast-TileSize-500-normMethod-ReadsInTSS-ArchR.bw.bedGraph"))
-
-atac_data <- lapply(atac_data_files, function(x){rtracklayer::import(x)})
-names(atac_data) <- c("Cardiomyocyte", "Endothelial", "Fibroblast")
+CM_counts <- rtracklayer::import(file.path(trackdata.dir, "Cardiomyocyte.atac.hg19.bedGraph.gz"))
+Endo_counts <- rtracklayer::import(file.path(trackdata.dir, "Endothelial.atac.hg19.bedGraph.gz")) 
+Fibro_counts <- rtracklayer::import(file.path(trackdata.dir, "Fibroblast.atac.hg19.bedGraph.gz"))
 ```
 
-Make a track plot to visualize a locus
-
-Load gene mapping result
-```{r load-gene-mapping-res}
-gene.mapping.res <- readRDS(file.path(data.dir, "aFib_Finemapped_GeneMapped_ActivePromoter_07242021.gr.rds"))
+You can build a `TxDb` database (".sqlite") using gene annotations (GTF format) from [GENCODE][GENCODE],
+and use \code{loadDb()} to use the `TxDb` database.
+```{r make-txdb, eval=FALSE}
+txdb <- makeTxDbFromGFF(file.path(trackdata.dir, 'gencode.v19.annotation.gtf.gz'), format = "gtf")
+saveDb(txdb, file.path(trackdata.dir, "gencode.v19.annotation.gtf.sqlite"))
 ```
 
-Get the genomic region for gene of interest
-```{r gene-region}
-gene.of.interest <- "FGF9"
-region <- get_gene_region(gene.mapping.res, gene.of.interest, ext = 10000)
+If you are in Xin He lab at UChicago, you can access the gene annotations and 
+`TxDb` database in the directory: `/project2/xinhe/shared_data/gencode/` from RCC. 
+
+```{r load-txdb-obj}
+txdb <- loadDb("/project2/xinhe/shared_data/gencode/gencode.v19.annotation.gtf.sqlite")
 ```
 
-```{r make-txdb-obj, eval=FALSE, include=FALSE}
-# Make the `txdb` object of the gene annotations
-# txdb <- AnnotationDbi::loadDb("/project2/xinhe/kevinluo/gene-level-finemapping/annot/gene_annotationsencode.v35.GRCh37.txdb.sqlite")
-# txdb_gencodeV19_gtf <- makeTxDbFromGFF('/project2/gca/software/annotations/gencode.v19.annotation.gtf.gz', format = "gtf")
-# saveDb(txdb_gencodeV19_gtf, "/project2/xinhe/kevinluo/gene-level-finemapping/annot/gene_annotations/gencode.v19.annotation.gtf.sqlite")
+You will need the `bigsnpr` package if you want to visualize R^2 between SNPs
+using a reference panel in `bigSNP` object. 
+
+We provided a `bigSNP` object of the reference genotype panel from the 1000 Genomes (1KG) European population. 
+
+If you are in the He lab at UChicago, you can load the `bigSNP` object from RCC as below.
+
+We use a reference genotype panel from European population (1KG). 
+```{r load-bigSNP}
+library(bigsnpr) # loading reference genotype for LD calculation
+bigSNP <- bigsnpr::snp_attach(rdsfile = '/project2/xinhe/1kg/bigsnpr/EUR_variable_1kg.rds')
 ```
 
-```{r track-plot-txdb-gtf, fig.width=12, fig.height=8, warning=FALSE}
-# Load the txdb object of the gene annotations
-txdb <- AnnotationDbi::loadDb("/project2/xinhe/kevinluo/gene-level-finemapping/annot/gene_annotations/gencode.v19.annotation.gtf.sqlite")
+## Make track plots
+
+Plot HCN4 locus in the genomic region "chr15:73610000-73700000"
+
+Highlight top SNP ("rs7172038")
+```{r make-HCN4-trackplot, fig.width=12, fig.height=8, message=FALSE}
+counts <- list("CM" = CM_counts, "Endo" = Endo_counts, "Fibro" = Fibro_counts)
 peaks <- list("H3K27ac" = H3K27ac_peaks, "DHS" = DHS_peaks)
-HiC_loops <- list("PC-HiC" = pcHiC.gr, "ABC" = ABC.gr)
+loops <- list("ABC" = ABC)
 
-finemapping_annot_trackplot(finemapstats.gr, 
-                            region, 
-                            gene.annots, 
-                            genome = "hg19", 
-                            genetrack_db = "txdb",
-                            txdb = txdb,
-                            filter_protein_coding_genes = TRUE,
-                            countsdata = atac_data, 
-                            data_colors = c("red", "green", "purple"), 
-                            data_ylim = c(0,0.8),
-                            peaks = peaks, 
-                            HiC_loops = HiC_loops,
-                            highlight_snps = "topSNP",
-                            verbose = TRUE)
+track_plot(finemapstats,
+           region = "chr15:73610000-73700000",
+           gene.annots,
+           bigSNP = bigSNP,
+           txdb = txdb,
+           counts = counts,
+           peaks = peaks,
+           loops = loops,
+           genome = "hg19",
+           filter_loop_genes = "HCN4",
+           highlight_snps = "topSNP", 
+           counts.color = c("red", "green", "purple"),
+           peaks.color = c("navy", "blue"),
+           loops.color = "gray", 
+           genelabel.side = "above",
+           verbose = TRUE)
 ```
+
+[GENCODE]: https://www.gencodegenes.org
+[GENCODE V19]: https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_19/gencode.v19.annotation.gtf.gz
