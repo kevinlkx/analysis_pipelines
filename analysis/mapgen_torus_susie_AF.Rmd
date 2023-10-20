@@ -1,16 +1,19 @@
 ---
 title: "Finemapping using Mapgen with TORUS priors"
 author: "Kaixuan Luo"
-date: "2022-05-18"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
+```
+
 Here we show an example of performing enrichment analysis on AFib GWAS data using `mapgen` with `TORUS`. 
 
 ```{bash, eval=FALSE, include=FALSE}
-cd /project2/gca/Heart_Atlas/reorganized_data/
+cd /project2/xinhe/shared_data/mapgen/example_data/
 
 mkdir -p example_data/GWAS/
 cp /project2/gca/Heart_Atlas/reorganized_data/GWAS/summary_statistics/aFib/ebi-a-GCST006414_aFib.df.rds example_data/GWAS/ebi-a-GCST006414_aFib.df.rds
@@ -20,16 +23,18 @@ cp ATAC_seq/PeakCalls/DA_MARKERS_FDRP_1_log2FC_1.rds example_data/ATAC_seq/PeakC
 
 cp /project2/gca/aselewa/heart_atlas_project/GWAS/Torus/Torus_CellType_Enrichment_Results_Univariate_MORE.df.rds example_data/Torus/Torus_CellType_Enrichment_Results_Univariate_MORE.df.rds
 
+cp /project2/xinhe/shared_data/aFib_gene_finemapping/aFib_Finemapped.tble.rds /project2/gca/Heart_Atlas/reorganized_data/example_data/finemapping/aFib_Finemapped.tble.rds
+
 mkdir example_data/finemapping/Torus
 ```
 
 ```{r load-packages, eval=TRUE, message=FALSE}
 library(mapgen)
-library(dplyr)
+library(tidyverse)
 ```
 
 ```{r setting}
-data.dir <- '/project2/gca/Heart_Atlas/reorganized_data/example_data'
+data.dir <- '/project2/xinhe/shared_data/mapgen/example_data'
 ```
 
 We use a reference genotype panel from European population (1KG). 
@@ -40,12 +45,14 @@ bigSNP <- bigsnpr::snp_attach(rdsfile = '/project2/xinhe/1kg/bigsnpr/EUR_variabl
 Load GWAS summary statistics of AFib
 ```{r load-GWAS, eval=FALSE}
 gwas.sumstats <- readRDS(paste0(data.dir, '/GWAS/ebi-a-GCST006414_aFib.df.rds'))
+gwas.sumstats <- gwas.sumstats %>% dplyr::rename(ss_index = og_index)
 head(gwas.sumstats)
 ```
 
 Prepare annotations for TORUS
 ```{r prepare-annots, eval=FALSE}
-annotation_bed_files <- list.files(paste0(data.dir, '/finemapping/annotations_for_finemapping_hg19'), pattern = '*.bed', full.names = T)
+annotation_bed_files <- list.files(paste0(data.dir, '/finemapping/annotations_for_finemapping_hg19'), 
+                                   pattern = '*.bed', full.names = T)
 torus.files <- prepare_torus_input_files(gwas.sumstats, 
                                          annotation_bed_files, 
                                          torus_input_dir = paste0(data.dir, '/finemapping/torus_input'))
@@ -53,7 +60,8 @@ torus.files <- prepare_torus_input_files(gwas.sumstats,
 
 Run TORUS to estimate enrichment (joint annotations) and compute SNP-level prior
 
-run_torus() with option = "est-prior" returns a list with: enrichment estimates (log odds ratio) and 95% confidence intervals of each annotation, 
+`run_torus()` with option = "est-prior" returns a list with: 
+enrichment estimates (log odds ratio) and 95% confidence intervals of each annotation, 
 and SNP-level priors using the enrichment estimates. 
 ```{r run-torus-est-prior, eval=FALSE}
 torus.result <- run_torus(torus.files$torus_annot_file, 
@@ -65,53 +73,42 @@ torus.prior <- torus.result$snp_prior
 saveRDS(torus.result, paste0(data.dir, '/finemapping/Torus_Enrichment_Results_Joint.rds'))
 ```
 
-```{r run-torus-fdr, include=FALSE, eval=FALSE}
-# We run run_torus() with option = "fdr" to get the probability of each chunk containing a causal variant. 
-torus.fdr <- run_torus(torus.files$torus_annot_file, 
-                       torus.files$torus_zscore_file,
-                       option = "fdr",
-                       torus_path = "torus")$fdr
-
-saveRDS(torus.fdr, paste0(data.dir, '/finemapping/Torus_FDR_Results_Joint.rds'))
+```{r}
+torus.result <- readRDS(paste0(data.dir, '/finemapping/Torus_Enrichment_Results_Joint.rds'))
+torus.enrich <- torus.result$enrich
+torus.prior <- torus.result$snp_prior
 ```
 
 Select GWAS significant loci with -log10(pval) < 5e-8
 ```{r select-gwas, eval=FALSE}
-sig.loci <- gwas.sumstats %>% 
-  group_by(locus) %>% 
-  summarise(max_mlogP = max(pval)) %>% 
-  filter(max_mlogP > -log10(5e-8)) %>% pull(locus)
-
+sig.loci <- gwas.sumstats %>% dplyr::filter(pval > -log10(5e-8)) %>% dplyr::pull(locus) %>% unique()
 gwas.sumstats.sigloci <- gwas.sumstats[gwas.sumstats$locus %in% sig.loci, ]
-print(length(unique(gwas.sumstats.sigloci$locus)))
+cat(length(unique(gwas.sumstats.sigloci$locus)), "loci selected.\n")
 ```
 
 Add Torus priors to GWAS summary statistics
 ```{r add-torus-prior, eval=FALSE}
 sumstats.sigloci <- prepare_susie_data_with_torus_result(sumstats = gwas.sumstats.sigloci, 
                                                          torus_prior = torus.prior)
-saveRDS(sumstats.sigloci, paste0(data.dir, '/finemapping/sumstats.sigloci.rds'))
 cat("Finemap",length(unique(sumstats.sigloci$locus)), "loci.\n")
+saveRDS(sumstats.sigloci, paste0(data.dir, '/finemapping/sumstats.sigloci.rds'))
 ```
 
 Run finemapping using SuSiE
 ```{r run-susie, eval=FALSE}
 sumstats.sigloci <- readRDS(paste0(data.dir, '/finemapping/sumstats.sigloci.rds'))
-cat("Finemap",length(unique(sumstats.sigloci$locus)), "loci.\n")
+cat("Finemapping",length(unique(sumstats.sigloci$locus)), "loci...\n")
 # susie_finemap_L1 is a list of SuSiE results, one for each chunk/LD block. 
-susie_finemap_L1 <- run_finemapping(sumstats.sigloci, bigSNP, priortype = 'torus', L = 1)
+susie.res <- run_finemapping(sumstats.sigloci, bigSNP, priortype = 'torus', L = 1)
 
 # add susie PIP information to GWAS summary stats
-gwas_finemapped <- merge_susie_sumstats(susie_results = susie_finemap_L1, sumstats = sumstats.sigloci)
-saveRDS(gwas_finemapped, paste0(data.dir, '/finemapping/AF_finemapping_result_torusprior_122loci.rds'))
+finemap.sumstats <- merge_susie_sumstats(susie.res, sumstats.sigloci)
+
+saveRDS(finemap.sumstats, paste0(data.dir, '/finemapping/AF_finemapping_result_torusprior_122loci.rds'))
 ```
 
 ```{bash, include=FALSE, eval=FALSE}
 sbatch --array=1-122 --time=1:0:0 --mem=15G /home/kaixuan/projects/analysis_pipelines/scripts/run_finemapping.sbatch
 ```
 
-Session info
-```{r}
-sessionInfo()
-```
 
