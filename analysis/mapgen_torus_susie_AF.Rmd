@@ -83,7 +83,6 @@ Select GWAS significant loci with -log10(pval) < 5e-8
 ```{r select-gwas, eval=FALSE}
 sig.loci <- gwas.sumstats %>% dplyr::filter(pval > -log10(5e-8)) %>% dplyr::pull(locus) %>% unique()
 gwas.sumstats.sigloci <- gwas.sumstats[gwas.sumstats$locus %in% sig.loci, ]
-cat(length(unique(gwas.sumstats.sigloci$locus)), "loci selected.\n")
 ```
 
 Add Torus priors to GWAS summary statistics
