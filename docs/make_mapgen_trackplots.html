@@ -14,7 +14,7 @@
 
 <title>Tutorial for making track plots to visualize finemapping results for genomic regions</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -157,11 +157,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -190,8 +194,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -199,16 +203,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -392,7 +389,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-09-12
+<strong>Last updated:</strong> 2023-10-20
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -523,15 +520,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreea014500a8df84c62b548518ccba8abef8aa9a870targetblanka014500a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree345fe1926ebd15257259236a5ce8dbad725f124atargetblank345fe19a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/kevinlkx/analysis_pipelines/tree/a014500a8df84c62b548518ccba8abef8aa9a870" target="_blank">a014500</a>
+<a href="https://github.com/kevinlkx/analysis_pipelines/tree/345fe1926ebd15257259236a5ce8dbad725f124a" target="_blank">345fe19</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreea014500a8df84c62b548518ccba8abef8aa9a870targetblanka014500a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree345fe1926ebd15257259236a5ce8dbad725f124atargetblank345fe19a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -541,7 +538,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/kevinlkx/analysis_pipelines/tree/a014500a8df84c62b548518ccba8abef8aa9a870" target="_blank">a014500</a>.
+<a href="https://github.com/kevinlkx/analysis_pipelines/tree/345fe1926ebd15257259236a5ce8dbad725f124a" target="_blank">345fe19</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -561,12 +558,20 @@ Ignored files:
 
 Untracked files:
     Untracked:  analysis/test_sldsc_splicingAnnot.Rmd
+    Untracked:  code/compute_ldscore_generic_annot.sbatch
+    Untracked:  code/extract_baselineLD_generic_annot.R
+    Untracked:  code/ldsc_make_binary_annot_compute_ldscores_bedfiles.sbatch
+    Untracked:  code/make_ldsc_binary_annots_from_bedfiles.R
     Untracked:  code/sldsc_annot_generic_baselineLD_separate.sbatch
     Untracked:  scripts/tmp.R
 
 Unstaged changes:
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/mapgen_torus_enrichment_heart_atlas.Rmd
     Modified:   analysis/mapgen_torus_susie_AF.Rmd
     Modified:   analysis/sldsc_example_GTEx_QTLs.Rmd
+    Modified:   analysis/sldsc_pipeline.Rmd
+    Modified:   code/extract_baselineLDv2.2_generic_annot.R
     Modified:   code/mapgen_trackplots.R
     Modified:   scripts/run_finemapping.R
 
@@ -615,6 +620,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/345fe1926ebd15257259236a5ce8dbad725f124a/analysis/make_mapgen_trackplots.Rmd" target="_blank">345fe19</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2023-10-20
+</td>
+<td>
+wflow_publish("analysis/make_mapgen_trackplots.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/f780ba6941a99169563b7312e179e986e6035986/docs/make_mapgen_trackplots.html" target="_blank">f780ba6</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2022-09-12
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -836,139 +875,129 @@ added trackplot tutorials
 peaks, PC-HiC loops, etc.</li>
 </ul>
 <p>To make the trackplots, you will need to have the following packages
-installed: <code>AnnotationDbi</code>, <code>org.Hs.eg.db</code>,
-<code>GenomicInteractions</code>, <code>Gviz</code>,
-<code>rtracklayer</code> from Bioconductor.</p>
+installed: <code>GenomicFeatures</code>, <code>AnnotationDbi</code>,
+<code>org.Hs.eg.db</code>, <code>GenomicInteractions</code>,
+<code>Gviz</code>, <code>rtracklayer</code> from Bioconductor.</p>
 <p>Load R packages</p>
-<pre class="r"><code>suppressMessages(library(data.table))
-suppressMessages(library(tidyverse))
-suppressMessages(library(GenomicRanges))
-suppressMessages(library(AnnotationDbi)) # match gene ID to gene symbol
-suppressMessages(library(org.Hs.eg.db)) # match gene ID to gene symbol
-suppressMessages(library(GenomicInteractions)) # visualize HiC plots
-suppressMessages(library(rtracklayer)) # loading bigwigs/bed files
-suppressMessages(library(bigsnpr)) # loading genotype data from 1000Genomes for LD calculation
-suppressMessages(library(Gviz)) # make track plots
-library(mapgen)
-source(&quot;code/mapgen_trackplots.R&quot;)</code></pre>
-<pre class="r"><code>data.dir &lt;- &quot;/project2/xinhe/kevinluo/gene-level-finemapping/trackplot_tutorial/data&quot;</code></pre>
+<pre class="r"><code>library(GenomicFeatures) #  Making and manipulating annotations
+library(rtracklayer) # Import annotation data
+library(Gviz) # R package used to visualize track plots
+library(GenomicInteractions) # visualize HiC loops
+library(AnnotationDbi) # match gene ID to gene symbol
+library(org.Hs.eg.db) # match gene ID to gene symbol
+library(mapgen)</code></pre>
+<pre class="r"><code>trackdata.dir &lt;- &quot;/project2/xinhe/shared_data/mapgen/example_data/trackplot&quot;</code></pre>
 <p>Load fine-mapping results.</p>
-<pre class="r"><code>finemapstats &lt;- readRDS(system.file(&quot;extdata&quot;, &quot;aFib_Finemapped.tble.rds&quot;, package = &quot;mapgen&quot;))
-finemapstats.gr &lt;- process_finemapping_sumstats(finemapstats, 
-                                                snp = &#39;snp&#39;, chr = &#39;chr&#39;, 
-                                                pos = &#39;pos&#39;, pip = &#39;susie_pip&#39;, 
-                                                pval = &#39;pval&#39;, zscore = &#39;zscore&#39;, 
-                                                cs = &#39;CS&#39;, locus = &#39;locus&#39;,  
-                                                pip.thresh = 0)</code></pre>
+<pre class="r"><code>finemapstats &lt;- readRDS(system.file(&quot;extdata&quot;, &quot;AF.finemapping.sumstats.rds&quot;, package = &quot;mapgen&quot;))
+finemapstats &lt;- process_finemapping_sumstats(finemapstats, 
+                                             snp = &#39;snp&#39;, 
+                                             chr = &#39;chr&#39;, 
+                                             pos = &#39;pos&#39;, 
+                                             pip = &#39;susie_pip&#39;, 
+                                             pval = &#39;pval&#39;, 
+                                             zscore = &#39;zscore&#39;, 
+                                             cs = &#39;cs&#39;, 
+                                             locus = &#39;locus&#39;,  
+                                             pip.thresh = 0)</code></pre>
 <pre><code>Processing fine-mapping summary statistics ...</code></pre>
 <p>Load genomic annotations and gene information</p>
-<pre class="r"><code>genomic.annots &lt;- readRDS(system.file(&quot;extdata&quot;, &quot;genomic.annots.hg19.gr.rds&quot;, package = &quot;mapgen&quot;))
+<p>We included gene annotations (hg19) in the package, downloaded from
+<a
+href="https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_19/gencode.v19.annotation.gtf.gz">GENCODE
+release 19</a>.</p>
+<pre class="r"><code>genomic.annots &lt;- readRDS(system.file(&quot;extdata&quot;, &quot;genomic.annots.hg19.rds&quot;, package = &quot;mapgen&quot;))
 gene.annots &lt;- genomic.annots$genes</code></pre>
 <p>Load Promoter-capture HiC (PCHi-C) data from iPSC derived
 cardiomyocytes (CMs).</p>
-<pre class="r"><code>pcHiC.gr &lt;- readRDS(system.file(&quot;extdata&quot;, &quot;pcHiC.CM.gr.rds&quot;, package = &quot;mapgen&quot;))</code></pre>
+<pre class="r"><code>pcHiC &lt;- readRDS(system.file(&quot;extdata&quot;, &quot;pcHiC.CM.gr.rds&quot;, package = &quot;mapgen&quot;))
+pcHiC &lt;- pcHiC[pcHiC$gene_name %in% gene.annots$gene_name, ] # restrict to protein coding genes</code></pre>
 <p>Load ABC data</p>
-<pre class="r"><code>ABC &lt;- fread(file.path(data.dir, &quot;heart_ventricle-ENCODE_ABC.tsv.gz&quot;))
-ABC.gr &lt;- process_ABC(ABC, ABC.thresh = 0.015, full.element = TRUE)
-ABC.gr$score &lt;- ABC.gr$ABC.Score * 100</code></pre>
+<pre class="r"><code>ABC &lt;- data.table::fread(system.file(&quot;extdata&quot;, &quot;heart_ventricle-ENCODE_ABC.tsv.gz&quot;, package = &quot;mapgen&quot;))
+ABC &lt;- process_ABC(ABC, full.element = TRUE)
+ABC &lt;- ABC[ABC$gene_name %in% gene.annots$gene_name, ] # restrict to protein coding genes
+ABC$score &lt;- ABC$score * 100 # scale to visualize the ABC scores
+head(ABC, 3)</code></pre>
+<pre><code>GRanges object with 3 ranges and 4 metadata columns:
+      seqnames        ranges strand | promoter_start promoter_end   gene_name
+         &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; |      &lt;integer&gt;    &lt;integer&gt; &lt;character&gt;
+  [1]     chr1 888243-888743      * |         894679       894679       NOC2L
+  [2]     chr1 908361-908861      * |         895966       895966      KLHL17
+  [3]     chr1 908361-908861      * |         901876       901876     PLEKHN1
+          score
+      &lt;numeric&gt;
+  [1]    1.5224
+  [2]    1.7673
+  [3]    4.1100
+  -------
+  seqinfo: 23 sequences from an unspecified genome; no seqlengths</code></pre>
 <p>Load H3K27ac and DHS bed files</p>
-<pre class="r"><code>H3K27ac_peaks &lt;- rtracklayer::import(file.path(data.dir, &quot;H3K27ac_heart_concat.bed&quot;))
-DHS_peaks &lt;- rtracklayer::import(file.path(data.dir, &quot;FetalHeart_E083-DNase_hg19_cleaned_narrowPeak.bed.gz&quot;))</code></pre>
+<pre class="r"><code>H3K27ac_peaks &lt;- rtracklayer::import(file.path(trackdata.dir, &quot;H3K27ac.heart.concat.hg19.bed.gz&quot;))
+DHS_peaks &lt;- rtracklayer::import(file.path(trackdata.dir, &quot;FetalHeart_E083.DNase.hg19.narrowPeak.bed.gz&quot;))</code></pre>
 <p>Load ATAC data files. These data need to be in wig, bigWig/bw,
 bedGraph, or bam format.</p>
-<pre class="r"><code>atac_data_files &lt;- c(file.path(data.dir, &quot;Hg19_Cardiomyocyte-TileSize-500-normMethod-ReadsInTSS-ArchR.bw.bedGraph&quot;),
-                     file.path(data.dir, &quot;Hg19_Endothelial-TileSize-500-normMethod-ReadsInTSS-ArchR.bw.bedGraph&quot;),
-                     file.path(data.dir, &quot;Hg19_Fibroblast-TileSize-500-normMethod-ReadsInTSS-ArchR.bw.bedGraph&quot;))
+<pre class="r"><code>CM_counts &lt;- rtracklayer::import(file.path(trackdata.dir, &quot;Cardiomyocyte.atac.hg19.bedGraph.gz&quot;))
+Endo_counts &lt;- rtracklayer::import(file.path(trackdata.dir, &quot;Endothelial.atac.hg19.bedGraph.gz&quot;)) 
+Fibro_counts &lt;- rtracklayer::import(file.path(trackdata.dir, &quot;Fibroblast.atac.hg19.bedGraph.gz&quot;))</code></pre>
+<p>You can build a <code>TxDb</code> database (“.sqlite”) using gene
+annotations (GTF format) from <a
+href="https://www.gencodegenes.org">GENCODE</a>, and use to use the
+<code>TxDb</code> database.</p>
+<pre class="r"><code>txdb &lt;- makeTxDbFromGFF(file.path(trackdata.dir, &#39;gencode.v19.annotation.gtf.gz&#39;), format = &quot;gtf&quot;)
+saveDb(txdb, file.path(trackdata.dir, &quot;gencode.v19.annotation.gtf.sqlite&quot;))</code></pre>
+<p>If you are in Xin He lab at UChicago, you can access the gene
+annotations and <code>TxDb</code> database in the directory:
+<code>/project2/xinhe/shared_data/gencode/</code> from RCC.</p>
+<pre class="r"><code>txdb &lt;- loadDb(&quot;/project2/xinhe/shared_data/gencode/gencode.v19.annotation.gtf.sqlite&quot;)</code></pre>
+<p>You will need the <code>bigsnpr</code> package if you want to
+visualize R^2 between SNPs using a reference panel in
+<code>bigSNP</code> object.</p>
+<p>We provided a <code>bigSNP</code> object of the reference genotype
+panel from the 1000 Genomes (1KG) European population.</p>
+<p>If you are in the He lab at UChicago, you can load the
+<code>bigSNP</code> object from RCC as below.</p>
+<p>We use a reference genotype panel from European population (1KG).</p>
+<pre class="r"><code>library(bigsnpr) # loading reference genotype for LD calculation</code></pre>
+<pre><code>Loading required package: bigstatsr</code></pre>
+<pre class="r"><code>bigSNP &lt;- bigsnpr::snp_attach(rdsfile = &#39;/project2/xinhe/1kg/bigsnpr/EUR_variable_1kg.rds&#39;)</code></pre>
+<pre><code>FBM from an old version? Reconstructing..</code></pre>
+<pre><code>You should use `snp_save()`.</code></pre>
+<div id="make-track-plots" class="section level2">
+<h2>Make track plots</h2>
+<p>Plot HCN4 locus in the genomic region “chr15:73610000-73700000”</p>
+<p>Highlight top SNP (“rs7172038”)</p>
+<pre class="r"><code>counts &lt;- list(&quot;CM&quot; = CM_counts, &quot;Endo&quot; = Endo_counts, &quot;Fibro&quot; = Fibro_counts)
+peaks &lt;- list(&quot;H3K27ac&quot; = H3K27ac_peaks, &quot;DHS&quot; = DHS_peaks)
+loops &lt;- list(&quot;ABC&quot; = ABC)
 
-atac_data &lt;- lapply(atac_data_files, function(x){rtracklayer::import(x)})
-names(atac_data) &lt;- c(&quot;Cardiomyocyte&quot;, &quot;Endothelial&quot;, &quot;Fibroblast&quot;)</code></pre>
-<p>Make a track plot to visualize a locus</p>
-<p>Load gene mapping result</p>
-<pre class="r"><code>gene.mapping.res &lt;- readRDS(file.path(data.dir, &quot;aFib_Finemapped_GeneMapped_ActivePromoter_07242021.gr.rds&quot;))</code></pre>
-<p>Get the genomic region for gene of interest</p>
-<pre class="r"><code>gene.of.interest &lt;- &quot;FGF9&quot;
-region &lt;- get_gene_region(gene.mapping.res, gene.of.interest, ext = 10000)</code></pre>
-<pre class="r"><code># Load the txdb object of the gene annotations
-txdb &lt;- AnnotationDbi::loadDb(&quot;/project2/xinhe/kevinluo/gene-level-finemapping/annot/gene_annotations/gencode.v19.annotation.gtf.sqlite&quot;)</code></pre>
-<pre><code>Loading required package: GenomicFeatures</code></pre>
-<pre class="r"><code>peaks &lt;- list(&quot;H3K27ac&quot; = H3K27ac_peaks, &quot;DHS&quot; = DHS_peaks)
-HiC_loops &lt;- list(&quot;PC-HiC&quot; = pcHiC.gr, &quot;ABC&quot; = ABC.gr)
-
-finemapping_annot_trackplot(finemapstats.gr, 
-                            region, 
-                            gene.annots, 
-                            genome = &quot;hg19&quot;, 
-                            genetrack_db = &quot;txdb&quot;,
-                            txdb = txdb,
-                            filter_protein_coding_genes = TRUE,
-                            countsdata = atac_data, 
-                            data_colors = c(&quot;red&quot;, &quot;green&quot;, &quot;purple&quot;), 
-                            data_ylim = c(0,0.8),
-                            peaks = peaks, 
-                            HiC_loops = HiC_loops,
-                            highlight_snps = &quot;topSNP&quot;,
-                            verbose = TRUE)</code></pre>
-<pre><code>Making trackplots ...
-6857 snps included.
-Adding Cardiomyocyte track...
-Adding Endothelial track...
-Adding Fibroblast track...
+track_plot(finemapstats,
+           region = &quot;chr15:73610000-73700000&quot;,
+           gene.annots,
+           bigSNP = bigSNP,
+           txdb = txdb,
+           counts = counts,
+           peaks = peaks,
+           loops = loops,
+           genome = &quot;hg19&quot;,
+           filter_loop_genes = &quot;HCN4&quot;,
+           highlight_snps = &quot;topSNP&quot;, 
+           counts.color = c(&quot;red&quot;, &quot;green&quot;, &quot;purple&quot;),
+           peaks.color = c(&quot;navy&quot;, &quot;blue&quot;),
+           loops.color = &quot;gray&quot;, 
+           genelabel.side = &quot;above&quot;,
+           verbose = TRUE)</code></pre>
+<pre><code>463 snps included.
+Color SNPs in PIP track by loci. 
+Adding CM track...
+Adding Endo track...
+Adding Fibro track...
 Adding H3K27ac track...
 Adding DHS track...
-Adding PC-HiC track...
 Adding ABC track...
-Making gene track object using gene annotations in txdb ...</code></pre>
-<pre><code>&#39;select()&#39; returned 1:1 mapping between keys and columns</code></pre>
-<pre><code>Highlight SNPs: rs9506925 </code></pre>
-<p><img src="figure/make_mapgen_trackplots.Rmd/track-plot-txdb-gtf-1.png" width="1152" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-track-plot-txdb-gtf-1">
-Past versions of track-plot-txdb-gtf-1.png
-</button>
-</p>
-<div id="fig-track-plot-txdb-gtf-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/kevinlkx/analysis_pipelines/blob/da4ec13806863fd03b668f51aeefa6790355bf22/docs/figure/make_mapgen_trackplots.Rmd/track-plot-txdb-gtf-1.png" target="_blank">da4ec13</a>
-</td>
-<td>
-kevinlkx
-</td>
-<td>
-2022-09-12
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/kevinlkx/analysis_pipelines/blob/76c15461ee95c6ec35ecaefc1dadf5e86d609f30/docs/figure/make_mapgen_trackplots.Rmd/track-plot-txdb-gtf-1.png" target="_blank">76c1546</a>
-</td>
-<td>
-kevinlkx
-</td>
-<td>
-2022-09-12
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+Only show ABC loops linked to gene: HCN4 
+Making gene track object using txdb database ...
+Highlight SNP: rs7172038 
+Making track plot ...</code></pre>
+<p><img src="figure/make_mapgen_trackplots.Rmd/make-HCN4-trackplot-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -996,69 +1025,70 @@ attached base packages:
 [8] methods   base     
 
 other attached packages:
- [1] GenomicFeatures_1.48.3      mapgen_0.3.10.9000         
- [3] Gviz_1.40.1                 bigsnpr_1.10.8             
- [5] bigstatsr_1.5.6             rtracklayer_1.56.0         
- [7] GenomicInteractions_1.30.0  InteractionSet_1.24.0      
- [9] SummarizedExperiment_1.26.1 MatrixGenerics_1.8.0       
-[11] matrixStats_0.62.0          org.Hs.eg.db_3.15.0        
-[13] AnnotationDbi_1.58.0        Biobase_2.56.0             
-[15] GenomicRanges_1.48.0        GenomeInfoDb_1.32.2        
-[17] IRanges_2.30.0              S4Vectors_0.34.0           
-[19] BiocGenerics_0.42.0         forcats_0.5.1              
-[21] stringr_1.4.0               dplyr_1.0.9                
-[23] purrr_0.3.4                 readr_2.1.2                
-[25] tidyr_1.2.0                 tibble_3.1.7               
-[27] ggplot2_3.3.6               tidyverse_1.3.1            
-[29] data.table_1.14.2           workflowr_1.7.0            
+ [1] bigsnpr_1.11.6              bigstatsr_1.5.12           
+ [3] mapgen_0.5.6                org.Hs.eg.db_3.15.0        
+ [5] GenomicInteractions_1.32.0  InteractionSet_1.26.1      
+ [7] SummarizedExperiment_1.28.0 MatrixGenerics_1.10.0      
+ [9] matrixStats_0.63.0          Gviz_1.42.0                
+[11] rtracklayer_1.58.0          GenomicFeatures_1.50.4     
+[13] AnnotationDbi_1.60.0        Biobase_2.58.0             
+[15] GenomicRanges_1.48.0        GenomeInfoDb_1.34.9        
+[17] IRanges_2.32.0              S4Vectors_0.36.1           
+[19] BiocGenerics_0.44.0         workflowr_1.7.0            
 
 loaded via a namespace (and not attached):
-  [1] utf8_1.2.2               R.utils_2.11.0           tidyselect_1.1.2        
-  [4] RSQLite_2.2.14           htmlwidgets_1.5.4        BiocParallel_1.30.3     
+  [1] utf8_1.2.3               R.utils_2.12.2           tidyselect_1.2.0        
+  [4] RSQLite_2.2.20           htmlwidgets_1.6.1        BiocParallel_1.32.5     
   [7] munsell_0.5.0            codetools_0.2-18         interp_1.1-3            
- [10] withr_2.5.0              colorspace_2.0-3         filelock_1.0.2          
- [13] highr_0.9                knitr_1.39               rstudioapi_0.13         
- [16] git2r_0.30.1             GenomeInfoDbData_1.2.8   bit64_4.0.5             
- [19] rprojroot_2.0.3          vctrs_0.4.1              generics_0.1.2          
- [22] xfun_0.30                biovizBase_1.44.0        BiocFileCache_2.4.0     
- [25] R6_2.5.1                 bigassertr_0.1.5         doParallel_1.0.17       
- [28] bigsparser_0.6.1         AnnotationFilter_1.20.0  bitops_1.0-7            
- [31] cachem_1.0.6             DelayedArray_0.22.0      assertthat_0.2.1        
- [34] promises_1.2.0.1         BiocIO_1.6.0             scales_1.2.0            
- [37] nnet_7.3-17              gtable_0.3.0             processx_3.5.3          
- [40] ensembldb_2.20.2         rlang_1.0.2              flock_0.7               
- [43] splines_4.2.0            lazyeval_0.2.2           dichromat_2.0-0.1       
- [46] broom_0.8.0              checkmate_2.1.0          yaml_2.3.5              
- [49] bigparallelr_0.3.2       modelr_0.1.8             backports_1.4.1         
- [52] httpuv_1.6.5             Hmisc_4.7-1              tools_4.2.0             
- [55] ellipsis_0.3.2           jquerylib_0.1.4          RColorBrewer_1.1-3      
- [58] Rcpp_1.0.8.3             base64enc_0.1-3          progress_1.2.2          
- [61] zlibbioc_1.42.0          RCurl_1.98-1.7           ps_1.7.0                
- [64] prettyunits_1.1.1        rpart_4.1.16             deldir_1.0-6            
- [67] cowplot_1.1.1            haven_2.5.0              cluster_2.1.3           
- [70] fs_1.5.2                 magrittr_2.0.3           reprex_2.0.1            
- [73] whisker_0.4              ProtGenerics_1.28.0      hms_1.1.1               
- [76] evaluate_0.15            XML_3.99-0.9             jpeg_0.1-9              
- [79] readxl_1.4.0             gridExtra_2.3            compiler_4.2.0          
- [82] biomaRt_2.52.0           crayon_1.5.1             R.oo_1.24.0             
- [85] htmltools_0.5.2          later_1.3.0              tzdb_0.3.0              
- [88] Formula_1.2-4            lubridate_1.8.0          DBI_1.1.3               
- [91] dbplyr_2.1.1             rappdirs_0.3.3           Matrix_1.4-1            
- [94] cli_3.3.0                R.methodsS3_1.8.1        parallel_4.2.0          
- [97] igraph_1.3.4             pkgconfig_2.0.3          getPass_0.2-2           
-[100] GenomicAlignments_1.32.0 foreign_0.8-82           xml2_1.3.3              
-[103] foreach_1.5.2            bslib_0.3.1              rngtools_1.5.2          
-[106] XVector_0.36.0           rvest_1.0.2              doRNG_1.8.2             
-[109] VariantAnnotation_1.42.1 callr_3.7.0              digest_0.6.29           
-[112] Biostrings_2.64.0        rmarkdown_2.14           cellranger_1.1.0        
-[115] htmlTable_2.4.0          restfulr_0.0.14          curl_4.3.2              
-[118] Rsamtools_2.12.0         rjson_0.2.21             lifecycle_1.0.1         
-[121] jsonlite_1.8.0           BSgenome_1.64.0          fansi_1.0.3             
-[124] pillar_1.7.0             lattice_0.20-45          KEGGREST_1.36.2         
-[127] fastmap_1.1.0            httr_1.4.3               survival_3.3-1          
-[130] glue_1.6.2               png_0.1-7                iterators_1.0.14        
-[133] bit_4.0.4                stringi_1.7.6            sass_0.4.1              
-[136] blob_1.2.3               latticeExtra_0.6-30      memoise_2.0.1           </code></pre>
+ [10] withr_2.5.0              colorspace_2.1-0         filelock_1.0.2          
+ [13] highr_0.10               knitr_1.42               rstudioapi_0.14         
+ [16] git2r_0.30.1             GenomeInfoDbData_1.2.9   bit64_4.0.5             
+ [19] rprojroot_2.0.3          vctrs_0.5.2              generics_0.1.3          
+ [22] xfun_0.37                biovizBase_1.46.0        timechange_0.2.0        
+ [25] BiocFileCache_2.6.0      R6_2.5.1                 bigassertr_0.1.6        
+ [28] doParallel_1.0.17        bigsparser_0.6.1         AnnotationFilter_1.22.0 
+ [31] bitops_1.0-7             cachem_1.0.6             DelayedArray_0.24.0     
+ [34] assertthat_0.2.1         promises_1.2.0.1         BiocIO_1.8.0            
+ [37] scales_1.2.1             nnet_7.3-17              googlesheets4_1.0.1     
+ [40] gtable_0.3.1             processx_3.8.0           ensembldb_2.22.0        
+ [43] rlang_1.0.6              flock_0.7                splines_4.2.0           
+ [46] lazyeval_0.2.2           gargle_1.3.0             dichromat_2.0-0.1       
+ [49] broom_1.0.3              plyranges_1.18.0         checkmate_2.1.0         
+ [52] yaml_2.3.7               bigparallelr_0.3.2       modelr_0.1.10           
+ [55] backports_1.4.1          httpuv_1.6.5             Hmisc_4.8-0             
+ [58] tools_4.2.0              ggplot2_3.4.1            ellipsis_0.3.2          
+ [61] jquerylib_0.1.4          RColorBrewer_1.1-3       Rcpp_1.0.10             
+ [64] base64enc_0.1-3          progress_1.2.2           zlibbioc_1.44.0         
+ [67] purrr_1.0.1              RCurl_1.98-1.10          ps_1.7.2                
+ [70] prettyunits_1.1.1        rpart_4.1.16             deldir_1.0-6            
+ [73] cowplot_1.1.1            haven_2.5.1              cluster_2.1.3           
+ [76] fs_1.6.1                 magrittr_2.0.3           data.table_1.14.6       
+ [79] reprex_2.0.2             googledrive_2.0.0        whisker_0.4             
+ [82] ProtGenerics_1.30.0      hms_1.1.2                evaluate_0.20           
+ [85] XML_3.99-0.13            jpeg_0.1-10              readxl_1.4.2            
+ [88] gridExtra_2.3            compiler_4.2.0           biomaRt_2.54.0          
+ [91] tibble_3.1.8             crayon_1.5.2             R.oo_1.25.0             
+ [94] htmltools_0.5.4          later_1.3.0              tzdb_0.3.0              
+ [97] Formula_1.2-4            tidyr_1.3.0              lubridate_1.9.2         
+[100] DBI_1.1.3                dbplyr_2.3.0             rappdirs_0.3.3          
+[103] Matrix_1.5-3             readr_2.1.4              cli_3.6.0               
+[106] R.methodsS3_1.8.2        parallel_4.2.0           igraph_1.4.0            
+[109] forcats_1.0.0            pkgconfig_2.0.3          getPass_0.2-2           
+[112] GenomicAlignments_1.34.0 foreign_0.8-82           xml2_1.3.3              
+[115] foreach_1.5.2            bslib_0.4.2              rngtools_1.5.2          
+[118] XVector_0.38.0           rvest_1.0.3              doRNG_1.8.6             
+[121] stringr_1.5.0            VariantAnnotation_1.44.1 callr_3.7.3             
+[124] digest_0.6.31            Biostrings_2.66.0        rmarkdown_2.20          
+[127] cellranger_1.1.0         htmlTable_2.4.1          restfulr_0.0.15         
+[130] curl_5.0.0               Rsamtools_2.12.0         rjson_0.2.21            
+[133] lifecycle_1.0.3          jsonlite_1.8.4           BSgenome_1.66.2         
+[136] fansi_1.0.4              pillar_1.8.1             lattice_0.20-45         
+[139] KEGGREST_1.38.0          fastmap_1.1.0            httr_1.4.4              
+[142] survival_3.3-1           glue_1.6.2               png_0.1-8               
+[145] iterators_1.0.14         bit_4.0.5                stringi_1.7.12          
+[148] sass_0.4.5               blob_1.2.3               latticeExtra_0.6-30     
+[151] memoise_2.0.1            dplyr_1.1.0              tidyverse_1.3.2         </code></pre>
+</div>
 </div>
 </div>
 
