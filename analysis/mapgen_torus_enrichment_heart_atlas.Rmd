@@ -1,5 +1,5 @@
 ---
-title: "Enrichment analysis using mapgen with TORUS"
+title: "Enrichment analysis using mapgen"
 author: "Kaixuan Luo"
 date: "2022-04-11"
 output: workflowr::wflow_html
@@ -7,16 +7,18 @@ editor_options:
   chunk_output_type: console
 ---
 
-Here we show an example of performing enrichment analysis on AFib GWAS data using `mapgen` with `TORUS`. 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
+```
+
+Here we show an example of performing enrichment analysis on AFib GWAS data using `mapgen`. 
 
 ## Univariate enrichment analysis
 
-Here we use scATAC-seq DA peaks for each cell type as a separate annotation (univariate).
-
-This example is based on the [R script from Alan](https://github.com/xinhe-lab/heart_atlas/blob/master/R/torus_enrichment.R)
+Here we use scATAC-seq DA peaks as annotations (univariate).
 
 ```{bash, eval=FALSE, include=FALSE}
-cd /project2/gca/Heart_Atlas/reorganized_data/
+cd /project2/xinhe/shared_data/mapgen/example_data
 
 mkdir -p example_data/GWAS/
 cp /project2/gca/Heart_Atlas/reorganized_data/GWAS/summary_statistics/aFib/ebi-a-GCST006414_aFib.df.rds example_data/GWAS/ebi-a-GCST006414_aFib.df.rds
@@ -28,18 +30,20 @@ cp GWAS/Torus/Torus_CellType_Enrichment_Results_Univariate_MORE.df.rds example_d
 ```
 
 ```{r load-packages, eval=TRUE, message=FALSE}
+library(mapgen)
+library(tidyverse)
 suppressMessages(library(liftOver))
 suppressMessages(library(ComplexHeatmap))
-library(mapgen)
 ```
 
 ```{r setting}
-data.dir <- '/project2/gca/Heart_Atlas/reorganized_data/example_data'
+data.dir <- '/project2/xinhe/shared_data/mapgen/example_data'
 ```
 
 Load GWAS summary statistics of AFib
 ```{r load-GWAS, eval=FALSE}
 gwas.sumstats <- readRDS(paste0(data.dir, '/GWAS/ebi-a-GCST006414_aFib.df.rds'))
+gwas.sumstats <- gwas.sumstats %>% dplyr::rename(ss_index = og_index)
 head(gwas.sumstats)
 ```
 
@@ -52,6 +56,12 @@ markers <- readRDS(paste0(data.dir, '/ATAC_seq/PeakCalls/DA_MARKERS_FDRP_1_log2F
 path <- system.file(package="liftOver", "extdata", "hg38ToHg19.over.chain")
 ch <- import.chain(path)
 markers.hg19 <- lapply(markers, function(x){unlist(liftOver(x, ch))})
+
+markers <- as.list(markers)
+markers.hg19.l <- vector("list", length = length(markers))
+for(i in 1:length(markers.hg19.l)){
+  markers.hg19.l[[i]] <- unlist(liftOver(markers[[i]], ch))
+}
 
 system('mkdir -p Torus/bed_annotations_hg19')
 # save to bed format
@@ -97,6 +107,7 @@ saveRDS(enrich.res, paste0(data.dir, '/Torus/Torus_univariate_enrichment_result.
 Compare to pre-computed result
 ```{r, eval=FALSE}
 enrich.alltraits.res <- readRDS(paste0(data.dir,'/Torus/Torus_CellType_Enrichment_Results_Univariate_MORE.df.rds'))
+enrich.res <- lapply(enrich.res, function(x) {tibble::as_tibble(x)})
 identical(enrich.res, enrich.alltraits.res$aFib)
 ```
 
