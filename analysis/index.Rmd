@@ -9,22 +9,23 @@ editor_options:
 ---
 
 ## GWAS summary statistics
+
 * [GWAS summary statistics on RCC](GWAS_sumstats.html)
 
 ## LDSC
+
 * [LDSC installation](ldsc_install.html)
 * [S-LDSC pipeline](sldsc_pipeline.html)
 * [an example running S-LDSC on GTEx eQTLs from Hormozdiari, F. et al. Nature Genetics 2018 paper](sldsc_example_GTEx_QTLs.html)
 * [an example running S-LDSC on neuron ATAC-seq annotations](sldsc_example_neuron_ATACseq.html)
 
 ## TWAS
+
 * [TWAS FUSION pipeline](twas_fusion_pipeline.html)
 
-## Enrichment analysis using Mapgen with TORUS
-* [Enrichment analysis example using Mapgen on aFib GWAS with heart scATAC-seq data](mapgen_torus_enrichment_heart_atlas.html)
+## Mapgen
 
-## Functional Finemapping
-* [Finemapping aFib GWAS summary statistics using mapgen with TORUS priors](mapgen_torus_susie_AF.html)
-
-## Mapgen trackplot
-* [Tutorial for making track plots to visualize AF finemapping and gene mapping results](make_mapgen_trackplots.html)
+* [Enrichment analysis using Mapgen on aFib GWAS with heart scATAC-seq data](mapgen_torus_enrichment_heart_atlas.html)
+* [Finemapping aFib GWAS summary statistics using Mapgen with TORUS priors](mapgen_torus_susie_AF.html)
+* [Finemapping GWAS summary statistics using Mapgen with UKBB LD matrix](mapgen_finemapping_ukbb_ld.html)
+* [Making track plots](make_mapgen_trackplots.html)
