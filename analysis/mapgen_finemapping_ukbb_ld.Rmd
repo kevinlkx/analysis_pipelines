@@ -111,13 +111,8 @@ Run SuSiE with LD matrices
 LD_matrices <- list(R.locus)
 names(LD_matrices) <- locus
 
-susie.locus.res <- run_finemapping(sumstats.locus, LD_matrices = LD_matrices, priortype = 'uniform', n = n, L = 1)
-
-# add susie PIP information to GWAS summary stats
-susie.sumstats.locus <- merge_susie_sumstats(susie.locus.res, sumstats.locus)
-
-head(susie.sumstats.locus)
-
+susie.locus.res <- run_finemapping(sumstats.locus, LD_matrices = LD_matrices, priortype = 'uniform', n = n, L = 10)
+susie.locus.res[[1]]$sets
 susie_plot(susie.locus.res[[1]], y='PIP')
 ```
 
@@ -149,7 +144,7 @@ condz$plot
 ```
 
 The possible allele switched variants are labeled as red points (logLR > 2 and abs(z) > 2).
-```{r diagnosis-plots, fig.width=10, fig.height=8}
+```{r diagnosis-plots}
 detected_index <- which(condz$conditional_dist$logLR > 2 & abs(condz$conditional_dist$z) > 2)
 cat(sprintf("Detected %d variants with possible allele switched", length(detected_index)), "\n")
 cat("Possible allele switched variants:", sort(sumstats.locus.flip$snp[detected_index]), "\n")
@@ -164,19 +159,17 @@ cat(sprintf("%d out of %d flipped variants detected. \n", length(intersect(detec
 
 condz$conditional_dist[union(flip_index, detected_index),]
 
-p1 <- ggplot(condz$conditional_dist, aes(x = condmean, y = z, col = factor(flipped))) +
+ggplot(condz$conditional_dist, aes(x = condmean, y = z, col = factor(flipped))) +
   geom_point() +
   scale_colour_manual(values = c("0" = "black", "1" = "red")) + 
   labs(x = "Expected", y = "Observed z scores", color = "Allele flipped") + 
   theme_bw()
 
-p2 <- ggplot(condz$conditional_dist, aes(x = condmean, y = z, col = factor(detected))) +
+ggplot(condz$conditional_dist, aes(x = condmean, y = z, col = factor(detected))) +
   geom_point() +
   scale_colour_manual(values = c("0" = "black", "1" = "red")) + 
   labs(x = "Expected", y = "Observed z scores", color = "Possible allele switched") + 
   theme_bw()
-
-cowplot::plot_grid(p1, p2)
 ```
 
 Run SuSiE including variants with flipped alleles
@@ -184,12 +177,9 @@ Run SuSiE including variants with flipped alleles
 LD_matrices <- list(R.locus)
 names(LD_matrices) <- locus
 
-susie.locus.res <- run_finemapping(sumstats.locus.flip, LD_matrices = LD_matrices, priortype = 'uniform', n = n, L = 1)
+susie.locus.res <- run_finemapping(sumstats.locus.flip, LD_matrices = LD_matrices, priortype = 'uniform', n = n, L = 10)
 
-# add susie PIP information to GWAS summary stats
-susie.sumstats.locus <- merge_susie_sumstats(susie.locus.res, sumstats.locus)
-
-head(susie.sumstats.locus)
+susie.locus.res[[1]]$sets
 
 susie_plot(susie.locus.res[[1]], y='PIP')
 ```
