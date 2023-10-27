@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Kaixuan Luo" />
+
+
+<title>Finemapping using Mapgen with UKBB reference LD matrices</title>
+
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Analysis pipelines</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/kevinlkx/analysis_pipelines">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Finemapping using Mapgen with UKBB
+reference LD matrices</h1>
+<h4 class="author">Kaixuan Luo</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2023-10-27
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>analysis_pipelines/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20200524code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20200524)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20200524code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20200524)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree62f3d8aa4c1ac868c3ff516ffe54ce54004c42c6targetblank62f3d8aa">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/kevinlkx/analysis_pipelines/tree/62f3d8aa4c1ac868c3ff516ffe54ce54004c42c6" target="_blank">62f3d8a</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree62f3d8aa4c1ac868c3ff516ffe54ce54004c42c6targetblank62f3d8aa"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version
+<a href="https://github.com/kevinlkx/analysis_pipelines/tree/62f3d8aa4c1ac868c3ff516ffe54ce54004c42c6" target="_blank">62f3d8a</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  analysis/test_sldsc_splicingAnnot.Rmd
+    Untracked:  code/compute_ldscore_generic_annot.sbatch
+    Untracked:  code/extract_baselineLD_generic_annot.R
+    Untracked:  code/ldsc_make_binary_annot_compute_ldscores_bedfiles.sbatch
+    Untracked:  code/make_ldsc_binary_annots_from_bedfiles.R
+    Untracked:  code/sldsc_annot_generic_baselineLD_separate.sbatch
+    Untracked:  scripts/tmp.R
+
+Unstaged changes:
+    Modified:   analysis/mapgen_torus_enrichment_heart_atlas.Rmd
+    Modified:   analysis/sldsc_example_GTEx_QTLs.Rmd
+    Modified:   analysis/sldsc_pipeline.Rmd
+    Modified:   code/extract_baselineLDv2.2_generic_annot.R
+    Modified:   code/mapgen_trackplots.R
+    Modified:   scripts/run_finemapping.R
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were
+made to the R Markdown
+(<code>analysis/mapgen_finemapping_ukbb_ld.Rmd</code>) and HTML
+(<code>docs/mapgen_finemapping_ukbb_ld.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/62f3d8aa4c1ac868c3ff516ffe54ce54004c42c6/analysis/mapgen_finemapping_ukbb_ld.Rmd" target="_blank">62f3d8a</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2023-10-27
+</td>
+<td>
+wflow_publish("analysis/mapgen_finemapping_ukbb_ld.Rmd")
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<pre class="r"><code>library(mapgen)
+library(tidyverse)
+library(susieR)
+library(ggplot2)
+
+load_UKBB_LD_matrix &lt;- function(LD_Blocks, LD_dir, locus){
+  if(!locus %in% LD_Blocks$locus){
+    stop(&quot;locus is not in LD_blocks!&quot;)
+  }
+  LD_Block &lt;- LD_Blocks[LD_Blocks$locus == locus, ]
+  filename &lt;- sprintf(&quot;ukb_b37_0.1_chr%d.R_snp.%d_%d&quot;, LD_Block$chr, LD_Block$start, LD_Block$end)
+  R &lt;- readRDS(file.path(LD_dir, paste0(filename, &quot;.RDS&quot;)))
+  var_info &lt;- data.table::fread(file.path(LD_dir, paste0(filename, &quot;.Rvar&quot;)))
+  res &lt;- list(R = R, var_info = var_info)
+}
+
+match_gwas_LDREF &lt;- function(sumstats, R, var_info){
+  selected.sumstats &lt;- sumstats %&gt;% dplyr::filter(snp %in% var_info$id)
+  LDREF_index &lt;- na.omit(match(selected.sumstats$snp, var_info$id))
+  matched.R &lt;- R[LDREF_index, LDREF_index]
+  stopifnot(nrow(selected.sumstats) == nrow(matched.R))
+  return(list(sumstats = selected.sumstats,
+              R = matched.R))
+}</code></pre>
+<p>Load Athma GWAS summary statistics (from Ethan Zhong)</p>
+<pre class="r"><code>gwas.file &lt;- &#39;/project2/xinhe/shared_data/mapgen/example_data/GWAS/aoa_v3_gwas_ukbsnps_susie_input.txt.gz&#39;
+gwas.sumstats &lt;- vroom::vroom(gwas.file, col_names = TRUE, show_col_types = FALSE)
+head(gwas.sumstats)</code></pre>
+<pre><code># A tibble: 6 × 10
+    chr    pos     beta     se a0    a1    snp          pval  zscore locus
+  &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+1     1 693731  0.00277 0.0156 A     G     rs12238997  0.859  0.178      1
+2     1 707522  0.00337 0.0169 G     C     rs371890604 0.841  0.200      1
+3     1 717587 -0.0538  0.0429 G     A     rs144155419 0.210 -1.25       1
+4     1 723329  0.00182 0.128  A     T     rs189787166 0.989  0.0143     1
+5     1 729679  0.00577 0.0142 C     G     rs4951859   0.684  0.407      1
+6     1 730087 -0.00465 0.0220 T     C     rs148120343 0.832 -0.212      1</code></pre>
+<pre class="r"><code>n = 336210</code></pre>
+<p>LD blocks</p>
+<pre class="r"><code>LD_blocks &lt;- readRDS(system.file(&#39;extdata&#39;, &#39;LD.blocks.EUR.hg19.rds&#39;, package=&#39;mapgen&#39;))
+head(LD_blocks, 3)</code></pre>
+<pre><code>  chr   start     end locus
+1   1   10583 1892607     1
+2   1 1892607 3582736     2
+3   1 3582736 4380811     3</code></pre>
+<p>Process GWAS summary statistics</p>
+<pre class="r"><code>gwas.sumstats &lt;- process_gwas_sumstats(gwas.sumstats, 
+                                       chr=&#39;chr&#39;, 
+                                       pos=&#39;pos&#39;, 
+                                       beta=&#39;beta&#39;, 
+                                       se=&#39;se&#39;,
+                                       a0=&#39;a0&#39;, 
+                                       a1=&#39;a1&#39;, 
+                                       snp=&#39;snp&#39;, 
+                                       pval=&#39;pval&#39;,
+                                       LD_Blocks=LD_blocks)</code></pre>
+<pre><code>Cleaning summary statistics...
+Assigning GWAS SNPs to LD blocks...
+Skipped matching GWAS with bigSNP reference panel. </code></pre>
+<p>Select GWAS significant loci with -log10(pval) &lt; 5e-8</p>
+<pre class="r"><code>if(max(gwas.sumstats$pval) &lt;= 1){
+  gwas.sumstats &lt;- gwas.sumstats %&gt;% dplyr::mutate(pval = -log10(pval))
+}
+
+sig.loci &lt;- gwas.sumstats %&gt;% dplyr::filter(pval &gt; -log10(5e-8)) %&gt;% dplyr::pull(locus) %&gt;% unique()
+sumstats.sigloci &lt;- gwas.sumstats[gwas.sumstats$locus %in% sig.loci, ]
+cat(length(sig.loci), &quot;significant loci.\n&quot;)</code></pre>
+<pre><code>19 significant loci.</code></pre>
+<p>Load LD matrix, match variants between GWAS and LD matrix</p>
+<pre class="r"><code>LD_dir &lt;- &quot;/project2/mstephens/wcrouse/UKB_LDR_0.1_b37&quot;
+
+locus &lt;- sig.loci[1]
+cat(&quot;locus:&quot;, locus, &quot;\n&quot;)</code></pre>
+<pre><code>locus: 101 </code></pre>
+<pre class="r"><code>LD_matrix &lt;- load_UKBB_LD_matrix(LD_blocks, LD_dir, locus)
+matched.sumstat.LD.res &lt;- match_gwas_LDREF(gwas.sumstats, LD_matrix$R, LD_matrix$var_info)
+
+sumstats.locus &lt;- matched.sumstat.LD.res$sumstats
+R.locus &lt;- matched.sumstat.LD.res$R</code></pre>
+<div id="original-data" class="section level3">
+<h3>Original data</h3>
+<p>Estimated lambda</p>
+<pre class="r"><code>lambda &lt;- susieR::estimate_s_rss(sumstats.locus$zscore, R = R.locus, n = n)
+lambda</code></pre>
+<pre><code>[1] 0.0002010674</code></pre>
+<p>Plot for the observed z scores vs the expected z scores</p>
+<pre class="r"><code>condz &lt;- susieR::kriging_rss(sumstats.locus$zscore, R = R.locus, n=n, s = lambda)
+condz$plot</code></pre>
+<p><img src="figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Run SuSiE with LD matrices</p>
+<pre class="r"><code>LD_matrices &lt;- list(R.locus)
+names(LD_matrices) &lt;- locus
+
+susie.locus.res &lt;- run_finemapping(sumstats.locus, LD_matrices = LD_matrices, priortype = &#39;uniform&#39;, n = n, L = 1)</code></pre>
+<pre><code>Finemapping locus 101...
+Run susie_rss...</code></pre>
+<pre class="r"><code># add susie PIP information to GWAS summary stats
+susie.sumstats.locus &lt;- merge_susie_sumstats(susie.locus.res, sumstats.locus)
+
+head(susie.sumstats.locus)</code></pre>
+<pre><code># A tibble: 6 × 12
+    chr       pos     beta     se a0    a1    snp      pval zscore locus susie…¹
+  &lt;int&gt;     &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+1     1 197312162 -0.00930 0.0119 C     G     rs2821… 0.363 -0.783   101 2.79e-7
+2     1 197312942  0.0156  0.0160 A     C     rs1015… 0.482  0.975   101 3.28e-7
+3     1 197313739  0.0123  0.0262 A     G     rs7893… 0.194  0.468   101 2.31e-7
+4     1 197314384  0.0163  0.0161 G     A     rs1206… 0.509  1.02    101 3.42e-7
+5     1 197314588 -0.0750  0.0388 G     A     rs1151… 1.27  -1.93    101 1.27e-6
+6     1 197315402 -0.0111  0.0119 C     T     rs2786… 0.455 -0.933   101 3.16e-7
+# … with 1 more variable: cs &lt;dbl&gt;, and abbreviated variable name ¹​susie_pip</code></pre>
+<pre class="r"><code>susie_plot(susie.locus.res[[1]], y=&#39;PIP&#39;)</code></pre>
+<p><img src="figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="flip-alleles-for-selected-variants" class="section level3">
+<h3>Flip alleles for selected variants</h3>
+<p>Flip alleles for 10 variants with abs(z-scores) &gt; 2</p>
+<pre class="r"><code>seed = 1
+set.seed(seed)
+
+flip_index &lt;- sample(which(sumstats.locus$zscore &gt; 2), 10)
+sumstats.locus.flip &lt;- sumstats.locus
+sumstats.locus.flip$zscore[flip_index] &lt;- -sumstats.locus$zscore[flip_index]
+
+sumstats.locus.flip[flip_index, ]</code></pre>
+<pre><code># A tibble: 10 × 10
+     chr       pos   beta     se a0    a1    snp          pval zscore locus
+   &lt;int&gt;     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+ 1     1 199012985 0.0694 0.0279 C     T     rs75649303   1.88  -2.48   101
+ 2     1 198634209 0.0219 0.0106 A     C     rs4915152    1.42  -2.08   101
+ 3     1 197334422 0.0373 0.0164 C     T     rs61829425   1.65  -2.28   101
+ 4     1 198628622 0.0243 0.0105 G     C     rs1326274    1.69  -2.32   101
+ 5     1 198640487 0.0990 0.0413 C     T     rs72738033   1.79  -2.40   101
+ 6     1 198596439 0.0230 0.0105 T     G     rs2026562    1.54  -2.19   101
+ 7     1 198903973 0.100  0.0410 T     C     rs61822073   1.83  -2.44   101
+ 8     1 198777401 0.107  0.0405 C     T     rs74769776   2.09  -2.65   101
+ 9     1 198619888 0.0249 0.0105 T     G     rs1326272    1.76  -2.38   101
+10     1 198804286 0.117  0.0405 G     A     rs557279644  2.42  -2.89   101</code></pre>
+<pre class="r"><code>cat(&quot;Allele switched variants:&quot;, sort(sumstats.locus.flip$snp[flip_index]), &quot;\n&quot;)</code></pre>
+<pre><code>Allele switched variants: rs1326272 rs1326274 rs2026562 rs4915152 rs557279644 rs61822073 rs61829425 rs72738033 rs74769776 rs75649303 </code></pre>
+<p>Estimated lambda</p>
+<pre class="r"><code>lambda &lt;- susieR::estimate_s_rss(sumstats.locus.flip$zscore, R = R.locus, n = n)
+lambda</code></pre>
+<pre><code>[1] 0.04942435</code></pre>
+<p>Compares observed z scores vs the expected z scores</p>
+<pre class="r"><code>condz &lt;- susieR::kriging_rss(sumstats.locus.flip$zscore, R = R.locus, n=n, s = lambda)
+condz$plot</code></pre>
+<p><img src="figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The possible allele switched variants are labeled as red points
+(logLR &gt; 2 and abs(z) &gt; 2).</p>
+<pre class="r"><code>detected_index &lt;- which(condz$conditional_dist$logLR &gt; 2 &amp; abs(condz$conditional_dist$z) &gt; 2)
+cat(sprintf(&quot;Detected %d variants with possible allele switched&quot;, length(detected_index)), &quot;\n&quot;)</code></pre>
+<pre><code>Detected 8 variants with possible allele switched </code></pre>
+<pre class="r"><code>cat(&quot;Possible allele switched variants:&quot;, sort(sumstats.locus.flip$snp[detected_index]), &quot;\n&quot;)</code></pre>
+<pre><code>Possible allele switched variants: rs1326272 rs1326274 rs2026562 rs4915152 rs61822073 rs61829425 rs72738033 rs75649303 </code></pre>
+<pre class="r"><code>condz$conditional_dist$flipped &lt;- 0
+condz$conditional_dist$flipped[flip_index] &lt;- 1
+
+condz$conditional_dist$detected &lt;- 0
+condz$conditional_dist$detected[detected_index] &lt;- 1
+
+cat(sprintf(&quot;%d out of %d flipped variants detected. \n&quot;, length(intersect(detected_index, flip_index)), length(detected_index)))</code></pre>
+<pre><code>8 out of 8 flipped variants detected. </code></pre>
+<pre class="r"><code>condz$conditional_dist[union(flip_index, detected_index),]</code></pre>
+<pre><code>             z  condmean    condvar z_std_diff    logLR flipped detected
+3006 -2.482570 1.7540411 0.16143518  -10.54434 5.395386       1        1
+2329 -2.077095 1.9135410 0.05479728  -17.04758 8.394765       1        1
+35   -2.280709 2.0511728 0.08858013  -14.55487 7.958970       1        1
+2317 -2.316972 1.6754437 0.05321835  -17.30633 3.219456       1        1
+2355 -2.400836 2.0890780 0.09667435  -14.44051 7.621941       1        1
+2214 -2.189495 1.6174426 0.05589291  -16.10265 4.170299       1        1
+2876 -2.439743 2.3052580 0.06365209  -18.80745 8.836932       1        1
+2634 -2.645838 1.5501971 0.08402155  -14.47584 1.675066       1        0
+2289 -2.375412 1.6340602 0.05325781  -17.37383 2.401655       1        1
+2711 -2.892958 0.8243904 0.12105241  -10.68431 0.712998       1        0</code></pre>
+<pre class="r"><code>p1 &lt;- ggplot(condz$conditional_dist, aes(x = condmean, y = z, col = factor(flipped))) +
+  geom_point() +
+  scale_colour_manual(values = c(&quot;0&quot; = &quot;black&quot;, &quot;1&quot; = &quot;red&quot;)) + 
+  labs(x = &quot;Expected&quot;, y = &quot;Observed z scores&quot;, color = &quot;Allele flipped&quot;) + 
+  theme_bw()
+
+p2 &lt;- ggplot(condz$conditional_dist, aes(x = condmean, y = z, col = factor(detected))) +
+  geom_point() +
+  scale_colour_manual(values = c(&quot;0&quot; = &quot;black&quot;, &quot;1&quot; = &quot;red&quot;)) + 
+  labs(x = &quot;Expected&quot;, y = &quot;Observed z scores&quot;, color = &quot;Possible allele switched&quot;) + 
+  theme_bw()
+
+cowplot::plot_grid(p1, p2)</code></pre>
+<p><img src="figure/mapgen_finemapping_ukbb_ld.Rmd/diagnosis-plots-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>Run SuSiE including variants with flipped alleles</p>
+<pre class="r"><code>LD_matrices &lt;- list(R.locus)
+names(LD_matrices) &lt;- locus
+
+susie.locus.res &lt;- run_finemapping(sumstats.locus.flip, LD_matrices = LD_matrices, priortype = &#39;uniform&#39;, n = n, L = 1)</code></pre>
+<pre><code>Finemapping locus 101...
+Run susie_rss...</code></pre>
+<pre class="r"><code># add susie PIP information to GWAS summary stats
+susie.sumstats.locus &lt;- merge_susie_sumstats(susie.locus.res, sumstats.locus)
+
+head(susie.sumstats.locus)</code></pre>
+<pre><code># A tibble: 6 × 12
+    chr       pos     beta     se a0    a1    snp      pval zscore locus susie…¹
+  &lt;int&gt;     &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+1     1 197312162 -0.00930 0.0119 C     G     rs2821… 0.363 -0.783   101 2.79e-7
+2     1 197312942  0.0156  0.0160 A     C     rs1015… 0.482  0.975   101 3.28e-7
+3     1 197313739  0.0123  0.0262 A     G     rs7893… 0.194  0.468   101 2.31e-7
+4     1 197314384  0.0163  0.0161 G     A     rs1206… 0.509  1.02    101 3.42e-7
+5     1 197314588 -0.0750  0.0388 G     A     rs1151… 1.27  -1.93    101 1.27e-6
+6     1 197315402 -0.0111  0.0119 C     T     rs2786… 0.455 -0.933   101 3.16e-7
+# … with 1 more variable: cs &lt;dbl&gt;, and abbreviated variable name ¹​susie_pip</code></pre>
+<pre class="r"><code>susie_plot(susie.locus.res[[1]], y=&#39;PIP&#39;)</code></pre>
+<p><img src="figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.2.0 (2022-04-22)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: CentOS Linux 7 (Core)
+
+Matrix products: default
+BLAS/LAPACK: /software/openblas-0.3.13-el7-x86_64/lib/libopenblas_haswellp-r0.3.13.so
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8 LC_NUMERIC=C         LC_TIME=C           
+ [4] LC_COLLATE=C         LC_MONETARY=C        LC_MESSAGES=C       
+ [7] LC_PAPER=C           LC_NAME=C            LC_ADDRESS=C        
+[10] LC_TELEPHONE=C       LC_MEASUREMENT=C     LC_IDENTIFICATION=C 
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] susieR_0.12.27  forcats_1.0.0   stringr_1.5.0   dplyr_1.1.0    
+ [5] purrr_1.0.1     readr_2.1.4     tidyr_1.3.0     tibble_3.1.8   
+ [9] ggplot2_3.4.1   tidyverse_1.3.2 mapgen_0.5.6    workflowr_1.7.0
+
+loaded via a namespace (and not attached):
+  [1] googledrive_2.0.0           colorspace_2.1-0           
+  [3] rjson_0.2.21                ellipsis_0.3.2             
+  [5] rprojroot_2.0.3             XVector_0.38.0             
+  [7] GenomicRanges_1.48.0        fs_1.6.1                   
+  [9] rstudioapi_0.14             farver_2.1.1               
+ [11] bit64_4.0.5                 fansi_1.0.4                
+ [13] lubridate_1.9.2             xml2_1.3.3                 
+ [15] codetools_0.2-18            cachem_1.0.6               
+ [17] knitr_1.42                  jsonlite_1.8.4             
+ [19] Rsamtools_2.12.0            broom_1.0.3                
+ [21] dbplyr_2.3.0                compiler_4.2.0             
+ [23] httr_1.4.4                  backports_1.4.1            
+ [25] RcppZiggurat_0.1.6          assertthat_0.2.1           
+ [27] Matrix_1.5-3                fastmap_1.1.0              
+ [29] gargle_1.3.0                cli_3.6.0                  
+ [31] later_1.3.0                 htmltools_0.5.4            
+ [33] tools_4.2.0                 gtable_0.3.1               
+ [35] glue_1.6.2                  GenomeInfoDbData_1.2.9     
+ [37] Rcpp_1.0.10                 Biobase_2.58.0             
+ [39] cellranger_1.1.0            jquerylib_0.1.4            
+ [41] vctrs_0.5.2                 Biostrings_2.66.0          
+ [43] rtracklayer_1.58.0          xfun_0.37                  
+ [45] plyranges_1.18.0            ps_1.7.2                   
+ [47] rvest_1.0.3                 timechange_0.2.0           
+ [49] lifecycle_1.0.3             irlba_2.3.5                
+ [51] restfulr_0.0.15             XML_3.99-0.13              
+ [53] googlesheets4_1.0.1         getPass_0.2-2              
+ [55] zlibbioc_1.44.0             scales_1.2.1               
+ [57] vroom_1.6.1                 hms_1.1.2                  
+ [59] promises_1.2.0.1            MatrixGenerics_1.10.0      
+ [61] parallel_4.2.0              SummarizedExperiment_1.28.0
+ [63] yaml_2.3.7                  sass_0.4.5                 
+ [65] reshape_0.8.9               stringi_1.7.12             
+ [67] highr_0.10                  BiocIO_1.8.0               
+ [69] S4Vectors_0.36.1            BiocGenerics_0.44.0        
+ [71] BiocParallel_1.32.5         GenomeInfoDb_1.34.9        
+ [73] rlang_1.0.6                 pkgconfig_2.0.3            
+ [75] bitops_1.0-7                matrixStats_0.63.0         
+ [77] evaluate_0.20               lattice_0.20-45            
+ [79] labeling_0.4.2              GenomicAlignments_1.34.0   
+ [81] cowplot_1.1.1               Rfast_2.0.6                
+ [83] bit_4.0.5                   processx_3.8.0             
+ [85] tidyselect_1.2.0            plyr_1.8.7                 
+ [87] magrittr_2.0.3              R6_2.5.1                   
+ [89] IRanges_2.32.0              generics_0.1.3             
+ [91] DelayedArray_0.24.0         DBI_1.1.3                  
+ [93] pillar_1.8.1                haven_2.5.1                
+ [95] whisker_0.4                 withr_2.5.0                
+ [97] RCurl_1.98-1.10             mixsqp_0.3-43              
+ [99] modelr_0.1.10               crayon_1.5.2               
+[101] utf8_1.2.3                  tzdb_0.3.0                 
+[103] rmarkdown_2.20              grid_4.2.0                 
+[105] readxl_1.4.2                data.table_1.14.6          
+[107] callr_3.7.3                 git2r_0.30.1               
+[109] reprex_2.0.2                digest_0.6.31              
+[111] httpuv_1.6.5                stats4_4.2.0               
+[113] munsell_0.5.0               bslib_0.4.2                </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
