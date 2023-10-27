@@ -155,7 +155,8 @@ condz$conditional_dist$flipped[flip_index] <- 1
 condz$conditional_dist$detected <- 0
 condz$conditional_dist$detected[detected_index] <- 1
 
-cat(sprintf("%d out of %d flipped variants detected. \n", length(intersect(detected_index, flip_index)), length(detected_index)))
+cat(sprintf("%d out of %d flipped variants detecte by kriging_rss. \n", 
+            length(intersect(detected_index, flip_index)), length(flip_index)))
 
 condz$conditional_dist[union(flip_index, detected_index),]
 
