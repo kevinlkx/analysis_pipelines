@@ -520,15 +520,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree0437fe6bfda58f69f07ed8fef0659c67450a8cd0targetblank0437fe6a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree7937f92472fd1978cb100a4c5ba1a0e7f40d3193targetblank7937f92a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/kevinlkx/analysis_pipelines/tree/0437fe6bfda58f69f07ed8fef0659c67450a8cd0" target="_blank">0437fe6</a>
+<a href="https://github.com/kevinlkx/analysis_pipelines/tree/7937f92472fd1978cb100a4c5ba1a0e7f40d3193" target="_blank">7937f92</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree0437fe6bfda58f69f07ed8fef0659c67450a8cd0targetblank0437fe6a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree7937f92472fd1978cb100a4c5ba1a0e7f40d3193targetblank7937f92a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -538,7 +538,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/kevinlkx/analysis_pipelines/tree/0437fe6bfda58f69f07ed8fef0659c67450a8cd0" target="_blank">0437fe6</a>.
+<a href="https://github.com/kevinlkx/analysis_pipelines/tree/7937f92472fd1978cb100a4c5ba1a0e7f40d3193" target="_blank">7937f92</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -618,6 +618,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/7937f92472fd1978cb100a4c5ba1a0e7f40d3193/analysis/mapgen_finemapping_ukbb_ld.Rmd" target="_blank">7937f92</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2023-10-27
+</td>
+<td>
+wflow_publish("analysis/mapgen_finemapping_ukbb_ld.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/c3fd810d79ed1254f9220a4ab75cca85e550d034/docs/mapgen_finemapping_ukbb_ld.html" target="_blank">c3fd810</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2023-10-27
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -951,8 +985,9 @@ condz$conditional_dist$flipped[flip_index] &lt;- 1
 condz$conditional_dist$detected &lt;- 0
 condz$conditional_dist$detected[detected_index] &lt;- 1
 
-cat(sprintf(&quot;%d out of %d flipped variants detected. \n&quot;, length(intersect(detected_index, flip_index)), length(detected_index)))</code></pre>
-<pre><code>8 out of 8 flipped variants detected. </code></pre>
+cat(sprintf(&quot;%d out of %d flipped variants detecte by kriging_rss. \n&quot;, 
+            length(intersect(detected_index, flip_index)), length(flip_index)))</code></pre>
+<pre><code>8 out of 10 flipped variants detecte by kriging_rss. </code></pre>
 <pre class="r"><code>condz$conditional_dist[union(flip_index, detected_index),]</code></pre>
 <pre><code>             z  condmean    condvar z_std_diff    logLR flipped detected
 3006 -2.482570 1.7540411 0.16143518  -10.54434 5.395386       1        1
@@ -995,6 +1030,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/c3fd810d79ed1254f9220a4ab75cca85e550d034/docs/figure/mapgen_finemapping_ukbb_ld.Rmd/diagnosis-plots-1.png" target="_blank">c3fd810</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2023-10-27
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/kevinlkx/analysis_pipelines/blob/e882df5f4757a880fc21dde059b59d21ffb602e4/docs/figure/mapgen_finemapping_ukbb_ld.Rmd/diagnosis-plots-1.png" target="_blank">e882df5</a>
 </td>
 <td>
@@ -1014,6 +1060,43 @@ kevinlkx
   labs(x = &quot;Expected&quot;, y = &quot;Observed z scores&quot;, color = &quot;Possible allele switched&quot;) + 
   theme_bw()</code></pre>
 <p><img src="figure/mapgen_finemapping_ukbb_ld.Rmd/diagnosis-plots-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-diagnosis-plots-2">
+Past versions of diagnosis-plots-2.png
+</button>
+</p>
+<div id="fig-diagnosis-plots-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/c3fd810d79ed1254f9220a4ab75cca85e550d034/docs/figure/mapgen_finemapping_ukbb_ld.Rmd/diagnosis-plots-2.png" target="_blank">c3fd810</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2023-10-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Run SuSiE including variants with flipped alleles</p>
 <pre class="r"><code>LD_matrices &lt;- list(R.locus)
 names(LD_matrices) &lt;- locus
