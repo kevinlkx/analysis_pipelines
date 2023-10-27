@@ -520,15 +520,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree62f3d8aa4c1ac868c3ff516ffe54ce54004c42c6targetblank62f3d8aa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree0437fe6bfda58f69f07ed8fef0659c67450a8cd0targetblank0437fe6a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/kevinlkx/analysis_pipelines/tree/62f3d8aa4c1ac868c3ff516ffe54ce54004c42c6" target="_blank">62f3d8a</a>
+<a href="https://github.com/kevinlkx/analysis_pipelines/tree/0437fe6bfda58f69f07ed8fef0659c67450a8cd0" target="_blank">0437fe6</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree62f3d8aa4c1ac868c3ff516ffe54ce54004c42c6targetblank62f3d8aa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree0437fe6bfda58f69f07ed8fef0659c67450a8cd0targetblank0437fe6a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -538,7 +538,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/kevinlkx/analysis_pipelines/tree/62f3d8aa4c1ac868c3ff516ffe54ce54004c42c6" target="_blank">62f3d8a</a>.
+<a href="https://github.com/kevinlkx/analysis_pipelines/tree/0437fe6bfda58f69f07ed8fef0659c67450a8cd0" target="_blank">0437fe6</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -618,6 +618,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/0437fe6bfda58f69f07ed8fef0659c67450a8cd0/analysis/mapgen_finemapping_ukbb_ld.Rmd" target="_blank">0437fe6</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2023-10-27
+</td>
+<td>
+wflow_publish("analysis/mapgen_finemapping_ukbb_ld.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/e882df5f4757a880fc21dde059b59d21ffb602e4/docs/mapgen_finemapping_ukbb_ld.html" target="_blank">e882df5</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2023-10-27
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -731,29 +765,107 @@ lambda</code></pre>
 <pre class="r"><code>condz &lt;- susieR::kriging_rss(sumstats.locus$zscore, R = R.locus, n=n, s = lambda)
 condz$plot</code></pre>
 <p><img src="figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/e882df5f4757a880fc21dde059b59d21ffb602e4/docs/figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-4-1.png" target="_blank">e882df5</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2023-10-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Run SuSiE with LD matrices</p>
 <pre class="r"><code>LD_matrices &lt;- list(R.locus)
 names(LD_matrices) &lt;- locus
 
-susie.locus.res &lt;- run_finemapping(sumstats.locus, LD_matrices = LD_matrices, priortype = &#39;uniform&#39;, n = n, L = 1)</code></pre>
+susie.locus.res &lt;- run_finemapping(sumstats.locus, LD_matrices = LD_matrices, priortype = &#39;uniform&#39;, n = n, L = 10)</code></pre>
 <pre><code>Finemapping locus 101...
 Run susie_rss...</code></pre>
-<pre class="r"><code># add susie PIP information to GWAS summary stats
-susie.sumstats.locus &lt;- merge_susie_sumstats(susie.locus.res, sumstats.locus)
+<pre class="r"><code>susie.locus.res[[1]]$sets</code></pre>
+<pre><code>$cs
+$cs$L1
+[1] 2381 2383 2388 2393 2406
 
-head(susie.sumstats.locus)</code></pre>
-<pre><code># A tibble: 6 × 12
-    chr       pos     beta     se a0    a1    snp      pval zscore locus susie…¹
-  &lt;int&gt;     &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-1     1 197312162 -0.00930 0.0119 C     G     rs2821… 0.363 -0.783   101 2.79e-7
-2     1 197312942  0.0156  0.0160 A     C     rs1015… 0.482  0.975   101 3.28e-7
-3     1 197313739  0.0123  0.0262 A     G     rs7893… 0.194  0.468   101 2.31e-7
-4     1 197314384  0.0163  0.0161 G     A     rs1206… 0.509  1.02    101 3.42e-7
-5     1 197314588 -0.0750  0.0388 G     A     rs1151… 1.27  -1.93    101 1.27e-6
-6     1 197315402 -0.0111  0.0119 C     T     rs2786… 0.455 -0.933   101 3.16e-7
-# … with 1 more variable: cs &lt;dbl&gt;, and abbreviated variable name ¹​susie_pip</code></pre>
+
+$purity
+   min.abs.corr mean.abs.corr median.abs.corr
+L1    0.8397768      0.935727        0.999153
+
+$cs_index
+[1] 1
+
+$coverage
+[1] 0.961074
+
+$requested_coverage
+[1] 0.95</code></pre>
 <pre class="r"><code>susie_plot(susie.locus.res[[1]], y=&#39;PIP&#39;)</code></pre>
 <p><img src="figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/e882df5f4757a880fc21dde059b59d21ffb602e4/docs/figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-5-1.png" target="_blank">e882df5</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2023-10-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="flip-alleles-for-selected-variants" class="section level3">
 <h3>Flip alleles for selected variants</h3>
@@ -789,6 +901,43 @@ lambda</code></pre>
 <pre class="r"><code>condz &lt;- susieR::kriging_rss(sumstats.locus.flip$zscore, R = R.locus, n=n, s = lambda)
 condz$plot</code></pre>
 <p><img src="figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/e882df5f4757a880fc21dde059b59d21ffb602e4/docs/figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-8-1.png" target="_blank">e882df5</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2023-10-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>The possible allele switched variants are labeled as red points
 (logLR &gt; 2 and abs(z) &gt; 2).</p>
 <pre class="r"><code>detected_index &lt;- which(condz$conditional_dist$logLR &gt; 2 &amp; abs(condz$conditional_dist$z) &gt; 2)
@@ -816,43 +965,119 @@ cat(sprintf(&quot;%d out of %d flipped variants detected. \n&quot;, length(inter
 2634 -2.645838 1.5501971 0.08402155  -14.47584 1.675066       1        0
 2289 -2.375412 1.6340602 0.05325781  -17.37383 2.401655       1        1
 2711 -2.892958 0.8243904 0.12105241  -10.68431 0.712998       1        0</code></pre>
-<pre class="r"><code>p1 &lt;- ggplot(condz$conditional_dist, aes(x = condmean, y = z, col = factor(flipped))) +
+<pre class="r"><code>ggplot(condz$conditional_dist, aes(x = condmean, y = z, col = factor(flipped))) +
   geom_point() +
   scale_colour_manual(values = c(&quot;0&quot; = &quot;black&quot;, &quot;1&quot; = &quot;red&quot;)) + 
   labs(x = &quot;Expected&quot;, y = &quot;Observed z scores&quot;, color = &quot;Allele flipped&quot;) + 
-  theme_bw()
-
-p2 &lt;- ggplot(condz$conditional_dist, aes(x = condmean, y = z, col = factor(detected))) +
+  theme_bw()</code></pre>
+<p><img src="figure/mapgen_finemapping_ukbb_ld.Rmd/diagnosis-plots-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-diagnosis-plots-1">
+Past versions of diagnosis-plots-1.png
+</button>
+</p>
+<div id="fig-diagnosis-plots-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/e882df5f4757a880fc21dde059b59d21ffb602e4/docs/figure/mapgen_finemapping_ukbb_ld.Rmd/diagnosis-plots-1.png" target="_blank">e882df5</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2023-10-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>ggplot(condz$conditional_dist, aes(x = condmean, y = z, col = factor(detected))) +
   geom_point() +
   scale_colour_manual(values = c(&quot;0&quot; = &quot;black&quot;, &quot;1&quot; = &quot;red&quot;)) + 
   labs(x = &quot;Expected&quot;, y = &quot;Observed z scores&quot;, color = &quot;Possible allele switched&quot;) + 
-  theme_bw()
-
-cowplot::plot_grid(p1, p2)</code></pre>
-<p><img src="figure/mapgen_finemapping_ukbb_ld.Rmd/diagnosis-plots-1.png" width="960" style="display: block; margin: auto;" /></p>
+  theme_bw()</code></pre>
+<p><img src="figure/mapgen_finemapping_ukbb_ld.Rmd/diagnosis-plots-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Run SuSiE including variants with flipped alleles</p>
 <pre class="r"><code>LD_matrices &lt;- list(R.locus)
 names(LD_matrices) &lt;- locus
 
-susie.locus.res &lt;- run_finemapping(sumstats.locus.flip, LD_matrices = LD_matrices, priortype = &#39;uniform&#39;, n = n, L = 1)</code></pre>
+susie.locus.res &lt;- run_finemapping(sumstats.locus.flip, LD_matrices = LD_matrices, priortype = &#39;uniform&#39;, n = n, L = 10)</code></pre>
 <pre><code>Finemapping locus 101...
 Run susie_rss...</code></pre>
-<pre class="r"><code># add susie PIP information to GWAS summary stats
-susie.sumstats.locus &lt;- merge_susie_sumstats(susie.locus.res, sumstats.locus)
+<pre class="r"><code>susie.locus.res[[1]]$sets</code></pre>
+<pre><code>$cs
+$cs$L1
+[1] 2381 2383 2388 2393 2406
 
-head(susie.sumstats.locus)</code></pre>
-<pre><code># A tibble: 6 × 12
-    chr       pos     beta     se a0    a1    snp      pval zscore locus susie…¹
-  &lt;int&gt;     &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-1     1 197312162 -0.00930 0.0119 C     G     rs2821… 0.363 -0.783   101 2.79e-7
-2     1 197312942  0.0156  0.0160 A     C     rs1015… 0.482  0.975   101 3.28e-7
-3     1 197313739  0.0123  0.0262 A     G     rs7893… 0.194  0.468   101 2.31e-7
-4     1 197314384  0.0163  0.0161 G     A     rs1206… 0.509  1.02    101 3.42e-7
-5     1 197314588 -0.0750  0.0388 G     A     rs1151… 1.27  -1.93    101 1.27e-6
-6     1 197315402 -0.0111  0.0119 C     T     rs2786… 0.455 -0.933   101 3.16e-7
-# … with 1 more variable: cs &lt;dbl&gt;, and abbreviated variable name ¹​susie_pip</code></pre>
+
+$purity
+   min.abs.corr mean.abs.corr median.abs.corr
+L1    0.8397768      0.935727        0.999153
+
+$cs_index
+[1] 1
+
+$coverage
+[1] 0.961074
+
+$requested_coverage
+[1] 0.95</code></pre>
 <pre class="r"><code>susie_plot(susie.locus.res[[1]], y=&#39;PIP&#39;)</code></pre>
 <p><img src="figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/e882df5f4757a880fc21dde059b59d21ffb602e4/docs/figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-9-1.png" target="_blank">e882df5</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2023-10-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -924,23 +1149,23 @@ loaded via a namespace (and not attached):
  [75] bitops_1.0-7                matrixStats_0.63.0         
  [77] evaluate_0.20               lattice_0.20-45            
  [79] labeling_0.4.2              GenomicAlignments_1.34.0   
- [81] cowplot_1.1.1               Rfast_2.0.6                
- [83] bit_4.0.5                   processx_3.8.0             
- [85] tidyselect_1.2.0            plyr_1.8.7                 
- [87] magrittr_2.0.3              R6_2.5.1                   
- [89] IRanges_2.32.0              generics_0.1.3             
- [91] DelayedArray_0.24.0         DBI_1.1.3                  
- [93] pillar_1.8.1                haven_2.5.1                
- [95] whisker_0.4                 withr_2.5.0                
- [97] RCurl_1.98-1.10             mixsqp_0.3-43              
- [99] modelr_0.1.10               crayon_1.5.2               
-[101] utf8_1.2.3                  tzdb_0.3.0                 
-[103] rmarkdown_2.20              grid_4.2.0                 
-[105] readxl_1.4.2                data.table_1.14.6          
-[107] callr_3.7.3                 git2r_0.30.1               
-[109] reprex_2.0.2                digest_0.6.31              
-[111] httpuv_1.6.5                stats4_4.2.0               
-[113] munsell_0.5.0               bslib_0.4.2                </code></pre>
+ [81] Rfast_2.0.6                 bit_4.0.5                  
+ [83] processx_3.8.0              tidyselect_1.2.0           
+ [85] plyr_1.8.7                  magrittr_2.0.3             
+ [87] R6_2.5.1                    IRanges_2.32.0             
+ [89] generics_0.1.3              DelayedArray_0.24.0        
+ [91] DBI_1.1.3                   pillar_1.8.1               
+ [93] haven_2.5.1                 whisker_0.4                
+ [95] withr_2.5.0                 RCurl_1.98-1.10            
+ [97] mixsqp_0.3-43               modelr_0.1.10              
+ [99] crayon_1.5.2                utf8_1.2.3                 
+[101] tzdb_0.3.0                  rmarkdown_2.20             
+[103] grid_4.2.0                  readxl_1.4.2               
+[105] data.table_1.14.6           callr_3.7.3                
+[107] git2r_0.30.1                reprex_2.0.2               
+[109] digest_0.6.31               httpuv_1.6.5               
+[111] stats4_4.2.0                munsell_0.5.0              
+[113] bslib_0.4.2                </code></pre>
 </div>
 </div>
 
