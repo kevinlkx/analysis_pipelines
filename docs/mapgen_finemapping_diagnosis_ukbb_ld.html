@@ -368,7 +368,7 @@ reference LD matrices</h1>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -379,8 +379,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -389,13 +389,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-10-27
+<strong>Last updated:</strong> 2023-11-06
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>analysis_pipelines/</code> <span
@@ -418,18 +418,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -520,15 +523,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree7937f92472fd1978cb100a4c5ba1a0e7f40d3193targetblank7937f92a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree0e8945944d1e7d503a5c0429371d5aef36c51055targetblank0e89459a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/kevinlkx/analysis_pipelines/tree/7937f92472fd1978cb100a4c5ba1a0e7f40d3193" target="_blank">7937f92</a>
+<a href="https://github.com/kevinlkx/analysis_pipelines/tree/0e8945944d1e7d503a5c0429371d5aef36c51055" target="_blank">0e89459</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree7937f92472fd1978cb100a4c5ba1a0e7f40d3193targetblank7937f92a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree0e8945944d1e7d503a5c0429371d5aef36c51055targetblank0e89459a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -538,7 +541,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/kevinlkx/analysis_pipelines/tree/7937f92472fd1978cb100a4c5ba1a0e7f40d3193" target="_blank">7937f92</a>.
+<a href="https://github.com/kevinlkx/analysis_pipelines/tree/0e8945944d1e7d503a5c0429371d5aef36c51055" target="_blank">0e89459</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -566,6 +569,7 @@ Untracked files:
     Untracked:  scripts/tmp.R
 
 Unstaged changes:
+    Modified:   analysis/mapgen_finemapping_ukbb_ld.Rmd
     Modified:   analysis/mapgen_torus_enrichment_heart_atlas.Rmd
     Modified:   analysis/sldsc_example_GTEx_QTLs.Rmd
     Modified:   analysis/sldsc_pipeline.Rmd
@@ -618,6 +622,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/0e8945944d1e7d503a5c0429371d5aef36c51055/docs/mapgen_finemapping_ukbb_ld.html" target="_blank">0e89459</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2023-10-27
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -713,28 +734,8 @@ wflow_publish("analysis/mapgen_finemapping_ukbb_ld.Rmd")
 <pre class="r"><code>library(mapgen)
 library(tidyverse)
 library(susieR)
-library(ggplot2)
-
-load_UKBB_LD_matrix &lt;- function(LD_Blocks, LD_dir, locus){
-  if(!locus %in% LD_Blocks$locus){
-    stop(&quot;locus is not in LD_blocks!&quot;)
-  }
-  LD_Block &lt;- LD_Blocks[LD_Blocks$locus == locus, ]
-  filename &lt;- sprintf(&quot;ukb_b37_0.1_chr%d.R_snp.%d_%d&quot;, LD_Block$chr, LD_Block$start, LD_Block$end)
-  R &lt;- readRDS(file.path(LD_dir, paste0(filename, &quot;.RDS&quot;)))
-  var_info &lt;- data.table::fread(file.path(LD_dir, paste0(filename, &quot;.Rvar&quot;)))
-  res &lt;- list(R = R, var_info = var_info)
-}
-
-match_gwas_LDREF &lt;- function(sumstats, R, var_info){
-  selected.sumstats &lt;- sumstats %&gt;% dplyr::filter(snp %in% var_info$id)
-  LDREF_index &lt;- na.omit(match(selected.sumstats$snp, var_info$id))
-  matched.R &lt;- R[LDREF_index, LDREF_index]
-  stopifnot(nrow(selected.sumstats) == nrow(matched.R))
-  return(list(sumstats = selected.sumstats,
-              R = matched.R))
-}</code></pre>
-<p>Load Athma GWAS summary statistics (from Ethan Zhong)</p>
+library(ggplot2)</code></pre>
+<p>Load an example asthma GWAS summary statistics</p>
 <pre class="r"><code>gwas.file &lt;- &#39;/project2/xinhe/shared_data/mapgen/example_data/GWAS/aoa_v3_gwas_ukbsnps_susie_input.txt.gz&#39;
 gwas.sumstats &lt;- vroom::vroom(gwas.file, col_names = TRUE, show_col_types = FALSE)
 head(gwas.sumstats)</code></pre>
@@ -767,8 +768,7 @@ head(LD_blocks, 3)</code></pre>
                                        pval=&#39;pval&#39;,
                                        LD_Blocks=LD_blocks)</code></pre>
 <pre><code>Cleaning summary statistics...
-Assigning GWAS SNPs to LD blocks...
-Skipped matching GWAS with bigSNP reference panel. </code></pre>
+Assigning GWAS SNPs to LD blocks...</code></pre>
 <p>Select GWAS significant loci with -log10(pval) &lt; 5e-8</p>
 <pre class="r"><code>if(max(gwas.sumstats$pval) &lt;= 1){
   gwas.sumstats &lt;- gwas.sumstats %&gt;% dplyr::mutate(pval = -log10(pval))
@@ -779,25 +779,56 @@ sumstats.sigloci &lt;- gwas.sumstats[gwas.sumstats$locus %in% sig.loci, ]
 cat(length(sig.loci), &quot;significant loci.\n&quot;)</code></pre>
 <pre><code>19 significant loci.</code></pre>
 <p>Load LD matrix, match variants between GWAS and LD matrix</p>
-<pre class="r"><code>LD_dir &lt;- &quot;/project2/mstephens/wcrouse/UKB_LDR_0.1_b37&quot;
-
-locus &lt;- sig.loci[1]
-cat(&quot;locus:&quot;, locus, &quot;\n&quot;)</code></pre>
-<pre><code>locus: 101 </code></pre>
-<pre class="r"><code>LD_matrix &lt;- load_UKBB_LD_matrix(LD_blocks, LD_dir, locus)
-matched.sumstat.LD.res &lt;- match_gwas_LDREF(gwas.sumstats, LD_matrix$R, LD_matrix$var_info)
-
+<pre class="r"><code>locus &lt;- sig.loci[2]
+LDREF &lt;- load_UKBB_LDREF(LD_blocks, locus = locus, 
+                         LDREF.dir = &quot;/project2/mstephens/wcrouse/UKB_LDR_0.1_b37&quot;, prefix = &quot;ukb_b37_0.1&quot;)
+matched.sumstat.LD.res &lt;- match_gwas_LDREF(gwas.sumstats, LDREF$R, LDREF$var_info)
 sumstats.locus &lt;- matched.sumstat.LD.res$sumstats
 R.locus &lt;- matched.sumstat.LD.res$R</code></pre>
 <div id="original-data" class="section level3">
 <h3>Original data</h3>
-<p>Estimated lambda</p>
-<pre class="r"><code>lambda &lt;- susieR::estimate_s_rss(sumstats.locus$zscore, R = R.locus, n = n)
-lambda</code></pre>
-<pre><code>[1] 0.0002010674</code></pre>
-<p>Plot for the observed z scores vs the expected z scores</p>
-<pre class="r"><code>condz &lt;- susieR::kriging_rss(sumstats.locus$zscore, R = R.locus, n=n, s = lambda)
-condz$plot</code></pre>
+<p>Run SuSiE with LD matrices</p>
+<pre class="r"><code>LD_matrices &lt;- list(R.locus)
+names(LD_matrices) &lt;- locus
+
+susie.locus.res &lt;- run_finemapping(sumstats.locus, LD_matrices = LD_matrices, priortype = &#39;uniform&#39;, n = n, L = 10)</code></pre>
+<pre><code>Finemapping locus 193...
+Run susie_rss...</code></pre>
+<pre class="r"><code>susie.locus.res[[1]]$sets</code></pre>
+<pre><code>$cs
+$cs$L2
+ [1]  464  485  498  499  508  517  530  564  574  593  597  615  628  630  636
+[16]  644  649  653  654  668  672  682  684  689  690  726  729  731  732  733
+[31]  738  747  771  773  778  789  804  835  841  852  856  859  873  881  882
+[46]  889  893  903  905  909  921  923  924  926  929  947  956  960  965  984
+[61]  987 1010 1014 1018 1034 1062 1067 1146
+
+$cs$L1
+ [1] 602 632 637 660 706 711 714 734 735 739 740 749 751 759 763 766 768 769 775
+[20] 779 782 787 790 791 794 797 812 813 814 854 857 865 894 895 896 899 916 932
+
+
+$purity
+   min.abs.corr mean.abs.corr median.abs.corr
+L2    0.7923272     0.9172110       0.9318115
+L1    0.5835378     0.8666369       0.8125560
+
+$cs_index
+[1] 2 1
+
+$coverage
+[1] 0.9517707 0.9512414
+
+$requested_coverage
+[1] 0.95</code></pre>
+<pre class="r"><code>susie_plot(susie.locus.res[[1]], y=&#39;PIP&#39;)</code></pre>
+<p><img src="figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>susie.locus.sumstats &lt;- merge_susie_sumstats(susie.locus.res, sumstats.locus)</code></pre>
+<pre class="r"><code>condz &lt;- LD_diagnosis_rss(sumstats.locus$zscore, R = R.locus, n = n)</code></pre>
+<pre><code>Estimate consistency between the z-scores and LD matrix in susie_rss model using regularized LD ...
+Estimated lambda = 7.436622e-05 
+Compute expected z-scores based on conditional distribution of other z-scores ...</code></pre>
+<pre class="r"><code>condz$plot</code></pre>
 <p><img src="figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
@@ -836,70 +867,6 @@ kevinlkx
 </table>
 </div>
 </div>
-<p>Run SuSiE with LD matrices</p>
-<pre class="r"><code>LD_matrices &lt;- list(R.locus)
-names(LD_matrices) &lt;- locus
-
-susie.locus.res &lt;- run_finemapping(sumstats.locus, LD_matrices = LD_matrices, priortype = &#39;uniform&#39;, n = n, L = 10)</code></pre>
-<pre><code>Finemapping locus 101...
-Run susie_rss...</code></pre>
-<pre class="r"><code>susie.locus.res[[1]]$sets</code></pre>
-<pre><code>$cs
-$cs$L1
-[1] 2381 2383 2388 2393 2406
-
-
-$purity
-   min.abs.corr mean.abs.corr median.abs.corr
-L1    0.8397768      0.935727        0.999153
-
-$cs_index
-[1] 1
-
-$coverage
-[1] 0.961074
-
-$requested_coverage
-[1] 0.95</code></pre>
-<pre class="r"><code>susie_plot(susie.locus.res[[1]], y=&#39;PIP&#39;)</code></pre>
-<p><img src="figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
-Past versions of unnamed-chunk-5-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/kevinlkx/analysis_pipelines/blob/e882df5f4757a880fc21dde059b59d21ffb602e4/docs/figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-5-1.png" target="_blank">e882df5</a>
-</td>
-<td>
-kevinlkx
-</td>
-<td>
-2023-10-27
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 </div>
 <div id="flip-alleles-for-selected-variants" class="section level3">
 <h3>Flip alleles for selected variants</h3>
@@ -915,70 +882,71 @@ sumstats.locus.flip[flip_index, ]</code></pre>
 <pre><code># A tibble: 10 × 10
      chr       pos   beta     se a0    a1    snp          pval zscore locus
    &lt;int&gt;     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
- 1     1 199012985 0.0694 0.0279 C     T     rs75649303   1.88  -2.48   101
- 2     1 198634209 0.0219 0.0106 A     C     rs4915152    1.42  -2.08   101
- 3     1 197334422 0.0373 0.0164 C     T     rs61829425   1.65  -2.28   101
- 4     1 198628622 0.0243 0.0105 G     C     rs1326274    1.69  -2.32   101
- 5     1 198640487 0.0990 0.0413 C     T     rs72738033   1.79  -2.40   101
- 6     1 198596439 0.0230 0.0105 T     G     rs2026562    1.54  -2.19   101
- 7     1 198903973 0.100  0.0410 T     C     rs61822073   1.83  -2.44   101
- 8     1 198777401 0.107  0.0405 C     T     rs74769776   2.09  -2.65   101
- 9     1 198619888 0.0249 0.0105 T     G     rs1326272    1.76  -2.38   101
-10     1 198804286 0.117  0.0405 G     A     rs557279644  2.42  -2.89   101</code></pre>
-<pre class="r"><code>cat(&quot;Allele switched variants:&quot;, sort(sumstats.locus.flip$snp[flip_index]), &quot;\n&quot;)</code></pre>
-<pre><code>Allele switched variants: rs1326272 rs1326274 rs2026562 rs4915152 rs557279644 rs61822073 rs61829425 rs72738033 rs74769776 rs75649303 </code></pre>
-<p>Estimated lambda</p>
-<pre class="r"><code>lambda &lt;- susieR::estimate_s_rss(sumstats.locus.flip$zscore, R = R.locus, n = n)
-lambda</code></pre>
-<pre><code>[1] 0.04942435</code></pre>
+ 1     2 102985950 0.0746 0.0108 T     C     rs3771171   11.2   -6.89   193
+ 2     2 102854882 0.0282 0.0105 C     T     rs3755282    2.13  -2.67   193
+ 3     2 102839199 0.0271 0.0104 C     T     rs6715919    2.04  -2.61   193
+ 4     2 103194558 0.0537 0.0124 A     G     rs74263644   4.83  -4.33   193
+ 5     2 103247758 0.0703 0.0213 T     C     rs76605545   3.00  -3.29   193
+ 6     2 102959080 0.0381 0.0177 G     A     rs13016771   1.50  -2.15   193
+ 7     2 102945755 0.0283 0.0100 G     T     rs150341880  2.33  -2.83   193
+ 8     2 103237631 0.0363 0.0102 T     C     rs2012454    3.41  -3.55   193
+ 9     2 102918018 0.0262 0.0119 G     A     rs4577297    1.56  -2.21   193
+10     2 102965332 0.0765 0.0108 G     C     rs17027006  11.8   -7.05   193</code></pre>
+<pre class="r"><code>cat(length(flip_index), &quot;Allele switched variants:&quot;, sort(sumstats.locus.flip$snp[flip_index]), &quot;\n&quot;)</code></pre>
+<pre><code>10 Allele switched variants: rs13016771 rs150341880 rs17027006 rs2012454 rs3755282 rs3771171 rs4577297 rs6715919 rs74263644 rs76605545 </code></pre>
+<p>Run SuSiE including variants with flipped alleles</p>
+<pre class="r"><code>LD_matrices &lt;- list(R.locus)
+names(LD_matrices) &lt;- locus
+
+susie.locus.res &lt;- run_finemapping(sumstats.locus.flip, LD_matrices = LD_matrices, priortype = &#39;uniform&#39;, n = n, L = 10)</code></pre>
+<pre><code>Finemapping locus 193...
+Run susie_rss...</code></pre>
+<pre><code>Warning in susie_suff_stat(XtX = XtX, Xty = Xty, n = n, yty = (n - 1) * : IBSS algorithm did not converge in 100 iterations!
+                  Please check consistency between summary statistics and LD matrix.
+                  See https://stephenslab.github.io/susieR/articles/susierss_diagnostic.html</code></pre>
+<pre class="r"><code>susie.locus.res[[1]]$sets</code></pre>
+<pre><code>$cs
+$cs$L1
+[1] 768
+
+$cs$L2
+[1] 766
+
+$cs$L5
+[1] 764
+
+
+$purity
+   min.abs.corr mean.abs.corr median.abs.corr
+L1            1             1               1
+L2            1             1               1
+L5            1             1               1
+
+$cs_index
+[1] 1 2 5
+
+$coverage
+[1] 1 1 1
+
+$requested_coverage
+[1] 0.95</code></pre>
+<pre class="r"><code>susie_plot(susie.locus.res[[1]], y=&#39;PIP&#39;)</code></pre>
+<p><img src="figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>susie.locus.sumstats &lt;- merge_susie_sumstats(susie.locus.res, sumstats.locus)</code></pre>
 <p>Compares observed z scores vs the expected z scores</p>
-<pre class="r"><code>condz &lt;- susieR::kriging_rss(sumstats.locus.flip$zscore, R = R.locus, n=n, s = lambda)
-condz$plot</code></pre>
-<p><img src="figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
-Past versions of unnamed-chunk-8-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/kevinlkx/analysis_pipelines/blob/e882df5f4757a880fc21dde059b59d21ffb602e4/docs/figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-8-1.png" target="_blank">e882df5</a>
-</td>
-<td>
-kevinlkx
-</td>
-<td>
-2023-10-27
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<pre class="r"><code>condz &lt;- LD_diagnosis_rss(sumstats.locus.flip$zscore, R = R.locus, n = n)</code></pre>
+<pre><code>Estimate consistency between the z-scores and LD matrix in susie_rss model using regularized LD ...
+Estimated lambda = 0.3195599 
+Compute expected z-scores based on conditional distribution of other z-scores ...</code></pre>
+<pre class="r"><code>condz$plot</code></pre>
+<p><img src="figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The possible allele switched variants are labeled as red points
 (logLR &gt; 2 and abs(z) &gt; 2).</p>
 <pre class="r"><code>detected_index &lt;- which(condz$conditional_dist$logLR &gt; 2 &amp; abs(condz$conditional_dist$z) &gt; 2)
 cat(sprintf(&quot;Detected %d variants with possible allele switched&quot;, length(detected_index)), &quot;\n&quot;)</code></pre>
-<pre><code>Detected 8 variants with possible allele switched </code></pre>
+<pre><code>Detected 10 variants with possible allele switched </code></pre>
 <pre class="r"><code>cat(&quot;Possible allele switched variants:&quot;, sort(sumstats.locus.flip$snp[detected_index]), &quot;\n&quot;)</code></pre>
-<pre><code>Possible allele switched variants: rs1326272 rs1326274 rs2026562 rs4915152 rs61822073 rs61829425 rs72738033 rs75649303 </code></pre>
+<pre><code>Possible allele switched variants: rs13016771 rs150341880 rs17027006 rs2012454 rs3755282 rs3771171 rs4577297 rs6715919 rs74263644 rs76605545 </code></pre>
 <pre class="r"><code>condz$conditional_dist$flipped &lt;- 0
 condz$conditional_dist$flipped[flip_index] &lt;- 1
 
@@ -987,19 +955,19 @@ condz$conditional_dist$detected[detected_index] &lt;- 1
 
 cat(sprintf(&quot;%d out of %d flipped variants detecte by kriging_rss. \n&quot;, 
             length(intersect(detected_index, flip_index)), length(flip_index)))</code></pre>
-<pre><code>8 out of 10 flipped variants detecte by kriging_rss. </code></pre>
+<pre><code>10 out of 10 flipped variants detecte by kriging_rss. </code></pre>
 <pre class="r"><code>condz$conditional_dist[union(flip_index, detected_index),]</code></pre>
-<pre><code>             z  condmean    condvar z_std_diff    logLR flipped detected
-3006 -2.482570 1.7540411 0.16143518  -10.54434 5.395386       1        1
-2329 -2.077095 1.9135410 0.05479728  -17.04758 8.394765       1        1
-35   -2.280709 2.0511728 0.08858013  -14.55487 7.958970       1        1
-2317 -2.316972 1.6754437 0.05321835  -17.30633 3.219456       1        1
-2355 -2.400836 2.0890780 0.09667435  -14.44051 7.621941       1        1
-2214 -2.189495 1.6174426 0.05589291  -16.10265 4.170299       1        1
-2876 -2.439743 2.3052580 0.06365209  -18.80745 8.836932       1        1
-2634 -2.645838 1.5501971 0.08402155  -14.47584 1.675066       1        0
-2289 -2.375412 1.6340602 0.05325781  -17.37383 2.401655       1        1
-2711 -2.892958 0.8243904 0.12105241  -10.68431 0.712998       1        0</code></pre>
+<pre><code>             z condmean   condvar z_std_diff    logLR flipped detected
+820  -6.885113 6.714560 0.3269829 -23.782961 9.627679       1        1
+458  -2.674648 2.647015 0.3673281  -8.780521 8.338206       1        1
+393  -2.609874 2.609901 0.3229037  -9.185765 8.360083       1        1
+1515 -4.332197 3.929706 0.3614657 -13.741893 8.300118       1        1
+1605 -3.291488 2.690636 0.4585908  -8.833702 7.726878       1        1
+743  -2.150657 2.265469 0.3324752  -7.658820 8.257533       1        1
+697  -2.828630 2.753038 0.3239093  -9.807364 8.379124       1        1
+1592 -3.545367 3.522010 0.3320191 -12.265259 8.542509       1        1
+579  -2.205385 2.007778 0.3299552  -7.334673 8.182472       1        1
+766  -7.054485 6.753350 0.3287578 -24.081724 9.521240       1        1</code></pre>
 <pre class="r"><code>ggplot(condz$conditional_dist, aes(x = condmean, y = z, col = factor(flipped))) +
   geom_point() +
   scale_colour_manual(values = c(&quot;0&quot; = &quot;black&quot;, &quot;1&quot; = &quot;red&quot;)) + 
@@ -1097,70 +1065,6 @@ kevinlkx
 </table>
 </div>
 </div>
-<p>Run SuSiE including variants with flipped alleles</p>
-<pre class="r"><code>LD_matrices &lt;- list(R.locus)
-names(LD_matrices) &lt;- locus
-
-susie.locus.res &lt;- run_finemapping(sumstats.locus.flip, LD_matrices = LD_matrices, priortype = &#39;uniform&#39;, n = n, L = 10)</code></pre>
-<pre><code>Finemapping locus 101...
-Run susie_rss...</code></pre>
-<pre class="r"><code>susie.locus.res[[1]]$sets</code></pre>
-<pre><code>$cs
-$cs$L1
-[1] 2381 2383 2388 2393 2406
-
-
-$purity
-   min.abs.corr mean.abs.corr median.abs.corr
-L1    0.8397768      0.935727        0.999153
-
-$cs_index
-[1] 1
-
-$coverage
-[1] 0.961074
-
-$requested_coverage
-[1] 0.95</code></pre>
-<pre class="r"><code>susie_plot(susie.locus.res[[1]], y=&#39;PIP&#39;)</code></pre>
-<p><img src="figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
-Past versions of unnamed-chunk-9-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-9-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/kevinlkx/analysis_pipelines/blob/e882df5f4757a880fc21dde059b59d21ffb602e4/docs/figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-9-1.png" target="_blank">e882df5</a>
-</td>
-<td>
-kevinlkx
-</td>
-<td>
-2023-10-27
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1189,7 +1093,7 @@ attached base packages:
 other attached packages:
  [1] susieR_0.12.27  forcats_1.0.0   stringr_1.5.0   dplyr_1.1.0    
  [5] purrr_1.0.1     readr_2.1.4     tidyr_1.3.0     tibble_3.1.8   
- [9] ggplot2_3.4.1   tidyverse_1.3.2 mapgen_0.5.6    workflowr_1.7.0
+ [9] ggplot2_3.4.1   tidyverse_1.3.2 mapgen_0.5.6   
 
 loaded via a namespace (and not attached):
   [1] googledrive_2.0.0           colorspace_2.1-0           
@@ -1201,54 +1105,52 @@ loaded via a namespace (and not attached):
  [13] lubridate_1.9.2             xml2_1.3.3                 
  [15] codetools_0.2-18            cachem_1.0.6               
  [17] knitr_1.42                  jsonlite_1.8.4             
- [19] Rsamtools_2.12.0            broom_1.0.3                
- [21] dbplyr_2.3.0                compiler_4.2.0             
- [23] httr_1.4.4                  backports_1.4.1            
- [25] RcppZiggurat_0.1.6          assertthat_0.2.1           
- [27] Matrix_1.5-3                fastmap_1.1.0              
- [29] gargle_1.3.0                cli_3.6.0                  
- [31] later_1.3.0                 htmltools_0.5.4            
- [33] tools_4.2.0                 gtable_0.3.1               
- [35] glue_1.6.2                  GenomeInfoDbData_1.2.9     
- [37] Rcpp_1.0.10                 Biobase_2.58.0             
- [39] cellranger_1.1.0            jquerylib_0.1.4            
- [41] vctrs_0.5.2                 Biostrings_2.66.0          
- [43] rtracklayer_1.58.0          xfun_0.37                  
- [45] plyranges_1.18.0            ps_1.7.2                   
+ [19] workflowr_1.7.0             Rsamtools_2.12.0           
+ [21] broom_1.0.3                 dbplyr_2.3.0               
+ [23] compiler_4.2.0              httr_1.4.4                 
+ [25] backports_1.4.1             RcppZiggurat_0.1.6         
+ [27] assertthat_0.2.1            Matrix_1.5-3               
+ [29] fastmap_1.1.0               gargle_1.3.0               
+ [31] cli_3.6.0                   later_1.3.0                
+ [33] htmltools_0.5.4             tools_4.2.0                
+ [35] gtable_0.3.1                glue_1.6.2                 
+ [37] GenomeInfoDbData_1.2.9      Rcpp_1.0.10                
+ [39] Biobase_2.58.0              cellranger_1.1.0           
+ [41] jquerylib_0.1.4             vctrs_0.5.2                
+ [43] Biostrings_2.66.0           rtracklayer_1.58.0         
+ [45] xfun_0.37                   plyranges_1.18.0           
  [47] rvest_1.0.3                 timechange_0.2.0           
  [49] lifecycle_1.0.3             irlba_2.3.5                
  [51] restfulr_0.0.15             XML_3.99-0.13              
- [53] googlesheets4_1.0.1         getPass_0.2-2              
- [55] zlibbioc_1.44.0             scales_1.2.1               
- [57] vroom_1.6.1                 hms_1.1.2                  
- [59] promises_1.2.0.1            MatrixGenerics_1.10.0      
- [61] parallel_4.2.0              SummarizedExperiment_1.28.0
- [63] yaml_2.3.7                  sass_0.4.5                 
- [65] reshape_0.8.9               stringi_1.7.12             
- [67] highr_0.10                  BiocIO_1.8.0               
- [69] S4Vectors_0.36.1            BiocGenerics_0.44.0        
- [71] BiocParallel_1.32.5         GenomeInfoDb_1.34.9        
- [73] rlang_1.0.6                 pkgconfig_2.0.3            
- [75] bitops_1.0-7                matrixStats_0.63.0         
- [77] evaluate_0.20               lattice_0.20-45            
- [79] labeling_0.4.2              GenomicAlignments_1.34.0   
- [81] Rfast_2.0.6                 bit_4.0.5                  
- [83] processx_3.8.0              tidyselect_1.2.0           
- [85] plyr_1.8.7                  magrittr_2.0.3             
- [87] R6_2.5.1                    IRanges_2.32.0             
- [89] generics_0.1.3              DelayedArray_0.24.0        
- [91] DBI_1.1.3                   pillar_1.8.1               
- [93] haven_2.5.1                 whisker_0.4                
- [95] withr_2.5.0                 RCurl_1.98-1.10            
- [97] mixsqp_0.3-43               modelr_0.1.10              
- [99] crayon_1.5.2                utf8_1.2.3                 
-[101] tzdb_0.3.0                  rmarkdown_2.20             
-[103] grid_4.2.0                  readxl_1.4.2               
-[105] data.table_1.14.6           callr_3.7.3                
-[107] git2r_0.30.1                reprex_2.0.2               
-[109] digest_0.6.31               httpuv_1.6.5               
-[111] stats4_4.2.0                munsell_0.5.0              
-[113] bslib_0.4.2                </code></pre>
+ [53] googlesheets4_1.0.1         zlibbioc_1.44.0            
+ [55] scales_1.2.1                vroom_1.6.1                
+ [57] hms_1.1.2                   promises_1.2.0.1           
+ [59] MatrixGenerics_1.10.0       parallel_4.2.0             
+ [61] SummarizedExperiment_1.28.0 yaml_2.3.7                 
+ [63] sass_0.4.5                  reshape_0.8.9              
+ [65] stringi_1.7.12              highr_0.10                 
+ [67] BiocIO_1.8.0                S4Vectors_0.36.1           
+ [69] BiocGenerics_0.44.0         BiocParallel_1.32.5        
+ [71] GenomeInfoDb_1.34.9         rlang_1.0.6                
+ [73] pkgconfig_2.0.3             matrixStats_0.63.0         
+ [75] bitops_1.0-7                evaluate_0.20              
+ [77] lattice_0.20-45             labeling_0.4.2             
+ [79] GenomicAlignments_1.34.0    Rfast_2.0.6                
+ [81] bit_4.0.5                   tidyselect_1.2.0           
+ [83] plyr_1.8.7                  magrittr_2.0.3             
+ [85] R6_2.5.1                    IRanges_2.32.0             
+ [87] generics_0.1.3              DelayedArray_0.24.0        
+ [89] DBI_1.1.3                   pillar_1.8.1               
+ [91] haven_2.5.1                 whisker_0.4                
+ [93] withr_2.5.0                 RCurl_1.98-1.10            
+ [95] mixsqp_0.3-43               modelr_0.1.10              
+ [97] crayon_1.5.2                utf8_1.2.3                 
+ [99] tzdb_0.3.0                  rmarkdown_2.20             
+[101] grid_4.2.0                  readxl_1.4.2               
+[103] data.table_1.14.6           git2r_0.30.1               
+[105] reprex_2.0.2                digest_0.6.31              
+[107] httpuv_1.6.5                stats4_4.2.0               
+[109] munsell_0.5.0               bslib_0.4.2                </code></pre>
 </div>
 </div>
 

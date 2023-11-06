@@ -15,30 +15,9 @@ library(mapgen)
 library(tidyverse)
 library(susieR)
 library(ggplot2)
-
-load_UKBB_LD_matrix <- function(LD_Blocks, LD_dir, locus){
-  if(!locus %in% LD_Blocks$locus){
-    stop("locus is not in LD_blocks!")
-  }
-  LD_Block <- LD_Blocks[LD_Blocks$locus == locus, ]
-  filename <- sprintf("ukb_b37_0.1_chr%d.R_snp.%d_%d", LD_Block$chr, LD_Block$start, LD_Block$end)
-  R <- readRDS(file.path(LD_dir, paste0(filename, ".RDS")))
-  var_info <- data.table::fread(file.path(LD_dir, paste0(filename, ".Rvar")))
-  res <- list(R = R, var_info = var_info)
-}
-
-match_gwas_LDREF <- function(sumstats, R, var_info){
-  selected.sumstats <- sumstats %>% dplyr::filter(snp %in% var_info$id)
-  LDREF_index <- na.omit(match(selected.sumstats$snp, var_info$id))
-  matched.R <- R[LDREF_index, LDREF_index]
-  stopifnot(nrow(selected.sumstats) == nrow(matched.R))
-  return(list(sumstats = selected.sumstats,
-              R = matched.R))
-}
-
 ```
 
-Load Athma GWAS summary statistics (from Ethan Zhong)
+Load an example asthma GWAS summary statistics
 ```{r load-GWAS}
 gwas.file <- '/project2/xinhe/shared_data/mapgen/example_data/GWAS/aoa_v3_gwas_ukbsnps_susie_input.txt.gz'
 gwas.sumstats <- vroom::vroom(gwas.file, col_names = TRUE, show_col_types = FALSE)
@@ -67,7 +46,6 @@ gwas.sumstats <- process_gwas_sumstats(gwas.sumstats,
                                        LD_Blocks=LD_blocks)
 ```
 
-
 Select GWAS significant loci with -log10(pval) < 5e-8
 ```{r select-gwas}
 if(max(gwas.sumstats$pval) <= 1){
@@ -81,30 +59,15 @@ cat(length(sig.loci), "significant loci.\n")
 
 Load LD matrix, match variants between GWAS and LD matrix
 ```{r run-susie-bigSNP}
-LD_dir <- "/project2/mstephens/wcrouse/UKB_LDR_0.1_b37"
-
-locus <- sig.loci[1]
-cat("locus:", locus, "\n")
-LD_matrix <- load_UKBB_LD_matrix(LD_blocks, LD_dir, locus)
-matched.sumstat.LD.res <- match_gwas_LDREF(gwas.sumstats, LD_matrix$R, LD_matrix$var_info)
-
+locus <- sig.loci[2]
+LDREF <- load_UKBB_LDREF(LD_blocks, locus = locus, 
+                         LDREF.dir = "/project2/mstephens/wcrouse/UKB_LDR_0.1_b37", prefix = "ukb_b37_0.1")
+matched.sumstat.LD.res <- match_gwas_LDREF(gwas.sumstats, LDREF$R, LDREF$var_info)
 sumstats.locus <- matched.sumstat.LD.res$sumstats
 R.locus <- matched.sumstat.LD.res$R
 ```
 
 ### Original data
-
-Estimated lambda
-```{r, message=FALSE}
-lambda <- susieR::estimate_s_rss(sumstats.locus$zscore, R = R.locus, n = n)
-lambda
-```
-
-Plot for the observed z scores vs the expected z scores
-```{r, message=FALSE}
-condz <- susieR::kriging_rss(sumstats.locus$zscore, R = R.locus, n=n, s = lambda)
-condz$plot
-```
 
 Run SuSiE with LD matrices
 ```{r}
@@ -114,6 +77,13 @@ names(LD_matrices) <- locus
 susie.locus.res <- run_finemapping(sumstats.locus, LD_matrices = LD_matrices, priortype = 'uniform', n = n, L = 10)
 susie.locus.res[[1]]$sets
 susie_plot(susie.locus.res[[1]], y='PIP')
+
+susie.locus.sumstats <- merge_susie_sumstats(susie.locus.res, sumstats.locus)
+```
+
+```{r, message=FALSE}
+condz <- LD_diagnosis_rss(sumstats.locus$zscore, R = R.locus, n = n)
+condz$plot
 ```
 
 ### Flip alleles for selected variants
@@ -128,22 +98,30 @@ sumstats.locus.flip <- sumstats.locus
 sumstats.locus.flip$zscore[flip_index] <- -sumstats.locus$zscore[flip_index]
 
 sumstats.locus.flip[flip_index, ]
-cat("Allele switched variants:", sort(sumstats.locus.flip$snp[flip_index]), "\n")
+cat(length(flip_index), "Allele switched variants:", sort(sumstats.locus.flip$snp[flip_index]), "\n")
 ```
 
-Estimated lambda
+Run SuSiE including variants with flipped alleles
 ```{r}
-lambda <- susieR::estimate_s_rss(sumstats.locus.flip$zscore, R = R.locus, n = n)
-lambda
+LD_matrices <- list(R.locus)
+names(LD_matrices) <- locus
+
+susie.locus.res <- run_finemapping(sumstats.locus.flip, LD_matrices = LD_matrices, priortype = 'uniform', n = n, L = 10)
+
+susie.locus.res[[1]]$sets
+
+susie_plot(susie.locus.res[[1]], y='PIP')
+
+susie.locus.sumstats <- merge_susie_sumstats(susie.locus.res, sumstats.locus)
 ```
 
 Compares observed z scores vs the expected z scores
 ```{r, message=FALSE}
-condz <- susieR::kriging_rss(sumstats.locus.flip$zscore, R = R.locus, n=n, s = lambda)
-condz$plot
+condz <- LD_diagnosis_rss(sumstats.locus.flip$zscore, R = R.locus, n = n)
+# condz$plot
 ```
 
-The possible allele switched variants are labeled as red points (logLR > 2 and abs(z) > 2).
+Detect possible allele switched variants (logLR > 2 and abs(z) > 2).
 ```{r diagnosis-plots}
 detected_index <- which(condz$conditional_dist$logLR > 2 & abs(condz$conditional_dist$z) > 2)
 cat(sprintf("Detected %d variants with possible allele switched", length(detected_index)), "\n")
@@ -155,7 +133,7 @@ condz$conditional_dist$flipped[flip_index] <- 1
 condz$conditional_dist$detected <- 0
 condz$conditional_dist$detected[detected_index] <- 1
 
-cat(sprintf("%d out of %d flipped variants detecte by kriging_rss. \n", 
+cat(sprintf("%d out of %d flipped variants detected with logLR > 2 and abs(z) > 2. \n", 
             length(intersect(detected_index, flip_index)), length(flip_index)))
 
 condz$conditional_dist[union(flip_index, detected_index),]
@@ -173,14 +151,3 @@ ggplot(condz$conditional_dist, aes(x = condmean, y = z, col = factor(detected)))
   theme_bw()
 ```
 
-Run SuSiE including variants with flipped alleles
-```{r}
-LD_matrices <- list(R.locus)
-names(LD_matrices) <- locus
-
-susie.locus.res <- run_finemapping(sumstats.locus.flip, LD_matrices = LD_matrices, priortype = 'uniform', n = n, L = 10)
-
-susie.locus.res[[1]]$sets
-
-susie_plot(susie.locus.res[[1]], y='PIP')
-```
