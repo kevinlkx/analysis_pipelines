@@ -368,7 +368,7 @@ reference LD matrices</h1>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -379,8 +379,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -393,9 +393,9 @@ aria-hidden="true"></span> </a>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>analysis_pipelines/</code> <span
@@ -418,21 +418,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -523,15 +520,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree0e8945944d1e7d503a5c0429371d5aef36c51055targetblank0e89459a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreeb117f9380f247896efa8b3e84a18226da88429c2targetblankb117f93a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/kevinlkx/analysis_pipelines/tree/0e8945944d1e7d503a5c0429371d5aef36c51055" target="_blank">0e89459</a>
+<a href="https://github.com/kevinlkx/analysis_pipelines/tree/b117f9380f247896efa8b3e84a18226da88429c2" target="_blank">b117f93</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree0e8945944d1e7d503a5c0429371d5aef36c51055targetblank0e89459a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreeb117f9380f247896efa8b3e84a18226da88429c2targetblankb117f93a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -541,7 +538,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/kevinlkx/analysis_pipelines/tree/0e8945944d1e7d503a5c0429371d5aef36c51055" target="_blank">0e89459</a>.
+<a href="https://github.com/kevinlkx/analysis_pipelines/tree/b117f9380f247896efa8b3e84a18226da88429c2" target="_blank">b117f93</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -569,7 +566,6 @@ Untracked files:
     Untracked:  scripts/tmp.R
 
 Unstaged changes:
-    Modified:   analysis/mapgen_finemapping_ukbb_ld.Rmd
     Modified:   analysis/mapgen_torus_enrichment_heart_atlas.Rmd
     Modified:   analysis/sldsc_example_GTEx_QTLs.Rmd
     Modified:   analysis/sldsc_pipeline.Rmd
@@ -594,11 +590,11 @@ have uncommitted changes.
 <p>
 These are the previous versions of the repository in which changes were
 made to the R Markdown
-(<code>analysis/mapgen_finemapping_ukbb_ld.Rmd</code>) and HTML
-(<code>docs/mapgen_finemapping_ukbb_ld.html</code>) files. If you’ve
-configured a remote Git repository (see <code>?wflow_git_remote</code>),
-click on the hyperlinks in the table below to view the files as they
-were in that past version.
+(<code>analysis/mapgen_finemapping_diagnosis_ukbb_ld.Rmd</code>) and
+HTML (<code>docs/mapgen_finemapping_diagnosis_ukbb_ld.html</code>)
+files. If you’ve configured a remote Git repository (see
+<code>?wflow_git_remote</code>), click on the hyperlinks in the table
+below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -624,36 +620,20 @@ Message
 <tbody>
 <tr>
 <td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/0e8945944d1e7d503a5c0429371d5aef36c51055/docs/mapgen_finemapping_ukbb_ld.html" target="_blank">0e89459</a>
-</td>
-<td>
-kevinlkx
-</td>
-<td>
-2023-10-27
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
 Rmd
 </td>
 <td>
-<a href="https://github.com/kevinlkx/analysis_pipelines/blob/7937f92472fd1978cb100a4c5ba1a0e7f40d3193/analysis/mapgen_finemapping_ukbb_ld.Rmd" target="_blank">7937f92</a>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/b117f9380f247896efa8b3e84a18226da88429c2/analysis/mapgen_finemapping_diagnosis_ukbb_ld.Rmd" target="_blank">b117f93</a>
 </td>
 <td>
 kevinlkx
 </td>
 <td>
-2023-10-27
+2023-11-06
 </td>
 <td>
-wflow_publish("analysis/mapgen_finemapping_ukbb_ld.Rmd")
+wflow_rename("analysis/mapgen_finemapping_ukbb_ld.Rmd",
+"analysis/mapgen_finemapping_diagnosis_ukbb_ld.Rmd")
 </td>
 </tr>
 <tr>
@@ -661,67 +641,17 @@ wflow_publish("analysis/mapgen_finemapping_ukbb_ld.Rmd")
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/c3fd810d79ed1254f9220a4ab75cca85e550d034/docs/mapgen_finemapping_ukbb_ld.html" target="_blank">c3fd810</a>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/b117f9380f247896efa8b3e84a18226da88429c2/docs/mapgen_finemapping_diagnosis_ukbb_ld.html" target="_blank">b117f93</a>
 </td>
 <td>
 kevinlkx
 </td>
 <td>
-2023-10-27
+2023-11-06
 </td>
 <td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/kevinlkx/analysis_pipelines/blob/0437fe6bfda58f69f07ed8fef0659c67450a8cd0/analysis/mapgen_finemapping_ukbb_ld.Rmd" target="_blank">0437fe6</a>
-</td>
-<td>
-kevinlkx
-</td>
-<td>
-2023-10-27
-</td>
-<td>
-wflow_publish("analysis/mapgen_finemapping_ukbb_ld.Rmd")
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/e882df5f4757a880fc21dde059b59d21ffb602e4/docs/mapgen_finemapping_ukbb_ld.html" target="_blank">e882df5</a>
-</td>
-<td>
-kevinlkx
-</td>
-<td>
-2023-10-27
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/kevinlkx/analysis_pipelines/blob/62f3d8aa4c1ac868c3ff516ffe54ce54004c42c6/analysis/mapgen_finemapping_ukbb_ld.Rmd" target="_blank">62f3d8a</a>
-</td>
-<td>
-kevinlkx
-</td>
-<td>
-2023-10-27
-</td>
-<td>
-wflow_publish("analysis/mapgen_finemapping_ukbb_ld.Rmd")
+wflow_rename("analysis/mapgen_finemapping_ukbb_ld.Rmd",
+"analysis/mapgen_finemapping_diagnosis_ukbb_ld.Rmd")
 </td>
 </tr>
 </tbody>
@@ -822,14 +752,14 @@ $coverage
 $requested_coverage
 [1] 0.95</code></pre>
 <pre class="r"><code>susie_plot(susie.locus.res[[1]], y=&#39;PIP&#39;)</code></pre>
-<p><img src="figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/mapgen_finemapping_diagnosis_ukbb_ld.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>susie.locus.sumstats &lt;- merge_susie_sumstats(susie.locus.res, sumstats.locus)</code></pre>
 <pre class="r"><code>condz &lt;- LD_diagnosis_rss(sumstats.locus$zscore, R = R.locus, n = n)</code></pre>
 <pre><code>Estimate consistency between the z-scores and LD matrix in susie_rss model using regularized LD ...
 Estimated lambda = 7.436622e-05 
 Compute expected z-scores based on conditional distribution of other z-scores ...</code></pre>
 <pre class="r"><code>condz$plot</code></pre>
-<p><img src="figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/mapgen_finemapping_diagnosis_ukbb_ld.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
 Past versions of unnamed-chunk-4-1.png
@@ -854,13 +784,13 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/kevinlkx/analysis_pipelines/blob/e882df5f4757a880fc21dde059b59d21ffb602e4/docs/figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-4-1.png" target="_blank">e882df5</a>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/b117f9380f247896efa8b3e84a18226da88429c2/docs/figure/mapgen_finemapping_diagnosis_ukbb_ld.Rmd/unnamed-chunk-4-1.png" target="_blank">b117f93</a>
 </td>
 <td>
 kevinlkx
 </td>
 <td>
-2023-10-27
+2023-11-06
 </td>
 </tr>
 </tbody>
@@ -931,17 +861,16 @@ $coverage
 $requested_coverage
 [1] 0.95</code></pre>
 <pre class="r"><code>susie_plot(susie.locus.res[[1]], y=&#39;PIP&#39;)</code></pre>
-<p><img src="figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/mapgen_finemapping_diagnosis_ukbb_ld.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>susie.locus.sumstats &lt;- merge_susie_sumstats(susie.locus.res, sumstats.locus)</code></pre>
 <p>Compares observed z scores vs the expected z scores</p>
 <pre class="r"><code>condz &lt;- LD_diagnosis_rss(sumstats.locus.flip$zscore, R = R.locus, n = n)</code></pre>
 <pre><code>Estimate consistency between the z-scores and LD matrix in susie_rss model using regularized LD ...
 Estimated lambda = 0.3195599 
 Compute expected z-scores based on conditional distribution of other z-scores ...</code></pre>
-<pre class="r"><code>condz$plot</code></pre>
-<p><img src="figure/mapgen_finemapping_ukbb_ld.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>The possible allele switched variants are labeled as red points
-(logLR &gt; 2 and abs(z) &gt; 2).</p>
+<pre class="r"><code># condz$plot</code></pre>
+<p>Detect possible allele switched variants (logLR &gt; 2 and abs(z)
+&gt; 2).</p>
 <pre class="r"><code>detected_index &lt;- which(condz$conditional_dist$logLR &gt; 2 &amp; abs(condz$conditional_dist$z) &gt; 2)
 cat(sprintf(&quot;Detected %d variants with possible allele switched&quot;, length(detected_index)), &quot;\n&quot;)</code></pre>
 <pre><code>Detected 10 variants with possible allele switched </code></pre>
@@ -953,9 +882,9 @@ condz$conditional_dist$flipped[flip_index] &lt;- 1
 condz$conditional_dist$detected &lt;- 0
 condz$conditional_dist$detected[detected_index] &lt;- 1
 
-cat(sprintf(&quot;%d out of %d flipped variants detecte by kriging_rss. \n&quot;, 
+cat(sprintf(&quot;%d out of %d flipped variants detected with logLR &gt; 2 and abs(z) &gt; 2. \n&quot;, 
             length(intersect(detected_index, flip_index)), length(flip_index)))</code></pre>
-<pre><code>10 out of 10 flipped variants detecte by kriging_rss. </code></pre>
+<pre><code>10 out of 10 flipped variants detected with logLR &gt; 2 and abs(z) &gt; 2. </code></pre>
 <pre class="r"><code>condz$conditional_dist[union(flip_index, detected_index),]</code></pre>
 <pre><code>             z condmean   condvar z_std_diff    logLR flipped detected
 820  -6.885113 6.714560 0.3269829 -23.782961 9.627679       1        1
@@ -973,7 +902,7 @@ cat(sprintf(&quot;%d out of %d flipped variants detecte by kriging_rss. \n&quot;
   scale_colour_manual(values = c(&quot;0&quot; = &quot;black&quot;, &quot;1&quot; = &quot;red&quot;)) + 
   labs(x = &quot;Expected&quot;, y = &quot;Observed z scores&quot;, color = &quot;Allele flipped&quot;) + 
   theme_bw()</code></pre>
-<p><img src="figure/mapgen_finemapping_ukbb_ld.Rmd/diagnosis-plots-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/mapgen_finemapping_diagnosis_ukbb_ld.Rmd/diagnosis-plots-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-diagnosis-plots-1">
 Past versions of diagnosis-plots-1.png
@@ -998,24 +927,13 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/kevinlkx/analysis_pipelines/blob/c3fd810d79ed1254f9220a4ab75cca85e550d034/docs/figure/mapgen_finemapping_ukbb_ld.Rmd/diagnosis-plots-1.png" target="_blank">c3fd810</a>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/b117f9380f247896efa8b3e84a18226da88429c2/docs/figure/mapgen_finemapping_diagnosis_ukbb_ld.Rmd/diagnosis-plots-1.png" target="_blank">b117f93</a>
 </td>
 <td>
 kevinlkx
 </td>
 <td>
-2023-10-27
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/kevinlkx/analysis_pipelines/blob/e882df5f4757a880fc21dde059b59d21ffb602e4/docs/figure/mapgen_finemapping_ukbb_ld.Rmd/diagnosis-plots-1.png" target="_blank">e882df5</a>
-</td>
-<td>
-kevinlkx
-</td>
-<td>
-2023-10-27
+2023-11-06
 </td>
 </tr>
 </tbody>
@@ -1027,7 +945,7 @@ kevinlkx
   scale_colour_manual(values = c(&quot;0&quot; = &quot;black&quot;, &quot;1&quot; = &quot;red&quot;)) + 
   labs(x = &quot;Expected&quot;, y = &quot;Observed z scores&quot;, color = &quot;Possible allele switched&quot;) + 
   theme_bw()</code></pre>
-<p><img src="figure/mapgen_finemapping_ukbb_ld.Rmd/diagnosis-plots-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/mapgen_finemapping_diagnosis_ukbb_ld.Rmd/diagnosis-plots-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-diagnosis-plots-2">
 Past versions of diagnosis-plots-2.png
@@ -1052,13 +970,13 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/kevinlkx/analysis_pipelines/blob/c3fd810d79ed1254f9220a4ab75cca85e550d034/docs/figure/mapgen_finemapping_ukbb_ld.Rmd/diagnosis-plots-2.png" target="_blank">c3fd810</a>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/b117f9380f247896efa8b3e84a18226da88429c2/docs/figure/mapgen_finemapping_diagnosis_ukbb_ld.Rmd/diagnosis-plots-2.png" target="_blank">b117f93</a>
 </td>
 <td>
 kevinlkx
 </td>
 <td>
-2023-10-27
+2023-11-06
 </td>
 </tr>
 </tbody>
@@ -1093,7 +1011,7 @@ attached base packages:
 other attached packages:
  [1] susieR_0.12.27  forcats_1.0.0   stringr_1.5.0   dplyr_1.1.0    
  [5] purrr_1.0.1     readr_2.1.4     tidyr_1.3.0     tibble_3.1.8   
- [9] ggplot2_3.4.1   tidyverse_1.3.2 mapgen_0.5.6   
+ [9] ggplot2_3.4.1   tidyverse_1.3.2 mapgen_0.5.6    workflowr_1.7.0
 
 loaded via a namespace (and not attached):
   [1] googledrive_2.0.0           colorspace_2.1-0           
@@ -1105,52 +1023,54 @@ loaded via a namespace (and not attached):
  [13] lubridate_1.9.2             xml2_1.3.3                 
  [15] codetools_0.2-18            cachem_1.0.6               
  [17] knitr_1.42                  jsonlite_1.8.4             
- [19] workflowr_1.7.0             Rsamtools_2.12.0           
- [21] broom_1.0.3                 dbplyr_2.3.0               
- [23] compiler_4.2.0              httr_1.4.4                 
- [25] backports_1.4.1             RcppZiggurat_0.1.6         
- [27] assertthat_0.2.1            Matrix_1.5-3               
- [29] fastmap_1.1.0               gargle_1.3.0               
- [31] cli_3.6.0                   later_1.3.0                
- [33] htmltools_0.5.4             tools_4.2.0                
- [35] gtable_0.3.1                glue_1.6.2                 
- [37] GenomeInfoDbData_1.2.9      Rcpp_1.0.10                
- [39] Biobase_2.58.0              cellranger_1.1.0           
- [41] jquerylib_0.1.4             vctrs_0.5.2                
- [43] Biostrings_2.66.0           rtracklayer_1.58.0         
- [45] xfun_0.37                   plyranges_1.18.0           
+ [19] Rsamtools_2.12.0            broom_1.0.3                
+ [21] dbplyr_2.3.0                compiler_4.2.0             
+ [23] httr_1.4.4                  backports_1.4.1            
+ [25] RcppZiggurat_0.1.6          assertthat_0.2.1           
+ [27] Matrix_1.5-3                fastmap_1.1.0              
+ [29] gargle_1.3.0                cli_3.6.0                  
+ [31] later_1.3.0                 htmltools_0.5.4            
+ [33] tools_4.2.0                 gtable_0.3.1               
+ [35] glue_1.6.2                  GenomeInfoDbData_1.2.9     
+ [37] Rcpp_1.0.10                 Biobase_2.58.0             
+ [39] cellranger_1.1.0            jquerylib_0.1.4            
+ [41] vctrs_0.5.2                 Biostrings_2.66.0          
+ [43] rtracklayer_1.58.0          xfun_0.37                  
+ [45] plyranges_1.18.0            ps_1.7.2                   
  [47] rvest_1.0.3                 timechange_0.2.0           
  [49] lifecycle_1.0.3             irlba_2.3.5                
  [51] restfulr_0.0.15             XML_3.99-0.13              
- [53] googlesheets4_1.0.1         zlibbioc_1.44.0            
- [55] scales_1.2.1                vroom_1.6.1                
- [57] hms_1.1.2                   promises_1.2.0.1           
- [59] MatrixGenerics_1.10.0       parallel_4.2.0             
- [61] SummarizedExperiment_1.28.0 yaml_2.3.7                 
- [63] sass_0.4.5                  reshape_0.8.9              
- [65] stringi_1.7.12              highr_0.10                 
- [67] BiocIO_1.8.0                S4Vectors_0.36.1           
- [69] BiocGenerics_0.44.0         BiocParallel_1.32.5        
- [71] GenomeInfoDb_1.34.9         rlang_1.0.6                
- [73] pkgconfig_2.0.3             matrixStats_0.63.0         
- [75] bitops_1.0-7                evaluate_0.20              
- [77] lattice_0.20-45             labeling_0.4.2             
- [79] GenomicAlignments_1.34.0    Rfast_2.0.6                
- [81] bit_4.0.5                   tidyselect_1.2.0           
- [83] plyr_1.8.7                  magrittr_2.0.3             
- [85] R6_2.5.1                    IRanges_2.32.0             
- [87] generics_0.1.3              DelayedArray_0.24.0        
- [89] DBI_1.1.3                   pillar_1.8.1               
- [91] haven_2.5.1                 whisker_0.4                
- [93] withr_2.5.0                 RCurl_1.98-1.10            
- [95] mixsqp_0.3-43               modelr_0.1.10              
- [97] crayon_1.5.2                utf8_1.2.3                 
- [99] tzdb_0.3.0                  rmarkdown_2.20             
-[101] grid_4.2.0                  readxl_1.4.2               
-[103] data.table_1.14.6           git2r_0.30.1               
-[105] reprex_2.0.2                digest_0.6.31              
-[107] httpuv_1.6.5                stats4_4.2.0               
-[109] munsell_0.5.0               bslib_0.4.2                </code></pre>
+ [53] googlesheets4_1.0.1         getPass_0.2-2              
+ [55] zlibbioc_1.44.0             scales_1.2.1               
+ [57] vroom_1.6.1                 hms_1.1.2                  
+ [59] promises_1.2.0.1            MatrixGenerics_1.10.0      
+ [61] parallel_4.2.0              SummarizedExperiment_1.28.0
+ [63] yaml_2.3.7                  sass_0.4.5                 
+ [65] reshape_0.8.9               stringi_1.7.12             
+ [67] highr_0.10                  BiocIO_1.8.0               
+ [69] S4Vectors_0.36.1            BiocGenerics_0.44.0        
+ [71] BiocParallel_1.32.5         GenomeInfoDb_1.34.9        
+ [73] rlang_1.0.6                 pkgconfig_2.0.3            
+ [75] bitops_1.0-7                matrixStats_0.63.0         
+ [77] evaluate_0.20               lattice_0.20-45            
+ [79] labeling_0.4.2              GenomicAlignments_1.34.0   
+ [81] Rfast_2.0.6                 bit_4.0.5                  
+ [83] processx_3.8.0              tidyselect_1.2.0           
+ [85] plyr_1.8.7                  magrittr_2.0.3             
+ [87] R6_2.5.1                    IRanges_2.32.0             
+ [89] generics_0.1.3              DelayedArray_0.24.0        
+ [91] DBI_1.1.3                   pillar_1.8.1               
+ [93] haven_2.5.1                 whisker_0.4                
+ [95] withr_2.5.0                 RCurl_1.98-1.10            
+ [97] mixsqp_0.3-43               modelr_0.1.10              
+ [99] crayon_1.5.2                utf8_1.2.3                 
+[101] tzdb_0.3.0                  rmarkdown_2.20             
+[103] grid_4.2.0                  readxl_1.4.2               
+[105] data.table_1.14.6           callr_3.7.3                
+[107] git2r_0.30.1                reprex_2.0.2               
+[109] digest_0.6.31               httpuv_1.6.5               
+[111] stats4_4.2.0                munsell_0.5.0              
+[113] bslib_0.4.2                </code></pre>
 </div>
 </div>
 
