@@ -27,5 +27,5 @@ editor_options:
 
 * [Enrichment analysis using Mapgen on aFib GWAS with heart scATAC-seq data](mapgen_torus_enrichment_heart_atlas.html)
 * [Finemapping aFib GWAS summary statistics using Mapgen with TORUS priors](mapgen_torus_susie_AF.html)
-* [Finemapping GWAS summary statistics using Mapgen with UKBB LD matrix](mapgen_finemapping_ukbb_ld.html)
+* [Finemapping GWAS summary statistics using Mapgen with UKBB LD matrix](mapgen_finemapping_diagnosis_ukbb_ld.html)
 * [Making track plots](make_mapgen_trackplots.html)
