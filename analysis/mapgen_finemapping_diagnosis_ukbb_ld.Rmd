@@ -53,24 +53,25 @@ if(max(gwas.sumstats$pval) <= 1){
 }
 
 sig.loci <- gwas.sumstats %>% dplyr::filter(pval > -log10(5e-8)) %>% dplyr::pull(locus) %>% unique()
-sumstats.sigloci <- gwas.sumstats[gwas.sumstats$locus %in% sig.loci, ]
 cat(length(sig.loci), "significant loci.\n")
 ```
 
-Load LD matrix, match variants between GWAS and LD matrix
-```{r run-susie-bigSNP}
+Choose one example locus, load reference LD matrix, match variants between GWAS and LD reference
+```{r load-LDREF}
 locus <- sig.loci[2]
+gwas.sumstats.locus <- gwas.sumstats[gwas.sumstats$locus == locus, ]
 LDREF <- load_UKBB_LDREF(LD_blocks, locus = locus, 
                          LDREF.dir = "/project2/mstephens/wcrouse/UKB_LDR_0.1_b37", prefix = "ukb_b37_0.1")
-matched.sumstat.LD.res <- match_gwas_LDREF(gwas.sumstats, LDREF$R, LDREF$var_info)
-sumstats.locus <- matched.sumstat.LD.res$sumstats
-R.locus <- matched.sumstat.LD.res$R
+matched.sumstat.LD <- match_gwas_LDREF(gwas.sumstats.locus, LDREF$R, LDREF$var_info)
+sumstats.locus <- matched.sumstat.LD$sumstats
+R.locus <- matched.sumstat.LD$R
 ```
 
 ### Original data
 
 Run SuSiE with LD matrices
 ```{r}
+# LD_matrices is a list of loci to be finemapped
 LD_matrices <- list(R.locus)
 names(LD_matrices) <- locus
 
@@ -122,7 +123,7 @@ condz <- LD_diagnosis_rss(sumstats.locus.flip$zscore, R = R.locus, n = n)
 ```
 
 Detect possible allele switched variants (logLR > 2 and abs(z) > 2).
-```{r diagnosis-plots}
+```{r diagnosis}
 detected_index <- which(condz$conditional_dist$logLR > 2 & abs(condz$conditional_dist$z) > 2)
 cat(sprintf("Detected %d variants with possible allele switched", length(detected_index)), "\n")
 cat("Possible allele switched variants:", sort(sumstats.locus.flip$snp[detected_index]), "\n")
@@ -137,7 +138,9 @@ cat(sprintf("%d out of %d flipped variants detected with logLR > 2 and abs(z) > 
             length(intersect(detected_index, flip_index)), length(flip_index)))
 
 condz$conditional_dist[union(flip_index, detected_index),]
+```
 
+```{r diagnosis-plots}
 ggplot(condz$conditional_dist, aes(x = condmean, y = z, col = factor(flipped))) +
   geom_point() +
   scale_colour_manual(values = c("0" = "black", "1" = "red")) + 
@@ -151,3 +154,27 @@ ggplot(condz$conditional_dist, aes(x = condmean, y = z, col = factor(detected)))
   theme_bw()
 ```
 
+### Filter out problematic variants
+
+Run SuSiE after filtering out problematic variants
+
+```{r}
+sumstats.locus.filtered <- sumstats.locus.flip[-detected_index, ]
+R.locus.filtered <- R.locus[-detected_index, -detected_index]
+LD_matrices <- list(R.locus.filtered)
+names(LD_matrices) <- locus
+
+susie.locus.res <- run_finemapping(sumstats.locus.filtered, LD_matrices = LD_matrices, priortype = 'uniform', n = n, L = 10)
+
+susie.locus.res[[1]]$sets
+
+susie_plot(susie.locus.res[[1]], y='PIP')
+
+susie.locus.sumstats.filtered <- merge_susie_sumstats(susie.locus.res, sumstats.locus.filtered)
+```
+
+Compares observed z scores vs the expected z scores
+```{r, message=FALSE}
+condz <- LD_diagnosis_rss(sumstats.locus.filtered$zscore, R = R.locus.filtered, n = n)
+condz$plot
+```
