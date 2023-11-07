@@ -389,7 +389,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-11-06
+<strong>Last updated:</strong> 2023-11-07
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -520,15 +520,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreeb117f9380f247896efa8b3e84a18226da88429c2targetblankb117f93a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree1de73c729d61f375c368eb4c505794112ab3f61etargetblank1de73c7a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/kevinlkx/analysis_pipelines/tree/b117f9380f247896efa8b3e84a18226da88429c2" target="_blank">b117f93</a>
+<a href="https://github.com/kevinlkx/analysis_pipelines/tree/1de73c729d61f375c368eb4c505794112ab3f61e" target="_blank">1de73c7</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestreeb117f9380f247896efa8b3e84a18226da88429c2targetblankb117f93a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomkevinlkxanalysispipelinestree1de73c729d61f375c368eb4c505794112ab3f61etargetblank1de73c7a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -538,7 +538,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/kevinlkx/analysis_pipelines/tree/b117f9380f247896efa8b3e84a18226da88429c2" target="_blank">b117f93</a>.
+<a href="https://github.com/kevinlkx/analysis_pipelines/tree/1de73c729d61f375c368eb4c505794112ab3f61e" target="_blank">1de73c7</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -618,6 +618,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/1de73c729d61f375c368eb4c505794112ab3f61e/analysis/mapgen_finemapping_diagnosis_ukbb_ld.Rmd" target="_blank">1de73c7</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2023-11-07
+</td>
+<td>
+wflow_publish("analysis/mapgen_finemapping_diagnosis_ukbb_ld.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/kevinlkx/analysis_pipelines/65f1ef555bf8e2b876a5c2fa146ef4a266fd7403/docs/mapgen_finemapping_diagnosis_ukbb_ld.html" target="_blank">65f1ef5</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2023-11-06
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -705,20 +739,22 @@ Assigning GWAS SNPs to LD blocks...</code></pre>
 }
 
 sig.loci &lt;- gwas.sumstats %&gt;% dplyr::filter(pval &gt; -log10(5e-8)) %&gt;% dplyr::pull(locus) %&gt;% unique()
-sumstats.sigloci &lt;- gwas.sumstats[gwas.sumstats$locus %in% sig.loci, ]
 cat(length(sig.loci), &quot;significant loci.\n&quot;)</code></pre>
 <pre><code>19 significant loci.</code></pre>
-<p>Load LD matrix, match variants between GWAS and LD matrix</p>
+<p>Choose one example locus, load reference LD matrix, match variants
+between GWAS and LD reference</p>
 <pre class="r"><code>locus &lt;- sig.loci[2]
+gwas.sumstats.locus &lt;- gwas.sumstats[gwas.sumstats$locus == locus, ]
 LDREF &lt;- load_UKBB_LDREF(LD_blocks, locus = locus, 
                          LDREF.dir = &quot;/project2/mstephens/wcrouse/UKB_LDR_0.1_b37&quot;, prefix = &quot;ukb_b37_0.1&quot;)
-matched.sumstat.LD.res &lt;- match_gwas_LDREF(gwas.sumstats, LDREF$R, LDREF$var_info)
-sumstats.locus &lt;- matched.sumstat.LD.res$sumstats
-R.locus &lt;- matched.sumstat.LD.res$R</code></pre>
+matched.sumstat.LD &lt;- match_gwas_LDREF(gwas.sumstats.locus, LDREF$R, LDREF$var_info)
+sumstats.locus &lt;- matched.sumstat.LD$sumstats
+R.locus &lt;- matched.sumstat.LD$R</code></pre>
 <div id="original-data" class="section level3">
 <h3>Original data</h3>
 <p>Run SuSiE with LD matrices</p>
-<pre class="r"><code>LD_matrices &lt;- list(R.locus)
+<pre class="r"><code># LD_matrices is a list of loci to be finemapped
+LD_matrices &lt;- list(R.locus)
 names(LD_matrices) &lt;- locus
 
 susie.locus.res &lt;- run_finemapping(sumstats.locus, LD_matrices = LD_matrices, priortype = &#39;uniform&#39;, n = n, L = 10)</code></pre>
@@ -753,6 +789,43 @@ $requested_coverage
 [1] 0.95</code></pre>
 <pre class="r"><code>susie_plot(susie.locus.res[[1]], y=&#39;PIP&#39;)</code></pre>
 <p><img src="figure/mapgen_finemapping_diagnosis_ukbb_ld.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/65f1ef555bf8e2b876a5c2fa146ef4a266fd7403/docs/figure/mapgen_finemapping_diagnosis_ukbb_ld.Rmd/unnamed-chunk-3-1.png" target="_blank">65f1ef5</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2023-11-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>susie.locus.sumstats &lt;- merge_susie_sumstats(susie.locus.res, sumstats.locus)</code></pre>
 <pre class="r"><code>condz &lt;- LD_diagnosis_rss(sumstats.locus$zscore, R = R.locus, n = n)</code></pre>
 <pre><code>Estimate consistency between the z-scores and LD matrix in susie_rss model using regularized LD ...
@@ -862,6 +935,43 @@ $requested_coverage
 [1] 0.95</code></pre>
 <pre class="r"><code>susie_plot(susie.locus.res[[1]], y=&#39;PIP&#39;)</code></pre>
 <p><img src="figure/mapgen_finemapping_diagnosis_ukbb_ld.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/65f1ef555bf8e2b876a5c2fa146ef4a266fd7403/docs/figure/mapgen_finemapping_diagnosis_ukbb_ld.Rmd/unnamed-chunk-6-1.png" target="_blank">65f1ef5</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2023-11-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>susie.locus.sumstats &lt;- merge_susie_sumstats(susie.locus.res, sumstats.locus)</code></pre>
 <p>Compares observed z scores vs the expected z scores</p>
 <pre class="r"><code>condz &lt;- LD_diagnosis_rss(sumstats.locus.flip$zscore, R = R.locus, n = n)</code></pre>
@@ -983,6 +1093,151 @@ kevinlkx
 </table>
 </div>
 </div>
+</div>
+<div id="filter-out-problematic-variants" class="section level3">
+<h3>Filter out problematic variants</h3>
+<p>Run SuSiE after filtering out problematic variants</p>
+<pre class="r"><code>sumstats.locus.filtered &lt;- sumstats.locus.flip[-detected_index, ]
+R.locus.filtered &lt;- R.locus[-detected_index, -detected_index]
+LD_matrices &lt;- list(R.locus.filtered)
+names(LD_matrices) &lt;- locus
+
+susie.locus.res &lt;- run_finemapping(sumstats.locus.filtered, LD_matrices = LD_matrices, priortype = &#39;uniform&#39;, n = n, L = 10)</code></pre>
+<pre><code>Finemapping locus 193...
+Run susie_rss...</code></pre>
+<pre class="r"><code>susie.locus.res[[1]]$sets</code></pre>
+<pre><code>$cs
+$cs$L2
+ [1]  462  483  496  497  506  515  528  562  572  590  594  612  625  627  633
+[16]  641  646  650  651  665  669  679  681  686  687  722  725  727  728  729
+[31]  734  742  765  767  772  783  798  828  834  845  849  852  866  874  875
+[46]  882  886  896  898  902  914  916  917  919  922  940  949  953  958  977
+[61]  980 1003 1007 1011 1027 1055 1060 1139
+
+$cs$L1
+ [1] 599 629 634 657 702 707 710 730 731 735 736 744 746 754 758 762 763 769 773
+[20] 776 781 784 785 788 791 806 807 808 847 850 858 888 889 892 909 925
+
+
+$purity
+   min.abs.corr mean.abs.corr median.abs.corr
+L2    0.7923272     0.9172110       0.9318115
+L1    0.5835378     0.8672333       0.8134195
+
+$cs_index
+[1] 2 1
+
+$coverage
+[1] 0.9510408 0.9507434
+
+$requested_coverage
+[1] 0.95</code></pre>
+<pre class="r"><code>susie_plot(susie.locus.res[[1]], y=&#39;PIP&#39;)</code></pre>
+<p><img src="figure/mapgen_finemapping_diagnosis_ukbb_ld.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/65f1ef555bf8e2b876a5c2fa146ef4a266fd7403/docs/figure/mapgen_finemapping_diagnosis_ukbb_ld.Rmd/unnamed-chunk-8-1.png" target="_blank">65f1ef5</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2023-11-06
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/b117f9380f247896efa8b3e84a18226da88429c2/docs/figure/mapgen_finemapping_diagnosis_ukbb_ld.Rmd/unnamed-chunk-8-1.png" target="_blank">b117f93</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2023-11-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>susie.locus.sumstats.filtered &lt;- merge_susie_sumstats(susie.locus.res, sumstats.locus.filtered)</code></pre>
+<p>Compares observed z scores vs the expected z scores</p>
+<pre class="r"><code>condz &lt;- LD_diagnosis_rss(sumstats.locus.filtered$zscore, R = R.locus.filtered, n = n)</code></pre>
+<pre><code>Estimate consistency between the z-scores and LD matrix in susie_rss model using regularized LD ...
+Estimated lambda = 7.329965e-05 
+Compute expected z-scores based on conditional distribution of other z-scores ...</code></pre>
+<pre class="r"><code>condz$plot</code></pre>
+<p><img src="figure/mapgen_finemapping_diagnosis_ukbb_ld.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/65f1ef555bf8e2b876a5c2fa146ef4a266fd7403/docs/figure/mapgen_finemapping_diagnosis_ukbb_ld.Rmd/unnamed-chunk-9-1.png" target="_blank">65f1ef5</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2023-11-06
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/kevinlkx/analysis_pipelines/blob/b117f9380f247896efa8b3e84a18226da88429c2/docs/figure/mapgen_finemapping_diagnosis_ukbb_ld.Rmd/unnamed-chunk-9-1.png" target="_blank">b117f93</a>
+</td>
+<td>
+kevinlkx
+</td>
+<td>
+2023-11-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1011,7 +1266,7 @@ attached base packages:
 other attached packages:
  [1] susieR_0.12.27  forcats_1.0.0   stringr_1.5.0   dplyr_1.1.0    
  [5] purrr_1.0.1     readr_2.1.4     tidyr_1.3.0     tibble_3.1.8   
- [9] ggplot2_3.4.1   tidyverse_1.3.2 mapgen_0.5.6    workflowr_1.7.0
+ [9] ggplot2_3.4.1   tidyverse_1.3.2 mapgen_0.5.7    workflowr_1.7.0
 
 loaded via a namespace (and not attached):
   [1] googledrive_2.0.0           colorspace_2.1-0           
