@@ -23,8 +23,14 @@ editor_options:
 
 * [TWAS FUSION pipeline](twas_fusion_pipeline.html)
 
+## cTWAS
+
+* [cTWAS tutorial (single-group version)](https://xinhe-lab.github.io/ctwas/)
+* [multi-group cTWAS tutorial](https://xinhe-lab.github.io/multigroup_ctwas/)
+
 ## Mapgen
 
+* [Mapgen tutorial](https://xinhe-lab.github.io/mapgen/)
 * [Enrichment analysis using Mapgen on aFib GWAS with heart scATAC-seq data](mapgen_torus_enrichment_heart_atlas.html)
 * [Finemapping aFib GWAS summary statistics using Mapgen with TORUS priors](mapgen_torus_susie_AF.html)
 * [Finemapping GWAS summary statistics using Mapgen with UKBB LD matrix](mapgen_finemapping_diagnosis_ukbb_ld.html)
